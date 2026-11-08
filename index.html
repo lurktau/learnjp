@@ -1,0 +1,2056 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>あきば☆にほんご ～しおり先生におまかせっ！～</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --desk:#008080; --face:#c0c0c0; --hi:#ffffff; --lo:#808080; --dk:#000000; --light:#dfdfdf;
+  --t1:#000080; --t2:#1084d0;
+  --green:#3fae72; --green-dk:#23794c; --mint:#eafaf0;
+  --pink:#ff8fbf; --pink-dk:#e0559a; --ink:#3b2630;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --desk:#0b3f3f; } }
+:root[data-theme="dark"]{ --desk:#0b3f3f; }
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--desk);color:#000;
+  font-family:'DotGothic16','MS PGothic','MS UI Gothic','Osaka',sans-serif;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit}
+:focus-visible{outline:1px dotted #000;outline-offset:-4px}
+
+/* ---------- Win9x primitives ---------- */
+.out{border:2px solid;border-color:var(--hi) var(--dk) var(--dk) var(--hi);box-shadow:inset -1px -1px var(--lo),inset 1px 1px var(--light)}
+.in{border:2px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo);box-shadow:inset 1px 1px var(--dk)}
+.win{background:var(--face);border:2px solid;border-color:var(--light) var(--dk) var(--dk) var(--light);box-shadow:inset -1px -1px var(--lo),inset 1px 1px var(--hi);padding:3px}
+.win-title{height:22px;display:flex;align-items:center;gap:5px;padding:0 3px 0 4px;color:#fff;font-size:13px;
+  background:linear-gradient(90deg,var(--t1),var(--t2));user-select:none;cursor:default}
+.win-title .wt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;letter-spacing:.02em}
+.tbtns{display:flex;gap:2px;margin-left:auto}
+.tbtn{width:18px;height:16px;padding:0;font-size:11px;line-height:10px;background:var(--face);color:#000;
+  border:2px solid;border-color:var(--hi) var(--dk) var(--dk) var(--hi);box-shadow:inset -1px -1px var(--lo);cursor:pointer;margin-left:2px}
+.tbtn:active{border-color:var(--dk) var(--hi) var(--hi) var(--dk)}
+.btn{background:var(--face);color:#000;font-size:13px;padding:5px 16px;min-width:76px;cursor:pointer;
+  border:2px solid;border-color:var(--hi) var(--dk) var(--dk) var(--hi);box-shadow:inset -1px -1px var(--lo),inset 1px 1px var(--light)}
+.btn:active,.btn.on{border-color:var(--dk) var(--hi) var(--hi) var(--dk);box-shadow:inset 1px 1px var(--lo);padding:6px 15px 4px 17px}
+.btn:disabled{color:var(--lo);text-shadow:1px 1px #fff;cursor:default}
+.menubar{display:flex;gap:2px;font-size:12px;padding:2px 2px 3px;user-select:none}
+.menubar span{padding:1px 7px;cursor:pointer}
+.menubar span:hover{background:var(--t1);color:#fff}
+
+/* ---------- desktop ---------- */
+#icons{position:absolute;left:10px;top:10px;display:flex;flex-direction:column;gap:14px;z-index:0}
+.dicon{width:74px;text-align:center;color:#fff;font-size:12px;cursor:pointer;user-select:none}
+.dicon .ig{font-size:30px;display:block;filter:drop-shadow(1px 1px 0 rgba(0,0,0,.4))}
+.dicon span:last-child{padding:1px 3px}
+.dicon:focus span:last-child,.dicon.sel span:last-child{background:var(--t1);outline:1px dotted #fff}
+#appwin{position:absolute;transform-origin:0 0;z-index:2}
+#appwin.min{display:none}
+#appwin .win-title{height:20px}
+#appwin .ico{font-size:13px}
+#stage{position:relative;width:800px;height:600px;overflow:hidden;background:#000;cursor:default;user-select:none}
+#stage.shake{animation:shake .45s}
+@keyframes shake{0%,100%{transform:translate(0,0)}15%{transform:translate(-9px,4px)}30%{transform:translate(8px,-5px)}45%{transform:translate(-6px,3px)}60%{transform:translate(5px,-2px)}80%{transform:translate(-2px,1px)}}
+
+/* ---------- taskbar ---------- */
+#taskbar{position:fixed;left:0;right:0;bottom:0;height:32px;background:var(--face);border-top:2px solid var(--hi);
+  box-shadow:inset 0 1px var(--light);display:flex;align-items:center;gap:4px;padding:2px 3px calc(2px + env(safe-area-inset-bottom,0px));z-index:50}
+#startBtn{display:flex;align-items:center;gap:5px;font-weight:bold;height:24px;padding:0 7px;min-width:0}
+.flag{width:16px;height:14px;display:inline-grid;grid-template-columns:1fr 1fr;gap:1px;transform:skewY(-6deg)}
+.flag i{display:block}.flag i:nth-child(1){background:#f35325}.flag i:nth-child(2){background:#81bc06}.flag i:nth-child(3){background:#05a6f0}.flag i:nth-child(4){background:#ffba08}
+.task{height:24px;display:flex;align-items:center;gap:5px;padding:0 10px;font-size:12px;min-width:170px;max-width:220px;cursor:pointer;
+  border:2px solid;border-color:var(--hi) var(--dk) var(--dk) var(--hi);white-space:nowrap;overflow:hidden}
+.task.active{border-color:var(--dk) var(--hi) var(--hi) var(--dk);background:repeating-conic-gradient(#fff 0 25%,var(--face) 0 50%) 0 0/2px 2px;font-weight:bold}
+#tray{margin-left:auto;height:24px;display:flex;align-items:center;gap:8px;padding:0 10px;font-size:12px;
+  border:1px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo)}
+#startMenu{position:fixed;left:2px;bottom:34px;width:230px;display:none;z-index:60;padding:2px}
+#startMenu.on{display:flex}
+#startMenu .side{width:24px;background:linear-gradient(0deg,var(--t1),var(--t2));color:#fff;writing-mode:vertical-rl;transform:rotate(180deg);
+  font-weight:bold;font-size:15px;padding:8px 2px;letter-spacing:.06em}
+#startMenu ul{list-style:none;margin:0;padding:2px;flex:1}
+#startMenu li{padding:7px 8px;font-size:13px;cursor:pointer;display:flex;gap:9px;align-items:center}
+#startMenu li:hover{background:var(--t1);color:#fff}
+#startMenu hr{border:0;border-top:1px solid var(--lo);border-bottom:1px solid #fff;margin:3px 2px}
+
+/* ---------- scene layers ---------- */
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s ease}
+.bg.on{opacity:1}
+#chara{position:absolute;left:50%;bottom:0;height:100%;transform:translateX(-50%);z-index:2;opacity:0;transition:opacity .35s;pointer-events:none}
+#chara.show{opacity:1}
+#chara img{height:100%;width:auto;display:block}
+#chara.hop img{animation:hop .45s}
+#chara.enter img{animation:enter .4s ease-out}
+@keyframes hop{0%,100%{transform:translateY(0)}35%{transform:translateY(-26px)}65%{transform:translateY(4px)}}
+@keyframes enter{from{transform:translateY(14px)}to{transform:none}}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:15}
+#flash.go{animation:flash .5s}
+@keyframes flash{0%{opacity:0}15%{opacity:1}100%{opacity:0}}
+#crt{position:absolute;inset:0;pointer-events:none;z-index:30;display:none;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px);mix-blend-mode:multiply}
+#crt.on{display:block}
+
+/* ---------- textbox ---------- */
+#textbox{position:absolute;left:16px;right:16px;bottom:12px;height:172px;z-index:5;padding:20px 28px 30px;
+  border-radius:16px;border:3px solid #fff;outline:2px solid var(--green);
+  background:linear-gradient(180deg,rgba(255,255,255,var(--op,.92)),rgba(234,250,240,var(--op,.92)));
+  box-shadow:0 6px 18px rgba(20,60,40,.35);transition:opacity .2s}
+#textbox.hidden{opacity:0;pointer-events:none}
+#textbox::before{content:"";position:absolute;inset:5px;border:1px dashed rgba(63,174,114,.45);border-radius:11px;pointer-events:none}
+#namebox{position:absolute;left:24px;top:-20px;padding:4px 18px 3px;border-radius:11px;border:2px solid #fff;
+  background:linear-gradient(180deg,#5fcf8f,var(--green-dk));color:#fff;font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800;
+  font-size:16px;letter-spacing:.06em;box-shadow:0 2px 6px rgba(0,0,0,.25);display:flex;align-items:baseline;gap:8px}
+#namebox small{font-size:10px;font-weight:400;opacity:.85;letter-spacing:.03em}
+#textbox[data-who="p"] #namebox{background:linear-gradient(180deg,#9ab7ff,#4466c8)}
+#textbox[data-who="other"] #namebox{background:linear-gradient(180deg,#d6a1ff,#8c4fc0)}
+#jp{font-family:'M PLUS Rounded 1c','Hiragino Maru Gothic ProN',sans-serif;font-size:22px;line-height:1.95;color:var(--ink);font-weight:700;
+  text-shadow:0 1px 0 #fff;min-height:44px}
+#jp rt{font-size:.48em;color:var(--pink-dk);font-weight:700;letter-spacing:0}
+.nofuri #jp rt,.nofuri .furi rt{visibility:hidden}
+.tk{opacity:0}.tk.on{opacity:1}
+#jp .hl{color:var(--pink-dk);border-bottom:2px dotted var(--pink)}
+#en{font-family:Tahoma,Verdana,'Segoe UI',sans-serif;font-size:14px;color:#4e6b5c;margin-top:2px;line-height:1.4;transition:filter .2s}
+.tr-hover #en{filter:blur(5px);cursor:help}.tr-hover #en:hover,.tr-hover #en.peek{filter:none}
+.tr-off #en{display:none}
+#textbox.narr #jp{font-family:Tahoma,Verdana,sans-serif;font-size:17px;font-weight:400;line-height:1.6;color:#2b3a33;padding-top:6px}
+#cursor{position:absolute;right:30px;bottom:30px;color:var(--pink-dk);font-size:18px;opacity:0}
+#cursor.on{opacity:1;animation:bob 1s infinite}
+@keyframes bob{50%{transform:translateY(4px)}}
+#qbar{position:absolute;right:12px;bottom:6px;display:flex;gap:3px}
+#qbar button{font:10px Tahoma,Verdana,sans-serif;color:var(--green-dk);background:transparent;border:1px solid transparent;border-radius:9px;padding:1px 7px;cursor:pointer}
+#qbar button:hover{background:#fff;border-color:var(--green)}
+#qbar button.on{background:var(--green);color:#fff}
+
+/* ---------- choices / quiz ---------- */
+#choices{position:absolute;left:0;right:0;top:40px;bottom:200px;z-index:6;display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+#choices.on{display:flex}
+.cq{font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800;color:#fff;background:rgba(35,121,76,.92);padding:6px 18px;border-radius:14px;
+  font-size:15px;max-width:600px;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.3)}
+.cq small{display:block;font:12px Tahoma,sans-serif;opacity:.9;margin-top:2px}
+.cq rt{font-size:.5em}
+.qtag{background:var(--pink);color:#fff;padding:0 7px;border-radius:7px;margin-right:6px;font-size:12px}
+.choice{width:520px;padding:7px 16px;border-radius:24px;border:2px solid var(--green);background:rgba(255,255,255,.95);cursor:pointer;
+  font-family:'M PLUS Rounded 1c',sans-serif;font-weight:700;font-size:18px;color:var(--ink);text-align:center;line-height:1.7;
+  box-shadow:0 3px 0 var(--green-dk);transition:transform .08s}
+.choice rt{font-size:.5em;color:var(--pink-dk)}
+.choice small{display:block;font:12px Tahoma,sans-serif;color:#557;line-height:1.2}
+.choice:hover,.choice:focus-visible{background:#fff0f7;border-color:var(--pink-dk);box-shadow:0 3px 0 var(--pink-dk);transform:translateX(4px)}
+.choice .key{float:left;font-size:11px;color:var(--lo);margin-top:6px}
+#stamp{position:absolute;inset:0;z-index:7;display:none;align-items:center;justify-content:center;flex-direction:column;pointer-events:none}
+#stamp.on{display:flex}
+#stamp .mk{font-size:150px;line-height:1;font-weight:900;font-family:'M PLUS Rounded 1c',sans-serif;animation:stampin .35s cubic-bezier(.3,1.6,.6,1)}
+#stamp .mk.ok{color:#ff3d6e;-webkit-text-stroke:4px #fff}
+#stamp .mk.ng{color:#3d7dff;-webkit-text-stroke:4px #fff}
+#stamp .lbl{font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800;font-size:26px;color:#fff;text-shadow:0 2px 0 #000,0 0 8px #000}
+#stamp .ans{margin-top:6px;background:rgba(255,255,255,.95);padding:5px 14px;border-radius:10px;font-family:'M PLUS Rounded 1c',sans-serif;font-weight:700;font-size:16px;color:var(--ink)}
+#stamp .ans rt{font-size:.5em}
+@keyframes stampin{from{transform:scale(2.4) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+
+#toast{position:absolute;right:14px;top:14px;z-index:8;display:flex;flex-direction:column;gap:6px;align-items:flex-end;pointer-events:none}
+.tst{background:#ffffe1;border:1px solid #000;padding:6px 10px;font-size:12px;box-shadow:2px 2px 0 rgba(0,0,0,.3);animation:tin .3s}
+.tst b{color:var(--green-dk)}
+@keyframes tin{from{transform:translateX(30px);opacity:0}}
+
+/* ---------- day eyecatch ---------- */
+#day{position:absolute;inset:0;z-index:9;display:none;align-items:center;justify-content:center;background:rgba(30,40,35,.55);backdrop-filter:blur(3px)}
+#day.on{display:flex}
+.cal{width:270px;background:#fffdf6;border-radius:4px;box-shadow:6px 8px 0 rgba(0,0,0,.35);text-align:center;overflow:hidden;animation:calin .6s cubic-bezier(.2,1.4,.5,1);
+  font-family:'M PLUS Rounded 1c',sans-serif;color:var(--ink)}
+.cal .top{background:#d8344a;color:#fff;font-weight:800;padding:7px;font-size:14px;letter-spacing:.2em;position:relative}
+.cal .top::before,.cal .top::after{content:"";position:absolute;top:-4px;width:12px;height:12px;border-radius:50%;background:#555;left:60px}
+.cal .top::after{left:auto;right:60px}
+.cal .big{font-size:38px;font-weight:800;padding:14px 8px 4px}
+.cal .place{display:inline-block;margin:4px 0 6px;background:var(--green);color:#fff;border-radius:12px;padding:2px 14px;font-weight:700}
+.cal .en{font:12px Tahoma,sans-serif;color:#776;padding:2px 10px 14px}
+@keyframes calin{from{transform:translateY(-60px) rotate(-6deg);opacity:0}}
+
+/* ---------- title ---------- */
+#title{position:absolute;inset:0;z-index:12;display:none;overflow:hidden;background:#1a1030}
+#title.on{display:block}
+#title .t-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.2)}
+#title .t-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,230,242,.92) 0%,rgba(255,230,242,.7) 38%,rgba(255,230,242,0) 62%)}
+#title .t-chara{position:absolute;right:-30px;bottom:0;height:100%;filter:drop-shadow(0 0 12px rgba(255,255,255,.6))}
+.t-logo{position:absolute;left:40px;top:54px;font-family:'M PLUS Rounded 1c',sans-serif;color:var(--ink)}
+.t-pre{font:12px Tahoma,sans-serif;letter-spacing:.06em;color:var(--pink-dk)}
+.t-main{white-space:nowrap;font-size:58px;font-weight:800;line-height:1.1;color:#fff;letter-spacing:-.02em;transform:rotate(-3deg);transform-origin:left;margin:8px 0 4px;
+  text-shadow:3px 3px 0 var(--green),-3px -3px 0 var(--green),3px -3px 0 var(--green),-3px 3px 0 var(--green),0 4px 0 var(--green),6px 8px 0 var(--pink)}
+.t-main .star{color:#ffe14d;display:inline-block;animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.t-sub{font-weight:800;font-size:22px;color:var(--pink-dk);margin-left:30px}
+.t-en{font:italic 12px Tahoma,sans-serif;color:#7a5568;margin:6px 0 0 34px}
+.t-press{position:absolute;left:0;width:470px;bottom:110px;text-align:center;font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800;color:var(--green-dk);font-size:18px;animation:blinkt 1.2s steps(2) infinite}
+@keyframes blinkt{50%{opacity:0}}
+.t-menu{position:absolute;left:70px;top:270px;display:none;flex-direction:column;gap:6px}
+.t-menu.on{display:flex}
+.t-menu button{all:unset;cursor:pointer;font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800;font-size:21px;color:var(--ink);padding:2px 12px 2px 26px;position:relative;
+  display:flex;align-items:baseline;gap:12px}
+.t-menu button small{font:11px Tahoma,sans-serif;color:#9a7286}
+.t-menu button::before{content:"♥";position:absolute;left:4px;color:var(--pink-dk);opacity:0;transition:opacity .1s}
+.t-menu button:hover,.t-menu button:focus-visible{color:var(--green-dk)}
+.t-menu button:hover::before,.t-menu button:focus-visible::before{opacity:1}
+.t-menu button:disabled{opacity:.35;cursor:default}
+.t-copy{position:absolute;left:14px;bottom:10px;font:11px Tahoma,sans-serif;color:#8a6a7a}
+.petals{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.petals i{position:absolute;top:-20px;width:11px;height:8px;background:#ffc6dd;border-radius:80% 0 80% 0;opacity:.9;animation:fall linear infinite}
+@keyframes fall{to{transform:translate(-120px,640px) rotate(540deg)}}
+@media (prefers-reduced-motion: reduce){.petals,.t-main .star,.t-press{animation:none!important}.petals{display:none}}
+
+/* ---------- modal windows ---------- */
+#modal{position:absolute;inset:0;z-index:20;display:none;background:rgba(0,0,0,.28)}
+#modal.on{display:block}
+.dlg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);max-height:576px;display:flex;flex-direction:column}
+.win-body{padding:10px;font-size:13px;overflow:auto;min-height:0}
+.row{display:flex;gap:8px;align-items:center;margin:6px 0}
+.row label{min-width:150px}
+.right{display:flex;justify-content:flex-end;gap:6px;margin-top:10px}
+fieldset{border:2px groove var(--hi);margin:6px 0;padding:6px 10px}
+legend{padding:0 4px}
+input[type=text],input[type=search]{font-family:inherit;font-size:14px;padding:3px 5px;border:2px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo);background:#fff}
+.field{background:#fff;border:2px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo);padding:8px}
+
+/* notepad / lessons */
+.notepad .win-body{padding:0;display:flex;flex-direction:column}
+.np-menu{display:flex;gap:12px;font-size:12px;padding:2px 6px}
+.np-body{background:#fff;margin:0 3px;border:2px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo);padding:14px 20px;overflow:auto;max-height:420px;
+  font-family:'M PLUS Rounded 1c',sans-serif;color:var(--ink);font-size:14px;line-height:1.7;
+  background-image:linear-gradient(transparent 27px,#e6f3ec 28px);background-size:100% 28px}
+.np-foot{display:flex;justify-content:flex-end;padding:6px 3px 2px}
+.lesson .lnum{display:inline-block;background:var(--pink);color:#fff;font-weight:800;font-size:11px;padding:0 9px;border-radius:9px}
+.lesson h2{margin:4px 0 0;font-size:22px;color:var(--green-dk)}
+.lesson h2 rt,.lesson rt{font-size:.5em;color:var(--pink-dk)}
+.lesson .len{font:italic 13px Tahoma,sans-serif;color:#7a5568;margin-bottom:8px}
+.lesson h4{margin:12px 0 2px;color:var(--pink-dk);font-size:15px}
+.lesson p{margin:6px 0}
+.lesson .en{font-family:Tahoma,Verdana,sans-serif;font-size:13px;color:#3d4a44;line-height:1.55}
+.lt{border-collapse:collapse;width:100%;margin:6px 0;background:rgba(255,255,255,.85);font-size:14px}
+.lt td,.lt th{border:1px solid #bfe3cf;padding:3px 8px;vertical-align:top}
+.lt th{background:#eafaf0;color:var(--green-dk);text-align:left;font-size:12px}
+.lt td:not(:first-child){font-family:Tahoma,Verdana,sans-serif;font-size:12.5px;color:#3d4a44}
+.tip{background:#fff3f9;border:2px dashed var(--pink);border-radius:10px;padding:6px 12px;margin:10px 0 4px}
+.tip b{color:var(--pink-dk)}
+
+/* tabs */
+.tabs{display:flex;gap:0;padding-left:4px;position:relative;z-index:1}
+.tab{padding:4px 12px;font-size:12px;cursor:pointer;border:2px solid;border-bottom:0;border-color:var(--hi) var(--dk) transparent var(--hi);border-radius:4px 4px 0 0;margin-top:3px;background:var(--face)}
+.tab.on{margin-top:0;padding-bottom:7px;margin-bottom:-2px}
+.tabpane{border:2px solid;border-color:var(--hi) var(--dk) var(--dk) var(--hi);padding:8px;height:400px;overflow:auto}
+.nb-split{display:flex;gap:8px;height:100%}
+.nb-list{width:170px;flex:none;overflow:auto;background:#fff;border:2px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo)}
+.nb-list div{padding:3px 6px;font-size:12px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nb-list div.sel{background:var(--t1);color:#fff}
+.nb-list div.lock{color:var(--lo);cursor:default}
+.nb-view{flex:1;overflow:auto;padding:10px 14px;max-height:none}
+.vt{width:100%;border-collapse:collapse;background:#fff;font-size:13px}
+.vt td,.vt th{border-bottom:1px solid #ddd;padding:4px 6px;text-align:left}
+.vt th{position:sticky;top:0;background:var(--face);font-weight:normal;border-bottom:2px solid var(--lo)}
+.vt td:first-child{font-family:'M PLUS Rounded 1c',sans-serif;font-weight:700;font-size:16px;color:var(--ink)}
+.vt td:nth-child(3){font-family:Tahoma,sans-serif;font-size:12px}
+.kgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;max-width:420px}
+.kgrid div{background:#fff;border:1px solid #bbb;text-align:center;padding:3px 0;font-family:'M PLUS Rounded 1c',sans-serif;font-size:22px;font-weight:700;color:var(--ink)}
+.kgrid div small{display:block;font:10px Tahoma,sans-serif;color:#777}
+.kgrid div.e{background:transparent;border-color:transparent}
+.hearts{color:var(--pink-dk);font-size:18px;letter-spacing:2px}
+.hearts .off{color:#ccc}
+
+/* save slots */
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.slot{display:flex;gap:8px;padding:5px;cursor:pointer;background:var(--face);border:2px solid;border-color:var(--hi) var(--dk) var(--dk) var(--hi);text-align:left;font-size:12px;min-height:72px}
+.slot:hover{background:#d4d0e8}
+.slot .th{width:96px;height:62px;flex:none;background:#335 center/cover;border:1px solid #000}
+.slot .meta{overflow:hidden}
+.slot .meta b{display:block;font-size:13px}
+.slot .meta .pv{color:#444;font-size:11px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-family:'M PLUS Rounded 1c',sans-serif}
+.slot.empty{color:var(--lo)}
+
+/* log */
+.log{background:#fff;height:420px;overflow:auto;padding:6px 10px;border:2px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo)}
+.log .le{padding:6px 0;border-bottom:1px dotted #ccc}
+.log .ln{font-size:11px;color:var(--green-dk)}
+.log .lj{font-family:'M PLUS Rounded 1c',sans-serif;font-weight:700;font-size:15px;color:var(--ink);line-height:1.8}
+.log .lj rt{font-size:.5em;color:var(--pink-dk)}
+.log .lE{font:12px Tahoma,sans-serif;color:#566}
+
+/* games */
+.big-kana{font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800;font-size:96px;text-align:center;color:var(--ink);background:#fff;line-height:1.3;
+  border:2px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo);margin-bottom:8px}
+.big-kana rt{font-size:.25em;color:var(--pink-dk)}
+.big-kana.word{font-size:46px;padding:16px 0}
+.opts4{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opts4 .btn{font-size:15px;padding:9px}
+.opts4 .btn.good{background:#b9f0cd}.opts4 .btn.bad{background:#f7c0c0}
+.fb-msg{min-height:22px;text-align:center;margin:6px 0;font-size:13px}
+.sprgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.sprgrid div{background:#fff;border:1px solid #aaa;text-align:center;font-size:10px;cursor:pointer;padding:2px}
+.sprgrid img{height:110px;max-width:100%;object-fit:contain;object-position:top}
+
+/* ---------- ending ---------- */
+#ending{position:absolute;inset:0;z-index:11;display:none;background:#000;color:#fff;overflow:hidden}
+#ending.on{display:block;animation:fadein 1.2s}
+@keyframes fadein{from{opacity:0}}
+#ending .e-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45}
+#ending .e-ch{position:absolute;right:0;bottom:0;height:100%}
+.e-box{position:absolute;left:40px;top:60px;width:430px;font-family:'M PLUS Rounded 1c',sans-serif}
+.e-t{font-size:52px;font-weight:800;color:#fff;text-shadow:0 0 14px var(--pink),3px 3px 0 var(--pink-dk)}
+.e-s{font-size:22px;font-weight:800;color:#ffd6ea;margin-bottom:12px}
+.e-s rt{font-size:.5em}
+.e-d{font:14px/1.6 Tahoma,sans-serif;color:#f4eef1;margin-bottom:14px}
+.e-stats{background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:10px 14px;font:13px/1.8 Tahoma,sans-serif}
+.e-stats b{color:#ffd6ea}
+.e-credit{font:11px Tahoma,sans-serif;color:#cbb;margin-top:12px;line-height:1.6}
+
+/* ---------- futaba ---------- */
+#futaba{position:absolute;inset:0;z-index:13;display:none;background:#ffffee;color:#800000;overflow:auto;
+  font-family:'MS PGothic','Osaka','Hiragino Kaku Gothic Pro',sans-serif;font-size:14px;cursor:auto;user-select:text}
+#futaba.on{display:block}
+.fb-hud{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;background:#eeaa88;color:#800000;padding:4px 10px;font-size:12px;border-bottom:1px solid #800000}
+.fb-hud b{font-size:14px}
+.fb-hud .sp{flex:1}
+.fb-hud button{font-size:12px;padding:1px 8px;min-width:0}
+.fb-inner{padding:6px 14px 30px}
+.fb-links{font-size:12px}
+.fb-links a,#futaba a{color:#0000ee;text-decoration:underline;cursor:pointer}
+.fb-h1{text-align:center;color:#800000;font-size:26px;font-weight:bold;margin:2px 0}
+.fb-h1 small{display:block;font-size:11px;font-weight:normal;color:#a0522d}
+.fb-hr{border:0;border-top:1px solid #800000;margin:4px 0}
+.fb-mode{background:#e04000;color:#fff;text-align:center;font-weight:bold;padding:2px;font-size:13px;margin:4px 0}
+.fb-help{background:#fff;border:1px solid #cc9;padding:6px 10px;font-size:12px;color:#333;margin:6px 0;font-family:Tahoma,sans-serif}
+.fb-op{margin:8px 0 4px;overflow:hidden}
+.fb-img{float:left;width:150px;height:120px;margin:4px 16px 6px 2px;background:#fff;border:1px solid #888;display:flex;align-items:center;justify-content:center;
+  font-size:22px;color:#333;text-align:center;line-height:1.2;font-family:'MS PGothic',monospace;white-space:pre}
+.fb-fn{font-size:12px}
+.fb-sub{color:#cc1105;font-weight:bold}
+.fb-name{color:#117743;font-weight:bold}
+.fb-sod{color:#0000ee;font-size:12px}
+blockquote{margin:6px 0 6px 2.5em;line-height:1.6}
+.fb-q{color:#789922}
+.fb-r{margin:3px 0 3px 4px;border-collapse:collapse}
+.fb-r .rts{vertical-align:top;color:#800000;padding-right:3px}
+.fb-r .rtd{background:#f0e0d6;padding:2px 10px 2px 4px}
+.fb-r.mine .rtd{background:#e6f2d9;outline:1px dashed #117743}
+.fb-tr{font-size:11px;margin-left:4px}
+.fb-en{display:none;font:12px Tahoma,sans-serif;color:#555;margin:-2px 0 6px 2.5em;font-style:italic}
+.fb-en.on{display:block}
+.term{background:#ffe0a8;padding:0 2px;border-bottom:2px dashed #e07000;text-decoration:none!important;color:#800000!important;font-weight:bold}
+.term:hover{background:#ffd070}
+.term.ok{background:#c8f0c8;border-bottom:2px solid #2a9a2a;cursor:help}
+.term.ng{background:#f8c8c8;border-bottom:2px solid #c03030;cursor:help}
+.fb-form{margin:12px 0;border-top:1px solid #800000;padding-top:8px}
+.fb-task{background:#fff;border:2px solid #e07000;padding:6px 10px;margin-bottom:6px;color:#333;font-family:Tahoma,sans-serif;font-size:13px}
+.fb-form table{border-collapse:separate;border-spacing:2px}
+.fb-fh{background:#eeaa88;color:#800000;font-weight:bold;padding:2px 8px;font-size:13px;vertical-align:top;white-space:nowrap}
+.fb-opt{display:block;margin:2px 0;cursor:pointer;color:#333}
+.fb-opt small{color:#777;font-family:Tahoma,sans-serif}
+.fb-lock{color:#c03030;font-size:12px;font-family:Tahoma,sans-serif}
+.fb-result{background:#fff;border:2px solid #117743;padding:8px 12px;margin:8px 0;color:#333;font-family:Tahoma,sans-serif;font-size:13px}
+.fb-result.bad{border-color:#c03030}
+.dec-q{font-family:'M PLUS Rounded 1c',sans-serif;font-size:18px;font-weight:700;color:#800000;margin-bottom:8px;text-align:center}
+.dec-ex{background:#fff;border:2px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo);padding:8px 10px;font-family:Tahoma,sans-serif;font-size:13px;line-height:1.5}
+.dec-ex .w{font-family:'M PLUS Rounded 1c',sans-serif;font-size:22px;font-weight:800;color:#800000}
+
+</style>
+</head>
+<body>
+<div id="icons">
+  <div class="dicon" data-d="pc" tabindex="0"><span class="ig">🖥️</span><span>マイ コンピュータ</span></div>
+  <div class="dicon" data-d="trash" tabindex="0"><span class="ig">🗑️</span><span>ごみ箱</span></div>
+  <div class="dicon" data-d="app" tabindex="0"><span class="ig">🌸</span><span>あきば☆にほんご</span></div>
+</div>
+
+<div id="appwin" class="win">
+  <div class="win-title"><span class="ico">🌸</span><span class="wt">あきば☆にほんご ～しおり先生におまかせっ！～</span>
+    <div class="tbtns"><button class="tbtn" id="bMin" aria-label="Minimize">_</button><button class="tbtn" id="bMax" aria-label="Maximize">□</button><button class="tbtn" id="bX" aria-label="Close">✕</button></div></div>
+  <div class="menubar"><span data-m="file">ファイル(<u>F</u>)</span><span data-m="view">表示(<u>V</u>)</span><span data-m="note">ノート(<u>N</u>)</span><span data-m="help">ヘルプ(<u>H</u>)</span></div>
+  <div id="stage">
+    <img id="bgA" class="bg" alt=""><img id="bgB" class="bg" alt="">
+    <div id="chara"><img id="charaImg" alt="Shiori"></div>
+    <div id="textbox" class="hidden">
+      <div id="namebox"><span id="nameJ"></span><small id="nameR"></small></div>
+      <div id="jp"></div><div id="en"></div><div id="cursor">♥</div>
+      <div id="qbar">
+        <button data-q="save">SAVE</button><button data-q="load">LOAD</button><button data-q="log">LOG</button>
+        <button data-q="auto">AUTO</button><button data-q="skip">SKIP</button><button data-q="note">NOTE</button>
+        <button data-q="config">CONFIG</button><button data-q="hide">HIDE</button><button data-q="title">TITLE</button>
+      </div>
+    </div>
+    <div id="choices"></div>
+    <div id="stamp"></div>
+    <div id="toast"></div>
+    <div id="day"></div>
+    <div id="ending"></div>
+    <div id="title">
+      <img class="t-bg" alt="">
+      <div class="t-shade"></div>
+      <div class="petals"></div>
+      <img class="t-chara" alt="">
+      <div class="t-logo">
+        <div class="t-pre">Shiori Soft presents</div>
+        <div class="t-main">あきば<span class="star">☆</span>にほんご</div>
+        <div class="t-sub">～しおり先生におまかせっ！～</div>
+        <div class="t-en">Akiba☆Nihongo — Leave it to Shiori-sensei!</div>
+      </div>
+      <div class="t-press">― クリックしてスタート ―</div>
+      <div class="t-menu">
+        <button data-t="new">はじめから<small>New game</small></button>
+        <button data-t="cont" id="tCont">つづきから<small>Continue</small></button>
+        <button data-t="load">ロード<small>Load</small></button>
+        <button data-t="extra">おまけ<small>Extras</small></button>
+        <button data-t="config">せってい<small>Settings</small></button>
+      </div>
+      <div class="t-copy">©2003 Shiori Soft　Ver.1.03</div>
+    </div>
+    <div id="futaba"></div>
+    <div id="flash"></div>
+    <div id="modal"></div>
+    <div id="crt"></div>
+  </div>
+</div>
+
+<div id="taskbar">
+  <button class="btn" id="startBtn"><span class="flag"><i></i><i></i><i></i><i></i></span>スタート</button>
+  <div class="task active" id="task">🌸 あきば☆にほんご</div>
+  <div id="tray">🔊 <span id="clock"></span></div>
+</div>
+<div id="startMenu" class="win">
+  <div class="side">Shiori 2003</div>
+  <ul>
+    <li data-s="note">📒 しおりのノート</li>
+    <li data-s="kana">🥋 かな道場</li>
+    <li data-s="futaba">📋 ふたば☆ちゃんねる</li>
+    <li data-s="cfg">⚙️ 設定</li>
+    <hr>
+    <li data-s="about">✿ バージョン情報</li>
+    <li data-s="title">⏻ タイトルに戻る</li>
+  </ul>
+</div>
+<script>
+/* =========================================================
+   DATA — assets, sprites, lessons, slang, futaba threads
+   ========================================================= */
+const SPR = 'https://file.garden/ZyUgbYyEhGi7VILo/jplearn/shiori/';
+const BGP = 'https://file.garden/ZyUgbYyEhGi7VILo/jplearn/backgrounds/';
+
+/* ---- MUSIC: paste a URL (mp3/ogg) next to any key and it will play on loop in those scenes ---- */
+const MUSIC = {
+  title:'', akiba:'', school:'', cafe:'', arcade:'', calm:'', home:'', futaba:'', shibuya:'', sports:'', romance:'', ending:''
+};
+
+const BGS = {
+  akiba:'akihabara town square.jpeg', akiba_night:'akihabara town square night.jpeg',
+  figure_in:'anime figure shop inside.jpeg', figure_out:'anime figure shop outside.jpeg',
+  arcade_out:'arcade front.png', arcade_in:'inside arcade.png', cherry:'cherry blossom tree.png',
+  classroom:'classroom.png', school:'front of school.png',
+  bedroom:'inside bedroom.png', bedroom_night:'inside bedroom night.png', house:'inside house.png',
+  maid_in:'maid cafe inside.jpeg', maid_out:'maid cafe outside.jpeg',
+  manga_in:'manga store inside.jpeg', manga_out:'manga store outside.jpeg',
+  mcd:'mcdonalds.png', outdoors:'outdoors.png', park:'park bench.png', park_night:'park bench night time.png',
+  library:'school library.png', s109_in:'shibuya 109 store inside.jpg', s109_out:'shibuya 109 store outside.jpeg',
+  shibuya:'shibuya crossing day.jpg', shibuya_night:'shibuya crossing night.jpg'
+};
+
+/* ---- Sprite poses ----
+   o = mouth-open frame, c = mouth-closed frame (if it exists; used for idle + lip flap)
+   b = blink frames played forward then backward while idle */
+const POSES = {
+  default:{o:'default eyes open mouth open', b:['blink 1 eyes open mouth open','blink 2 eyes open mouth open','blink eyes closed mouth open']},
+  calm:{o:'blink 1 eyes open mouth open', c:'blink 1 eyes open mouth closed', b:['blink 2 eyes open mouth closed','blink eyes closed mouth closed']},
+  eyesclosed:{o:'blink eyes closed mouth open', c:'blink eyes closed mouth closed'},
+  happy:{o:'happy eyes closed mouth open'},
+  angry:{o:'angry eyes open mouth open', c:'angry eyes open mouth closed'},
+  angryclosed:{o:'angry eyes closed mouth open', c:'angry eyes closed mouth closed'},
+  fear:{o:'fearful eyes open mouth open', c:'fearful eyes open mouth closed'},
+  fearclosed:{o:'fearful eyes closed mouth open', c:'fearful eyes closed mouth closed'},
+  scream:{o:'fearful scream eyes closed mouth open'},
+  surprise:{o:'surprise eyes open mouth open'},
+  smug:{o:'smug closed eyes mouth open', c:'smug closed eyes mouth closed'},
+  cat:{o:'cat face eyes open mouth open'},
+  catclosed:{o:'cat face eyes closed mouth open'},
+  deadpan:{o:'deadpan 1 eyes open mouth open', c:'deadpan eyes open mouth closed', b:['deadpan blink mouth closed']},
+  deadpan2:{o:'deadpan 2 eyes open mouth open', b:['deadpan blink mouth open']},
+  arms:{o:'arms together eyes open mouth open'},
+  sei:{o:'seifuku eyes open mouth open', c:'seifuku eyes open mouth closed', b:['seifuku blink 1 eyes open mouth closed','seifuku blink 2 eyes open mouth closed','seifuku blink eyes closed mouth closed']},
+  sei_calm:{o:'seifuku blink 1 eyes open mouth open', c:'seifuku blink 1 eyes open mouth closed', b:['seifuku blink 2 eyes open mouth closed','seifuku blink eyes closed mouth closed']},
+  sei_shut:{o:'seifuku blink eyes closed mouth closed'},
+  gym:{o:'gym clothes eyes open mouth open', c:'gym clothes eyes open mouth closed', b:['gym clothes blink 1 eyes open mouth closed','gym clothes blink 2 eyes open mouth closed','gym clothes blink eyes closed mouth closed']},
+  gym_calm:{o:'gym clothes blink 1 eyes open mouth open', c:'gym clothes blink 1 eyes open mouth closed', b:['gym clothes blink 2 eyes open mouth closed','gym clothes blink eyes closed mouth closed']},
+  gym_shut:{o:'gym clothes blink eyes closed mouth open', c:'gym clothes blink eyes closed mouth closed'},
+  swim:{o:'swimsuit eyes open mouth open', c:'swimsuit eyes open mouth closed', b:['swimsuit blink 1 eyes open mouth closed','swimsuit blink 2 eyes open mouth closed','swimsuit blink eyes closed mouth closed']},
+  swim_calm:{o:'swimsuit blink 1 eyes open mouth open', c:'swimsuit blink 1 eyes open mouth closed', b:['swimsuit blink 2 eyes open mouth closed','swimsuit blink eyes closed mouth closed']},
+  swim_shut:{o:'swimsuit blink eyes closed mouth open', c:'swimsuit blink eyes closed mouth closed'}
+};
+
+/* ---- Lessons (shown as Shiori’s notepad). {漢字|かな} = furigana ---- */
+const LESSON_ORDER = ['greet','intro','honor','pron','copula','particles','order','verbs','teform','adj','compare','counters','keigohear','pasttai','netslang','endparts','casual','because','volitional','keigo','feelings'];
+const LESSONS = {
+greet:{t:'あいさつ', e:'Greetings & survival phrases', b:`
+<p class="en">“These are the words you’ll use every single day! Learn these and you can survive anywhere in Japan… probably!”</p>
+<table class="lt">
+<tr><th>Japanese</th><th>Meaning / when to use it</th></tr>
+<tr><td>おはよう（ございます）</td><td>Good morning. Add ございます to be polite.</td></tr>
+<tr><td>こんにちは</td><td>Hello / good afternoon. Daytime greeting, a bit formal between friends.</td></tr>
+<tr><td>こんばんは</td><td>Good evening.</td></tr>
+<tr><td>すみません</td><td>Excuse me / sorry / thanks-for-the-trouble. The Swiss army knife of Japanese.</td></tr>
+<tr><td>ありがとう（ございます）</td><td>Thank you (very much).</td></tr>
+<tr><td>{大丈夫|だいじょうぶ}ですか？</td><td>Are you okay? — and 大丈夫です means “I’m fine” OR “no thanks.”</td></tr>
+<tr><td>いただきます</td><td>Said before eating. Literally “I humbly receive.”</td></tr>
+<tr><td>ごちそうさまでした</td><td>Said after eating. “Thank you for the meal.”</td></tr>
+<tr><td>おやすみ（なさい）</td><td>Good night.</td></tr>
+<tr><td>じゃあね / またね</td><td>See ya / see you later (casual).</td></tr>
+<tr><td>さようなら</td><td>Goodbye — sounds formal or kind of final! Friends rarely say it.</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">The は in こんにちは and こんばんは is pronounced “wa”! It used to be a full sentence: {今日|こんにち}は… “As for today…”</span></p>`},
+
+intro:{t:'{自己紹介|じこしょうかい}', e:'Introducing yourself', b:`
+<p class="en">“First impressions matter! Here’s the classic self-intro set.”</p>
+<table class="lt">
+<tr><td>はじめまして。</td><td>Nice to meet you (only the very first time!).</td></tr>
+<tr><td>{白河|しらかわ}{栞|しおり}です。</td><td>I’m Shirakawa Shiori. Name + です.</td></tr>
+<tr><td>よろしくお{願|ねが}いします。</td><td>“Please treat me well” — there’s no perfect English version. Polite.</td></tr>
+<tr><td>よろしくね！</td><td>Casual version, for people your age.</td></tr>
+<tr><td>お{名前|なまえ}は？</td><td>Your name? (polite お + 名前 + は?)</td></tr>
+<tr><td>アメリカから{来|き}ました。</td><td>I came from America. (Country + から来ました)</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">Japanese names go <b>family name first</b>! 白河 is my family name, 栞 is my given name. Foreign names get written in katakana — so you’re probably going to be a katakana person~</span></p>`},
+
+honor:{t:'{敬称|けいしょう}：さん・くん・ちゃん', e:'Name suffixes (honorifics)', b:`
+<p class="en">“In Japan, what you stick on the end of someone’s name says a LOT about your relationship.”</p>
+<table class="lt">
+<tr><td>〜さん</td><td>The safe default. Polite, works for anyone.</td></tr>
+<tr><td>〜くん</td><td>Usually boys or juniors. Teachers use it for male students. Friendly.</td></tr>
+<tr><td>〜ちゃん</td><td>Kids, close friends, cute things, pets. Affectionate!</td></tr>
+<tr><td>〜{先輩|せんぱい}</td><td>Someone senior to you at school, club, or work.</td></tr>
+<tr><td>〜{先生|せんせい}</td><td>Teachers, doctors, lawyers… and manga artists!</td></tr>
+<tr><td>〜{様|さま}</td><td>Very respectful. Customers, letters, maid cafés (ご{主人|しゅじん}{様|さま}♪).</td></tr>
+<tr><td>{呼|よ}び{捨|す}て</td><td>No suffix at all. Very close… or very rude.</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">NEVER put さん on your own name! 「$nさんです」 sounds super weird. And don’t worry — Japanese people almost never use them with first names unless you’re close.</span></p>`},
+
+pron:{t:'{人称代名詞|にんしょうだいめいし}', e:'Pronouns — the many ways to say “I” and “you”', b:`
+<p class="en">“English has one ‘I’. Japanese has… a lot. Each one is like a little costume.”</p>
+<h4>“I / me”</h4>
+<table class="lt">
+<tr><td>{私|わたし}</td><td>Neutral and polite. Anyone can use it. The safest choice.</td></tr>
+<tr><td>わたくし</td><td>Super formal. Speeches, business, rich young ladies.</td></tr>
+<tr><td>{僕|ぼく}</td><td>Soft, boyish. Gentle guys, younger boys.</td></tr>
+<tr><td>{俺|おれ}</td><td>Rough, masculine, confident. Only with friends!</td></tr>
+<tr><td>あたし</td><td>Cute and casual, mostly girls. (That’s me!)</td></tr>
+<tr><td>うち</td><td>Girls in Kansai (Osaka etc.).</td></tr>
+</table>
+<h4>“You”</h4>
+<table class="lt">
+<tr><td>あなた</td><td>Textbooks love it, but real people avoid it — it can feel cold. Wives used to call husbands this.</td></tr>
+<tr><td>{君|きみ}</td><td>Song lyrics, anime, or a superior talking to a junior.</td></tr>
+<tr><td>お{前|まえ}</td><td>Rough. Between close guy friends — or when angry.</td></tr>
+<tr><td>あんた</td><td>Casual-to-rude. Tsundere favorite: 「あんたなんか…！」</td></tr>
+<tr><td>てめえ</td><td>Fighting words. Don’t.</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">The real secret: Japanese people <b>drop pronouns</b> whenever they can. Instead of “you,” just use the person’s name + suffix: 「$Nは{何|なに}が{好|す}き？」</span></p>`},
+
+copula:{t:'です・だ', e:'“A is B” — the copula', b:`
+<table class="lt">
+<tr><th>Pattern</th><th>Meaning</th></tr>
+<tr><td>AはBです。</td><td>A is B. (polite)</td></tr>
+<tr><td>AはBじゃないです。</td><td>A is not B. (Formal: ではありません)</td></tr>
+<tr><td>AはBでした。</td><td>A was B.</td></tr>
+<tr><td>AはBですか？</td><td>Is A B? — か turns it into a question.</td></tr>
+<tr><td>AはBだ / Bじゃない</td><td>Casual versions, for friends.</td></tr>
+</table>
+<p>あたしは{高校生|こうこうせい}です。<br><span class="en">I am a high school student.</span></p>
+<p>$nさんは{先生|せんせい}じゃないです。<br><span class="en">$r is not a teacher.</span></p>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">The は here is the topic particle, pronounced “wa.” It means “as for…” — 「あたしは」 = “As for me…”</span></p>`},
+
+particles:{t:'{助詞|じょし}', e:'Particles — the little glue words', b:`
+<p class="en">“Particles come AFTER the word they mark. They tell you what job each word is doing!”</p>
+<table class="lt">
+<tr><td><b>は</b> (wa)</td><td>Topic: “as for…” — {私|わたし}<b>は</b>{学生|がくせい}です。</td></tr>
+<tr><td><b>が</b></td><td>Subject / new info / “who?” — だれ<b>が</b>{来|き}た？ ネコ<b>が</b>いる！</td></tr>
+<tr><td><b>を</b> (o)</td><td>Direct object — オムライス<b>を</b>{食|た}べる。</td></tr>
+<tr><td><b>に</b></td><td>Destination, time, target — {秋葉原|あきはばら}<b>に</b>{行|い}く。{三時|さんじ}<b>に</b>。</td></tr>
+<tr><td><b>で</b></td><td>Where an action happens / by what means — カフェ<b>で</b>{食|た}べる。{電車|でんしゃ}<b>で</b>。</td></tr>
+<tr><td><b>へ</b> (e)</td><td>Direction “toward” — {学校|がっこう}<b>へ</b>。</td></tr>
+<tr><td><b>の</b></td><td>Possession / “of” — しおり<b>の</b>フィギュア。</td></tr>
+<tr><td><b>も</b></td><td>Also, too — あたし<b>も</b>！</td></tr>
+<tr><td><b>と</b></td><td>And / with — {友達|ともだち}<b>と</b>{行|い}く。</td></tr>
+<tr><td><b>から / まで</b></td><td>From / until — {九時|くじ}<b>から</b>{五時|ごじ}<b>まで</b>。</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">に vs で trips everyone up! <b>に</b> = where something IS or GOES. <b>で</b> = where something HAPPENS. 「カフェ<b>に</b>いる」 (I’m at the café) vs 「カフェ<b>で</b>{食|た}べる」 (I eat at the café).</span></p>`},
+
+order:{t:'{注文|ちゅうもん}とこそあど', e:'Ordering & this/that/which', b:`
+<table class="lt">
+<tr><th></th><th>near me</th><th>near you</th><th>over there</th><th>which?</th></tr>
+<tr><td>thing</td><td>これ</td><td>それ</td><td>あれ</td><td>どれ</td></tr>
+<tr><td>+ noun</td><td>この</td><td>その</td><td>あの</td><td>どの</td></tr>
+<tr><td>place</td><td>ここ</td><td>そこ</td><td>あそこ</td><td>どこ</td></tr>
+</table>
+<table class="lt">
+<tr><td>〜をください。</td><td>Please give me ~.</td></tr>
+<tr><td>〜をお{願|ねが}いします。</td><td>~, please. (A little softer and very common.)</td></tr>
+<tr><td>〜にします。</td><td>I’ll go with ~. (Choosing from options.)</td></tr>
+<tr><td>これはいくらですか？</td><td>How much is this?</td></tr>
+<tr><td>おすすめは{何|なん}ですか？</td><td>What do you recommend?</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">Pointing + 「これ、お{願|ねが}いします」 works in literally any restaurant in Japan. Combo of the century!</span></p>`},
+
+verbs:{t:'{動詞|どうし}のグループ', e:'Verbs: the three groups & ます form', b:`
+<p class="en">Dictionary form is what friends use. ます form is polite. To make ます form, you need to know the verb’s group.</p>
+<table class="lt">
+<tr><th>Group</th><th>Dictionary → ます</th></tr>
+<tr><td>る-verbs (ichidan)</td><td>{食|た}べる → {食|た}べます / {見|み}る → {見|み}ます — just drop る!</td></tr>
+<tr><td>う-verbs (godan)</td><td>{行|い}く → {行|い}きます / {買|か}う → {買|か}います / {待|ま}つ → {待|ま}ちます — change the last sound to the い-row.</td></tr>
+<tr><td>Irregular</td><td>する → します / {来|く}る → {来|き}ます</td></tr>
+</table>
+<table class="lt">
+<tr><td>〜ます / 〜ません</td><td>do / don’t (polite)</td></tr>
+<tr><td>〜ました / 〜ませんでした</td><td>did / didn’t (polite)</td></tr>
+<tr><td>〜ない</td><td>don’t (casual): {食|た}べない、{行|い}かない、しない</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">Trap alert! {取|と}る (to take), {帰|かえ}る (to go home), {知|し}る (to know) end in る but are <b>う-verbs</b>: {取|と}ります, {帰|かえ}ります. Sneaky!!</span></p>`},
+
+teform:{t:'て{形|けい}', e:'The te-form', b:`
+<p class="en">The te-form is the most useful verb form in Japanese. Here are the rules:</p>
+<table class="lt">
+<tr><td>う・つ・る → って</td><td>{買|か}う→{買|か}って、{待|ま}つ→{待|ま}って、{取|と}る→{取|と}って</td></tr>
+<tr><td>む・ぶ・ぬ → んで</td><td>{読|よ}む→{読|よ}んで、{遊|あそ}ぶ→{遊|あそ}んで</td></tr>
+<tr><td>く → いて / ぐ → いで</td><td>{書|か}く→{書|か}いて、{泳|およ}ぐ→{泳|およ}いで</td></tr>
+<tr><td>す → して</td><td>{話|はな}す→{話|はな}して</td></tr>
+<tr><td>る-verbs → て</td><td>{食|た}べる→{食|た}べて、{見|み}る→{見|み}て</td></tr>
+<tr><td>Exceptions</td><td>{行|い}く→{行|い}って！ する→して、{来|く}る→{来|き}て</td></tr>
+</table>
+<table class="lt">
+<tr><td>〜てください</td><td>Please do ~ — {待|ま}ってください</td></tr>
+<tr><td>〜ている</td><td>Is doing ~ — {見|み}ている</td></tr>
+<tr><td>〜てもいい？</td><td>May I ~? — {撮|と}ってもいい？</td></tr>
+<tr><td>〜てみる</td><td>Try doing ~ — やってみる</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">Lots of Japanese students memorize these rules with a song set to “Oh My Darling, Clementine.” Look it up and sing it in the bath!</span></p>`},
+
+adj:{t:'{形容詞|けいようし}', e:'Adjectives: い and な', b:`
+<table class="lt">
+<tr><th></th><th>い-adjective: {高|たか}い</th><th>な-adjective: {好|す}き</th></tr>
+<tr><td>is</td><td>{高|たか}いです</td><td>{好|す}きです</td></tr>
+<tr><td>is not</td><td>{高|たか}くないです</td><td>{好|す}きじゃないです</td></tr>
+<tr><td>was</td><td>{高|たか}かったです</td><td>{好|す}きでした</td></tr>
+<tr><td>was not</td><td>{高|たか}くなかったです</td><td>{好|す}きじゃなかったです</td></tr>
+<tr><td>+ noun</td><td>{高|たか}いフィギュア</td><td>{好|す}き<b>な</b>アニメ</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">Two traps! ① いい (good) becomes <b>よくない / よかった</b>. ② きれい and {嫌|きら}い end in い but are <b>な-adjectives</b>: きれいじゃない, not きれくない!</span></p>`},
+
+compare:{t:'{比較|ひかく}', e:'Comparisons', b:`
+<table class="lt">
+<tr><td>AはBより〜</td><td>A is more ~ than B — メイドは{魔法少女|まほうしょうじょ}よりかわいい。</td></tr>
+<tr><td>BよりAのほうが〜</td><td>A is more ~ (than B) — こっちのほうが{安|やす}い。</td></tr>
+<tr><td>AとBと、どっちが〜？</td><td>Which is more ~, A or B?</td></tr>
+<tr><td>〜がいちばん〜</td><td>~ is the most ~ — {秋葉原|あきはばら}がいちばん{好|す}き！</td></tr>
+<tr><td>どれがいちばん〜？</td><td>Which one is the most ~? (3 or more things)</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">Notice there’s no “-er” or “more” on the adjective itself! かわいい stays かわいい. より and ほう do all the work.</span></p>`},
+
+counters:{t:'{数|かず}と{助数詞|じょすうし}', e:'Numbers & counters', b:`
+<p class="en">Japanese counts different things with different counters. Don’t panic!</p>
+<table class="lt">
+<tr><td>ひとつ、ふたつ、みっつ、よっつ、いつつ…</td><td>Generic “one thing, two things…” Use when unsure!</td></tr>
+<tr><td>〜{人|にん}</td><td>People — {一人|ひとり}, {二人|ふたり}, {三人|さんにん} (1 and 2 are special!)</td></tr>
+<tr><td>〜{枚|まい}</td><td>Flat things — tickets, shirts, CDs</td></tr>
+<tr><td>〜{本|ほん}</td><td>Long things — bottles, pens: いっぽん、にほん、さんぼん</td></tr>
+<tr><td>〜{個|こ}</td><td>Small objects — いっこ、にこ</td></tr>
+<tr><td>〜{匹|ひき}</td><td>Small animals — ぬこ{一匹|いっぴき}</td></tr>
+<tr><td>〜{円|えん}</td><td>Yen — {百円|ひゃくえん}, {千円|せんえん}, {一万円|いちまんえん}</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">Big numbers go in groups of 10,000 (万 man), not 1,000! 15,000 yen = {一万五千円|いちまんごせんえん}. A figure costs “one-man-five-thousand.” My wallet cries.</span></p>`},
+
+keigohear:{t:'お{店|みせ}の{敬語|けいご}', e:'Polite phrases you’ll HEAR at shops', b:`
+<p class="en">Clerks speak super-polite keigo. You don’t have to speak it back — you just need to understand it!</p>
+<table class="lt">
+<tr><td>いらっしゃいませ</td><td>Welcome! (No reply needed — a nod is fine.)</td></tr>
+<tr><td>{店内|てんない}でお{召|め}し{上|あ}がりですか？</td><td>Will you eat in? → はい / いいえ、{持|も}ち{帰|かえ}りで</td></tr>
+<tr><td>お{持|も}ち{帰|かえ}りですか？</td><td>Is it to go?</td></tr>
+<tr><td>{少々|しょうしょう}お{待|ま}ちください</td><td>Please wait a moment.</td></tr>
+<tr><td>かしこまりました</td><td>Certainly / understood.</td></tr>
+<tr><td>{袋|ふくろ}はご{利用|りよう}ですか？</td><td>Do you need a bag?</td></tr>
+<tr><td>ポイントカードはお{持|も}ちですか？</td><td>Do you have a point card? → いいえ、{大丈夫|だいじょうぶ}です</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">「{大丈夫|だいじょうぶ}です」 is the magic polite “no thanks.” Bag? 大丈夫です. Point card? 大丈夫です. Life? …大丈夫です.</span></p>`},
+
+pasttai:{t:'{過去形|かこけい}と〜たい', e:'Past tense, wants & experiences', b:`
+<table class="lt">
+<tr><td>{食|た}べた / {行|い}った / した</td><td>Casual past. Make it like te-form but with た! ({行|い}って→{行|い}った)</td></tr>
+<tr><td>〜たい</td><td>Want to do ~ — {日本|にほん}に{住|す}みたい。I want to live in Japan.</td></tr>
+<tr><td>〜たくない</td><td>Don’t want to — {勉強|べんきょう}したくない…</td></tr>
+<tr><td>〜たかった</td><td>Wanted to — {会|あ}いたかった！ I wanted to see you!</td></tr>
+<tr><td>〜たことがある</td><td>Have done ~ before — メイド{喫茶|きっさ}に{行|い}ったことがある。</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">〜たい is only for YOUR wants (or questions to the listener). For other people, say 〜たがっている — but that’s advanced, so for now: 「{何|なに}が{食|た}べたい？」 = “What do you want to eat?”</span></p>`},
+
+netslang:{t:'ネットスラング{入門|にゅうもん}', e:'Intro to Japanese internet slang', b:`
+<p class="en">Japanese forums like <b>2ちゃんねる</b> and <b>ふたば☆ちゃんねる</b> are anonymous — no accounts, no avatars. They grew their own language!</p>
+<table class="lt">
+<tr><td>ｗｗｗ / ワロタ</td><td>LOL. w comes from {笑|わら}う (warau). More w = more laughing.</td></tr>
+<tr><td>orz</td><td>A person on their knees in despair. o=head, r=arms, z=legs!</td></tr>
+<tr><td>(´・ω・｀)</td><td>顔文字 (kaomoji) — faces you read upright, not sideways.</td></tr>
+<tr><td>age / sage</td><td>Typing “sage” in the E-mail field replies WITHOUT bumping the thread.</td></tr>
+<tr><td>{誤変換|ごへんかん}</td><td>Misconversion: typos from the kana→kanji IME became words. {氏|し}ね instead of {死|し}ね!</td></tr>
+<tr><td>Abbreviations</td><td>kwsk = くわしく (details!). Just the first letters of each kana!</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">These are FUN to read, but please don’t use them at a job interview… or with your host family’s grandma. Click the highlighted words on the board to decode them!</span></p>`},
+
+endparts:{t:'{終助詞|しゅうじょし}', e:'Sentence-ending particles', b:`
+<p class="en">These tiny sounds at the end of sentences carry all the feeling.</p>
+<table class="lt">
+<tr><td>〜よ</td><td>“I’m telling you” — new info, emphasis. おいしい<b>よ</b>！</td></tr>
+<tr><td>〜ね</td><td>“Right? / isn’t it?” — seeking agreement. いい{天気|てんき}だ<b>ね</b>。</td></tr>
+<tr><td>〜よね</td><td>“You agree, right?” — checking. {楽|たの}しかった<b>よね</b>！</td></tr>
+<tr><td>〜かな</td><td>“I wonder…” — {雨|あめ}、{降|ふ}る<b>かな</b>。</td></tr>
+<tr><td>〜っけ</td><td>“Was it…? (trying to remember)” — {何時|なんじ}だった<b>っけ</b>？</td></tr>
+<tr><td>〜の</td><td>Soft explanation or question — どうした<b>の</b>？</td></tr>
+<tr><td>〜ぞ / 〜ぜ</td><td>Rough, masculine emphasis. {行|い}く<b>ぞ</b>！</td></tr>
+<tr><td>〜わ</td><td>Feminine in Tokyo anime, but in Kansai everyone uses it!</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">「そうだね」 vs 「そうだよ」: ね agrees with someone; よ insists you’re right. Use ね to be nice!</span></p>`},
+
+casual:{t:'{若者言葉|わかものことば}', e:'Casual expressions people actually say', b:`
+<table class="lt">
+<tr><td>やばい</td><td>Originally “dangerous.” Now: amazing OR terrible. Context is everything.</td></tr>
+<tr><td>マジ（で）？</td><td>Seriously? For real?</td></tr>
+<tr><td>うそ！</td><td>“Lie!” = No way! (Not an accusation.)</td></tr>
+<tr><td>なるほど</td><td>I see / that makes sense.</td></tr>
+<tr><td>しょうがない</td><td>It can’t be helped. A very Japanese attitude.</td></tr>
+<tr><td>めっちゃ</td><td>Super, really. From Kansai, now everywhere.</td></tr>
+<tr><td>{微妙|びみょう}</td><td>“Subtle” → Meh. Not great. A polite way to say “I don’t like it.”</td></tr>
+<tr><td>ちょっと…</td><td>“A little…” + trailing off = a polite NO.</td></tr>
+<tr><td>{似合|にあ}う</td><td>To suit someone — {似合|にあ}ってる！ It looks good on you!</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">Heisei history lesson! Late-90s kogals in Shibuya said “チョベリバ” (cho-very-bad) and “チョベリグ” (cho-very-good). Nobody says them now — saying them today is a fun joke.</span></p>`},
+
+because:{t:'から・ので・けど', e:'Because, so, but', b:`
+<table class="lt">
+<tr><td>Aから、B</td><td>Because A, B. Casual and direct. {疲|つか}れたから、{休|やす}む。</td></tr>
+<tr><td>Aので、B</td><td>Because A, B. Softer, more polite. {雨|あめ}なので、{行|い}きません。</td></tr>
+<tr><td>Aけど、B</td><td>A, but B. {高|たか}いけど、{欲|ほ}しい！</td></tr>
+<tr><td>でも</td><td>But… (starting a new sentence)</td></tr>
+<tr><td>Aし、Bし</td><td>A, and also B (listing reasons) — ドジだし、{空気|くうき}{読|よ}めないし…</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">Japanese puts the reason FIRST, then the result. Also, sentences often just stop at けど… leaving the rest unsaid. 「ちょっと{用事|ようじ}があるんですけど…」 = “I kinda have plans…” (= no).</span></p>`},
+
+volitional:{t:'〜よう・〜ましょう', e:'“Let’s…” and invitations', b:`
+<table class="lt">
+<tr><td>〜ましょう</td><td>Let’s ~ (polite) — {行|い}きましょう！</td></tr>
+<tr><td>〜ましょうか？</td><td>Shall we/I ~? — {手伝|てつだ}いましょうか？</td></tr>
+<tr><td>〜よう / 〜おう</td><td>Let’s ~ (casual) — {食|た}べよう！ {行|い}こう！ {帰|かえ}ろう！</td></tr>
+<tr><td>〜ませんか？</td><td>Won’t you ~? — the polite invitation. {一緒|いっしょ}に{行|い}きませんか？</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">う-verbs: change the ending to the お-row + う: {行|い}く→{行|い}こう, {撮|と}る→{撮|と}ろう. る-verbs: drop る + よう: {見|み}る→{見|み}よう.</span></p>`},
+
+keigo:{t:'{敬語|けいご}の{基本|きほん}', e:'Keigo basics: raise them, lower yourself', b:`
+<p class="en"><b>尊敬語 (sonkeigo)</b> raises the other person’s actions. <b>謙譲語 (kenjōgo)</b> lowers your own.</p>
+<table class="lt">
+<tr><th>Normal</th><th>尊敬語 (them)</th><th>謙譲語 (me)</th></tr>
+<tr><td>{行|い}く・{来|く}る・いる</td><td>いらっしゃる</td><td>{参|まい}る・おる</td></tr>
+<tr><td>{食|た}べる・{飲|の}む</td><td>{召|め}し{上|あ}がる</td><td>いただく</td></tr>
+<tr><td>{言|い}う</td><td>おっしゃる</td><td>{申|もう}す</td></tr>
+<tr><td>{見|み}る</td><td>ご{覧|らん}になる</td><td>{拝見|はいけん}する</td></tr>
+<tr><td>する</td><td>なさる</td><td>いたす</td></tr>
+<tr><td>{知|し}っている</td><td>ご{存|ぞん}じだ</td><td>{存|ぞん}じている</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">Even Japanese people mess this up! As a student, polite です/ます is enough 95% of the time. Knowing these is a bonus that makes teachers very happy.</span></p>`},
+
+feelings:{t:'{気持|きも}ちを{伝|つた}える', e:'Expressing feelings', b:`
+<table class="lt">
+<tr><td>{好|す}き</td><td>Like / love — somewhere in between! The standard confession word.</td></tr>
+<tr><td>{大好|だいす}き</td><td>Really love. Used for food, friends, and people.</td></tr>
+<tr><td>{愛|あい}してる</td><td>I love you — VERY heavy. People rarely say it out loud.</td></tr>
+<tr><td>{気|き}になる</td><td>“On my mind” — having a little crush. (Net slang: {気|き}にピ!)</td></tr>
+<tr><td>{付|つ}き{合|あ}ってください</td><td>Please go out with me. Part of a 告白 (kokuhaku) — a confession.</td></tr>
+<tr><td>{月|つき}が{綺麗|きれい}ですね</td><td>“The moon is beautiful, isn’t it?” — legendary indirect “I love you.”</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">Legend says novelist Natsume Sōseki told a student to translate “I love you” as 「月が綺麗ですね」 — because a Japanese person would never say it directly. Nobody can prove the story is true… but everybody loves it.</span></p>`}
+};
+
+/* ---- Slang dictionary (from the 2ch/futaba word list) ---- */
+const SLANG = {
+  aborn:{w:'あぼーん',r:'abōn',m:'Post deleted',n:'Shown in place of a deleted post. Also あぼーんする = to delete a post.'},
+  age:{w:'age',r:'age',m:'Bump the thread to the top',n:'From 上げる (to raise). Written in romaji but used like a verb.'},
+  sage:{w:'sage',r:'sage',m:'Reply without bumping the thread',n:'Type “sage” in the E-mail field. From 下げる (to lower).'},
+  appu:{w:'うp',r:'appu',m:'Upload it, please!',n:'Typing “up” on a Japanese IME gives うp — it stuck.'},
+  arashi:{w:'荒らし',r:'arashi',m:'Troll',n:'From 荒らす, to wreck or ravage.'},
+  burakura:{w:'ブラクラ',r:'burakura',m:'Browser crasher',n:'A link or image that freezes your browser. Short for ブラウザクラッシャー.'},
+  chubou:{w:'厨房',r:'chūbō',m:'Annoying newbie who ignores the rules',n:'Literally “kitchen” — a misconversion of 中坊 (middle-school kid).'},
+  denpa:{w:'電波',r:'denpa',m:'Catchy earworm song',n:'Literally “radio waves.” Songs that beam themselves into your head.'},
+  dqn:{w:'DQN',r:'dokyun',m:'Delinquent / jerk',n:'Read ドキュン. Also ドキュソ.'},
+  natsuchu:{w:'夏厨',r:'natsuchū',m:'Brats who show up during summer break',n:'夏 (summer) + 厨房. Winter version: 冬厨.'},
+  gangare:{w:'ガンガレ',r:'gangare',m:'Do your best! (cute misspelling)',n:'A deliberate misspelling of がんばれ.'},
+  itteyoshi:{w:'逝ってよし',r:'itte yoshi',m:'Go die',n:'A pun on 行ってよし (“you may go”). 逝く = to pass away.'},
+  jisakujien:{w:'自作自演',r:'jisakujien',m:'Replying to yourself to fake support',n:'Literally “self-made, self-performed.”'},
+  kami:{w:'神',r:'kami',m:'God — a poster with amazing info',n:'Also written ネ申 (neta-split kanji).'},
+  kopipe:{w:'コピペ',r:'kopipe',m:'Copy-paste (text spread around)',n:'From コピー＆ペースト.'},
+  kora:{w:'コラ',r:'kora',m:'Photoshopped image',n:'From コラージュ (collage).'},
+  kotehan:{w:'コテハン',r:'kotehan',m:'Fixed username (not anonymous)',n:'From 固定ハンドル, “fixed handle.”'},
+  kusosure:{w:'クソスレ',r:'kusosure',m:'Crap thread',n:'クソ (crap) + スレ (thread).'},
+  majire:{w:'マジレス',r:'majiresu',m:'Serious reply (to a joke)',n:'マジ (serious) + レス (response). Also マジスレ.'},
+  matari:{w:'マターリ',r:'matāri',m:'Chill, laid-back',n:'A stretched-out まったり.'},
+  moe:{w:'萌え',r:'moe',m:'Intense affection for a cute character',n:'Literally “budding.” The word that defined Akihabara in the 2000s.'},
+  mona:{w:'オマエモナー',r:'omae mo nā',m:'Same to you, buddy',n:'The catchphrase of モナー, the 2ch cat mascot.'},
+  neta:{w:'ネタ',r:'neta',m:'Joke / meme / bait',n:'Reversed たね (seed). Means “material” for a joke.'},
+  nuko:{w:'ぬこ',r:'nuko',m:'Cat',n:'From a typo of ねこ.'},
+  offkai:{w:'オフ会',r:'offu kai',m:'Offline meetup',n:'Meeting internet friends in real life.'},
+  orz:{w:'orz',r:'orz',m:'Despair (person on their knees)',n:'o = head, r = arms, z = legs. Uppercase: OTL.'},
+  otsu:{w:'乙',r:'otsu',m:'Thanks / good work',n:'From お疲れ様 (otsukaresama), shortened via misconversion.'},
+  pakuri:{w:'パクリ',r:'pakuri',m:'Rip-off, plagiarism',n:'From パクる, to steal.'},
+  shine:{w:'氏ね',r:'shine',m:'Die (softened misspelling)',n:'Misconversion of 死ね — the softer kanji makes it “joking.”'},
+  suman:{w:'スマソ',r:'sumaso',m:'Sorry',n:'From すまん. Also スマン.'},
+  umaa:{w:'ウマー',r:'umā',m:'Delicious / awesome!',n:'From うまい. Often (ﾟДﾟ)ｳﾏｰ.'},
+  warota:{w:'ワロタ',r:'warota',m:'LOL',n:'From 笑った (laughed). Also ｗｗｗ.'},
+  yome:{w:'嫁',r:'yome',m:'Read it! (misconversion)',n:'嫁 means “bride,” but here it’s a misconversion of 読め (read!).'},
+  saba:{w:'鯖',r:'saba',m:'Server',n:'Literally “mackerel” — サバ sounds like サーバ.'},
+  sabaochi:{w:'鯖落ち',r:'sabaochi',m:'Server is down',n:'鯖 (server) + 落ち (falling).'},
+  subaka:{w:'サブ垢',r:'sabuaka',m:'Alt account',n:'垢 (grime) is used for アカ(ウント), account.'},
+  egosa:{w:'エゴサ',r:'egosa',m:'Searching your own name online',n:'From エゴサーチ.'},
+  hagedou:{w:'禿同',r:'hagedō',m:'Strongly agree',n:'From 激しく同意. 禿 (bald) is also read はげ!'},
+  enjou:{w:'炎上',r:'enjō',m:'Getting flamed / internet firestorm',n:'Literally “going up in flames.”'},
+  kwsk:{w:'kwsk',r:'kuwashiku',m:'Tell me the details!',n:'First letters of く・わ・し・く.'},
+  ggrks:{w:'ggrks',r:'gugurekasu',m:'Google it, idiot',n:'ググれカス: ググれ (Google it!) + カス (scum).'},
+  riajuu:{w:'リア充',r:'riajū',m:'Someone with a fulfilling real life',n:'From リアル充実. Usually: someone with a partner.'},
+  neet:{w:'ニート',r:'nīto',m:'NEET (not in work, education or training)',n:'Borrowed from British English.'},
+  ikemen_bad:{w:'逝け面',r:'ikemen',m:'Ugly mug (mocking pun on “hottie”)',n:'Sounds like イケメン (handsome guy), but 逝け = “go die” + 面 = face.'}
+};
+
+/* ---- Futaba threads. ((key)) or ((key|display)) = decodable slang ---- */
+const THREADS = [
+ {img:'(*´∀｀*)', op:{j:'{今期|こんき}でいちばん((moe))るキャラ{挙|あ}げてけ\n{俺|おれ}は{断然|だんぜん}メイドの{子|こ}', e:'List the characters you find most moe this season. Mine’s definitely the maid girl.'},
+  posts:[
+   {j:'そのメイドの{画像|がぞう}((appu))してくれ', e:'Upload a pic of that maid, plz.'},
+   {j:'((hagedou))　あの{子|こ}は{正義|せいぎ}', e:'Strongly agree. That girl is justice.'},
+   {j:'>あの{子|こ}は{正義|せいぎ}\n((warota))　でもわかる', e:'LOL. But I get it.'},
+   {j:'あの((kotehan))、{毎期|まいき}このスレ{立|た}ててるよな', e:'That named poster makes this thread every single season.'},
+   {j:'{俺|おれ}、その{声優|せいゆう}に{握手会|あくしゅかい}で{会|あ}ったことある', e:'I once met that voice actress at a handshake event.'}],
+  reply:{ctx:'The last poster says they met the voice actress. You want to hear the whole story.',
+   opts:[{j:'kwsk',e:'Details, plz!',ok:1},{j:'ggrks',e:'Google it, idiot.'},{j:'スレ{立|た}て{乙|おつ}',e:'Thanks for making the thread.'}], mail:null},
+  react:{ok:{j:'{握手|あくしゅ}してもらった{手|て}、まだ{洗|あら}ってない', e:'I still haven’t washed the hand she shook.'}, ng:{j:'なんでそうなる…orz', e:'How did you get THAT from my post… orz'}}},
+
+ {img:'ヽ(`Д´)ﾉ', op:{j:'{昨日|きのう}ずっと((sabaochi))してて\nネトゲ{全然|ぜんぜん}できなかった', e:'The server was down all day yesterday. Couldn’t play the online game at all.'},
+  posts:[
+   {j:'スレ{立|た}て((otsu))', e:'Thanks for making the thread.'},
+   {j:'{運営|うんえい}((itteyoshi))', e:'The devs can go die.'},
+   {j:'((subaka))で{別|べつ}の((saba)){行|い}けばよかったのに', e:'You should’ve just gone to a different server on your alt account.'},
+   {j:'メンテいつ{終|お}わるんだよ…', e:'When is maintenance gonna end…'}],
+  reply:{ctx:'The maintenance end time is posted in big red letters on the official site’s front page.',
+   opts:[{j:'ggrks',e:'Google it, idiot.',ok:1},{j:'{神|かみ}！',e:'You’re a god!'},{j:'うp',e:'Upload plz.'}],
+   mail:'sage', why:'A snarky one-liner isn’t worth bumping the thread for — use sage.'},
+  react:{ok:{j:'…ほんとだ、トップに{書|か}いてあった。スマソ', e:'…Oh, it really is on the front page. Sorry.'}, ng:{j:'？？？', e:'???'}}},
+
+ {img:'(｀・ω・´)', op:{j:'{今日|きょう}なんか((chubou)){多|おお}くない？', e:'Aren’t there a lot of clueless brats around today?'},
+  posts:[
+   {j:'((natsuchu))の{季節|きせつ}だからな', e:'It’s summer-brat season, after all.'},
+   {j:'{最近|さいきん}((arashi))も{多|おお}いし', e:'And there are lots of trolls lately, too.'},
+   {j:'{駅|えき}で((dqn))に{絡|から}まれた…((orz))', e:'Got hassled by some delinquent at the station… orz'},
+   {j:'このスレ{全員|ぜんいん}バカｗｗｗ', e:'Everyone in this thread is an idiot lololol'}],
+  reply:{ctx:'A troll just insulted everyone. Give the classic 2ch comeback.',
+   opts:[{j:'オマエモナー',e:'Same to you, buddy~',ok:1},{j:'kwsk',e:'Tell me more!'},{j:'{神|かみ}{降臨|こうりん}',e:'A god has descended!'}],
+   mail:'sage', why:'Never bump a thread just to answer a troll. sage it.'},
+  react:{ok:{j:'(´・ω・`)', e:'(the troll sulks off)'}, ng:{j:'{荒|あ}らしに{構|かま}うなよ…', e:'Don’t feed the troll…'}}},
+
+ {img:'(ﾟ∀ﾟ)', op:{j:'{秋葉原|あきはばら}で{限定|げんてい}フィギュア\n{売|う}ってる{店|みせ}{知|し}らない？', e:'Anyone know a shop in Akiba still selling the limited figure?'},
+  posts:[
+   {j:'((ggrks))', e:'Google it, idiot.'},
+   {j:'{駅前|えきまえ}の{店|みせ}にあったよ。{残|のこ}り3{個|こ}だった', e:'The shop by the station had it. Three left.'},
+   {j:'((kami)){降臨|こうりん}', e:'A god has descended!'},
+   {j:'((kora))じゃない{証拠|しょうこ}に{写真|しゃしん}も{貼|は}っとく', e:'Posting a photo too, as proof it’s not photoshopped.'}],
+  reply:{ctx:'You want to thank the poster who found the figure for you.',
+   opts:[{j:'{神|かみ}！ありがとう！',e:'You’re a god! Thank you!',ok:1},{j:'{逝|い}ってよし',e:'Go die.'},{j:'ggrks',e:'Google it, idiot.'}], mail:null},
+  react:{ok:{j:'{礼|れい}には{及|およ}ばん。{早|はや}く{行|い}け、としあき', e:'No need to thank me. Hurry, Toshiaki.'}, ng:{j:'{教|おし}えてやったのに…', e:'And here I was, helping you…'}}},
+
+ {img:'(;´Д`)', op:{j:'あの{声優|せいゆう}のブログ、また((enjou))してるぞ', e:'That voice actress’s blog is getting flamed again.'},
+  posts:[
+   {j:'どうせまた((egosa))して{凹|へこ}んでるんだろうな', e:'She’s probably searching her own name and getting depressed again.'},
+   {j:'さっきから{擁護|ようご}してるやつ、((jisakujien))だろ', e:'The guy defending her this whole time is obviously replying to himself.'},
+   {j:'((majire))すると、{事務所|じむしょ}がもう{謝罪文|しゃざいぶん}{出|だ}してる', e:'Seriously though, her agency already posted an apology.'},
+   {j:'((neta))にマジレスかっこ{悪|わる}い', e:'Answering a joke seriously, how lame.'},
+   {j:'みんな{落|お}ち{着|つ}け。((matari))いこうぜ', e:'Everyone calm down. Let’s keep it chill.'}],
+  reply:{ctx:'You strongly agree with the last poster. Say so — the short net way.',
+   opts:[{j:'{禿同|はげどう}',e:'Strongly agree.',ok:1},{j:'{氏|し}ね',e:'Die.'},{j:'うp',e:'Upload plz.'}],
+   mail:'sage', why:'Just agreeing? Don’t push a flame thread back to the top — sage.'},
+  react:{ok:{j:'わかればよろしい', e:'Glad you understand.'}, ng:{j:'{落|お}ち{着|つ}けって{言|い}ってるだろ…', e:'I literally just said calm down…'}}},
+
+ {img:'(´；ω；`)', op:{j:'{街|まち}で((riajuu)){見|み}かけるたびに((shine))って{思|おも}う', e:'Every time I see happy couples in town I think “die.”'},
+  posts:[
+   {j:'((neet))だから{毎日|まいにち}が{休日|きゅうじつ}', e:'I’m a NEET, so every day is a holiday.'},
+   {j:'{隣|となり}の{席|せき}の((ikemen_bad))がうるさい', e:'The ugly mug in the seat next to me won’t shut up.'},
+   {j:'((nuko)){飼|か}えば{寂|さび}しくないぞ', e:'Get a cat and you won’t be lonely.'},
+   {j:'じゃあ{俺|おれ}らで((offkai))しようぜ', e:'Then let’s all have an offline meetup.'}],
+  reply:{ctx:'Someone proposed a meetup. Cheer everyone on, classic misspelled style.',
+   opts:[{j:'ガンガレ',e:'Do yer best!',ok:1},{j:'あぼーん',e:'(deleted)'},{j:'{鯖落|さばお}ち',e:'Server’s down.'}], mail:null},
+  react:{ok:{j:'ありがとう。{俺|おれ}、{頑張|がんば}るよ', e:'Thanks. I’ll do my best.'}, ng:{j:'…え？', e:'…Huh?'}}},
+
+ {img:'＿|￣|○', op:{j:'このリンク{踏|ふ}んだらPC{固|かた}まったんだけど', e:'I clicked this link and my PC froze.'},
+  posts:[
+   {j:'それ((burakura))だぞ', e:'That’s a browser crasher.'},
+   {j:'{踏|ふ}むほうが{悪|わる}い', e:'It’s your own fault for clicking it.'},
+   {j:'>{踏|ふ}むほうが{悪|わる}い\n((mona))', e:'Same to you, buddy.'},
+   {j:'((suman))、{貼|は}ったの{俺|おれ}だ', e:'Sorry, I’m the one who posted it.'},
+   {j:'そのレス、もう((aborn))されてるな', e:'That post has already been deleted.'}],
+  reply:{ctx:'The OP rebooted, everything is fine, and they posted an update. Say a quick “nice work / thanks.”',
+   opts:[{j:'{乙|おつ}',e:'Good work / thanks.',ok:1},{j:'kwsk',e:'Details!'},{j:'{禿同|はげどう}',e:'Strongly agree.'}],
+   mail:'sage', why:'A quick 乙 is a minor comment — sage keeps the board tidy.'},
+  react:{ok:{j:'うむ', e:'Mm.'}, ng:{j:'{何|なに}に{同意|どうい}してんだよ', e:'What are you even agreeing with?'}}},
+
+ {img:'(ﾟДﾟ)ｳﾏｰ', op:{j:'{期間限定|きかんげんてい}のてりやきバーガー{食|く}ってきた', e:'Went and ate the limited-time teriyaki burger.'},
+  posts:[
+   {j:'((umaa))', e:'Deeelicious!'},
+   {j:'あれ{他|ほか}の{店|みせ}の((pakuri))じゃね？', e:'Isn’t that a rip-off of another chain’s burger?'},
+   {j:'CMの((denpa))ソングが{頭|あたま}から{離|はな}れない', e:'Can’t get the commercial’s earworm song out of my head.'},
+   {j:'その{話|はなし}は{前|まえ}スレで{終|お}わってる。{前|まえ}スレ((yome))', e:'That was settled in the last thread. Read it.'},
+   {j:'((kopipe))だけど「{期間限定|きかんげんてい}」って{書|か}いたら{何|なん}でも{売|う}れる', e:'(copy-paste) Write “limited time” on anything and it sells.'}],
+  reply:{ctx:'That last line made you laugh. Post a quick “lol” — it’s totally unimportant.',
+   opts:[{j:'ワロタ',e:'LOL',ok:1},{j:'ggrks',e:'Google it, idiot.'},{j:'{逝|い}ってよし',e:'Go die.'}],
+   mail:'sage', why:'A throwaway “lol” should never bump a thread — sage it.'},
+  react:{ok:{j:'ｗｗｗ', e:'lololol'}, ng:{j:'こわい', e:'Scary.'}}}
+];
+
+/* ---- Kana ---- */
+const KROMA = 'a i u e o ka ki ku ke ko sa shi su se so ta chi tsu te to na ni nu ne no ha hi fu he ho ma mi mu me mo ya yu yo ra ri ru re ro wa wo n ga gi gu ge go za ji zu ze zo da ji zu de do ba bi bu be bo pa pi pu pe po'.split(' ');
+const KHIRA = 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽ';
+const KROWS = [[0,1,2,3,4],[5,6,7,8,9],[10,11,12,13,14],[15,16,17,18,19],[20,21,22,23,24],[25,26,27,28,29],[30,31,32,33,34],[35,null,36,null,37],[38,39,40,41,42],[43,null,null,null,44],[45,null,null,null,null],[46,47,48,49,50],[51,52,53,54,55],[56,57,58,59,60],[61,62,63,64,65],[66,67,68,69,70]];
+const toKata = s => s.replace(/[\u3041-\u3096]/g, c => String.fromCharCode(c.charCodeAt(0) + 0x60));
+
+/* ---- Endings ---- */
+const ENDINGS = {
+  true:{t:'TRUE END', s:'～{月|つき}が{綺麗|きれい}ですね～', p:'happy', bg:'cherry',
+        d:'Under the last cherry blossoms of Heisei 15, Shiori-sensei’s lesson plan got a lot more personal. You answered in Japanese — and she understood every word.'},
+  good:{t:'GOOD END', s:'～いちばんの{友達|ともだち}～', p:'calm', bg:'cherry',
+        d:'Best student, best friend. Something unspoken hangs between you like a petal that hasn’t landed yet. There’s still a whole summer ahead.'},
+  orz:{t:'orz END', s:'～{空気|くうき}が{読|よ}めない～', p:'deadpan2', bg:'cherry',
+        d:'You learned plenty of Japanese. You did not learn how to read the air. Shiori is still your teacher… probably. Try again, and pay closer attention to her.'}
+};
+/* =========================================================
+   SCRIPT — the story. Helpers:
+   s(pose, jp, en)  Shiori speaks          n(en)  narration
+   me(jp, en)       you speak              o(name, jp, en)  other character
+   ch(prompt, en, {j,e,a(affection),set,then:[...]}, ...)   choice
+   qz(prompt, en, [correct, wrong, wrong], ok:[...], ng:[...])  quiz (shuffled on screen)
+   $N name+suffix  $n name  $I your “I”  $R/$r romaji versions  $L/$E last answer picked
+   ========================================================= */
+const s=(p,jp,en)=>({t:'say',w:'s',p,jp,en});
+const n=(en)=>({t:'say',w:'n',jp:'',en});
+const me=(jp,en)=>({t:'say',w:'p',jp,en});
+const o=(w,jp,en)=>({t:'say',w,jp,en});
+const bg=k=>({t:'bg',k}); const sp=p=>({t:'sp',p});
+const L=id=>({t:'lesson',id}); const V=(...w)=>({t:'v',w});
+const fx=f=>({t:'fx',f}); const day=(jp,en,place)=>({t:'day',jp,en,place});
+const ch=(q,en,...opts)=>({t:'ch',q,en,opts});
+const qz=(q,en,opts,ok,ng)=>({t:'qz',q,en,o:opts,a:0,ok,ng});
+const go=x=>({t:'go',s:x}); const set=(k,v)=>({t:'set',k,v}); const aff=v=>({t:'aff',v});
+const bgm=k=>({t:'bgm',k}); const iff=(c,y,no)=>({t:'if',c,y,n:no});
+const ME=me('$L','$E');
+
+const SCENES = {
+
+/* ================= PROLOGUE ================= */
+pro:[
+  day('3月29日（土）','Saturday, March 29, Heisei 15 (2003)','秋葉原'),
+  bgm('akiba'), bg('akiba'),
+  n('Spring break. Tokyo. My first week in Japan as an exchange student.'),
+  n('Three years of subtitled anime had convinced me I basically spoke Japanese. Akihabara has spent the last hour proving me wrong.'),
+  n('Every sign is a wall of kanji. Every shop is shouting through a megaphone. I’ve understood maybe four words.'),
+  o('店員','いらっしゃいませー！ ただいまタイムセール{中|ちゅう}でーす！','Welcome! Time sale going on right now!'),
+  n('…Okay. “Irasshaimase,” I know. That’s “welcome.” Progress.'),
+  o('？？？','わわわっ、どいてどいてーっ！','Whoa whoa whoa — move, move!'),
+  fx('shake'),
+  n('Something — someone — slams into my back. A shopping bag goes flying. Boxes scatter across the pavement.'),
+  s('scream','ふぎゃっ！','Fugyah!!'),
+  s('fearclosed','いたた……あうぅ、またやっちゃった……','Ow ow ow… auuu, I did it again…'),
+  n('A girl in a green sweater is sitting on the sidewalk, surrounded by what looks like an entire limited-edition figure collection.'),
+  qz('She fell down. What do you say?','',[['{大丈夫|だいじょうぶ}ですか？','Are you okay?'],['いただきます！','Let’s eat!'],['おやすみなさい。','Good night.']],
+    [ME, s('surprise','えっ……あ、うん！ {大丈夫|だいじょうぶ}、{大丈夫|だいじょうぶ}！','Huh? …Oh, yeah! I’m fine, I’m fine!')],
+    [ME, s('deadpan','……え？ いま{食|た}べるの？','…Huh? You’re going to eat… now?'), s('happy','あはは、{変|へん}な{人|ひと}～！ でも{大丈夫|だいじょうぶ}だよ、ありがと！','Ahaha, what a weird person! But I’m okay, thanks!')]),
+  s('default','ごめんなさい！ {前|まえ}、ぜんぜん{見|み}てなかった……','I’m so sorry! I wasn’t looking where I was going at all…'),
+  L('greet'),
+  n('I crouch down and help her gather the boxes. Magical girls. A lot of magical girls.'),
+  s('calm','{拾|ひろ}ってくれてありがとう！ {優|やさ}しいね～','Thanks for picking them up! You’re so nice~'),
+  s('surprise','あれ？ もしかして……{外国|がいこく}の{人|ひと}？','Huh? Wait… are you from overseas?'),
+  me('はい。えっと……{日本語|にほんご}、{少|すこ}しだけ……','Yes. Um… Japanese, only a little…'),
+  s('cat','すごーい！ {日本語|にほんご}しゃべれるんだ！','Whoa! You can speak Japanese!'),
+  n('I absolutely cannot. But I’m not going to argue with a compliment.'),
+  s('happy','あっ、{自己紹介|じこしょうかい}しなきゃ！','Oh! I should introduce myself!'),
+  set('met',true),
+  s('default','はじめまして！ {白河|しらかわ}{栞|しおり}です！ よろしくね！','Nice to meet you! I’m Shirakawa Shiori! Let’s be friends!'),
+  L('intro'),
+  s('calm','お{名前|なまえ}、{聞|き}いてもいい？','Can I ask your name?'),
+  {t:'name'},
+  me('はじめまして。$nです。よろしくお{願|ねが}いします。','Nice to meet you. I’m $r. Pleased to meet you.'),
+  s('happy','$n……！ かっこいい{名前|なまえ}だね！','$r…! What a cool name!'),
+  s('calm','ねえ、なんて{呼|よ}べばいい？','Hey, what should I call you?'),
+  L('honor'),
+  ch('どう{呼|よ}んでほしい？','How do you want Shiori to call you?',
+    {j:'$n＋くん',e:'Friendly, boyish',set:{honor:'くん'},a:1,then:[s('happy','$Nだね！ りょうかーい！','$R it is! Roger that!')]},
+    {j:'$n＋さん',e:'Polite, safe',set:{honor:'さん'},then:[s('calm','$Nか～。ちょっと{大人|おとな}っぽいね。','$R, huh~. Sounds kind of grown-up.')]},
+    {j:'$n＋ちゃん',e:'Cute, affectionate',set:{honor:'ちゃん'},a:1,then:[s('cat','$N！ えへへ、かわいい～！','$R! Ehehe, so cute~!')]},
+    {j:'$n（{呼|よ}び{捨|す}て）',e:'Just my name, nothing attached',set:{honor:''},a:2,then:[s('fear','い、いきなり{呼|よ}び{捨|す}て!?','J-just your name, already!?'),s('fearclosed','……で、でも、{仲良|なかよ}しっぽくていいかも……','…B-but it feels like we’re close. Maybe that’s nice…')]}),
+  s('default','$Nは、{日本|にほん}に{何|なに}しに{来|き}たの？','So $R, what did you come to Japan for?'),
+  me('{留学|りゅうがく}です。{四月|しがつ}から{高校|こうこう}に……','Studying abroad. Starting high school in April…'),
+  s('surprise','えっ、どこの{高校|こうこう}？','Huh, which high school?'),
+  n('I show her the paper with my school’s name on it. Her eyes go huge.'),
+  s('cat','ええーっ!? それ、あたしの{学校|がっこう}だよ！','Eeeh!? That’s MY school!'),
+  s('happy','すごいすごい！ これって{運命|うんめい}だよね！','Amazing, amazing! This is fate, right!'),
+  s('smug','よーし、{決|き}めた！ あたしが$Nの{日本語|にほんご}の{先生|せんせい}になってあげる！','Okay, decided! I’ll be your Japanese teacher, $R!'),
+  n('She puffs out her chest. A figure box slides off the top of her pile and lands on her foot.'),
+  fx('shake'), s('fearclosed','いったぁ……！','Owwww…!'),
+  s('calm','……え、えへへ。しおり{先生|せんせい}に、まかせなさいっ！','…E-ehehe. Leave it all to Shiori-sensei!'),
+  V(['大丈夫','だいじょうぶ','okay, all right'],['名前','なまえ','name'],['先生','せんせい','teacher'],['学校','がっこう','school'],['留学','りゅうがく','studying abroad'],['日本語','にほんご','the Japanese language']),
+  bg('akiba_night'),
+  n('We spend the rest of the afternoon wandering Akiba. By the time the neon comes on, I’ve learned three new words and she’s bought two more figures.'),
+  s('happy','{今日|きょう}は{楽|たの}しかった！ じゃあ、また{学校|がっこう}でね！','Today was fun! See you at school!'),
+  me('うん、またね！','Yeah, see you!'),
+  s('cat','にぱー☆','Nipaa☆'),
+  sp(null),
+  n('…What a strange girl.'),
+  go('ch1')
+],
+
+/* ================= CHAPTER 1 ================= */
+ch1:[
+  day('4月7日（月）','Monday, April 7 — the first day of school','教室'),
+  bgm('school'), bg('school'),
+  n('The gate is lined with cherry trees in full bloom. Everyone around me is in identical navy uniforms. I have never been more aware of my own face.'),
+  bg('classroom'),
+  o('{先生|せんせい}','{今日|きょう}から、みんなの{新|あたら}しいクラスメートです。じゃあ、{自己紹介|じこしょうかい}をどうぞ。','Starting today, this is your new classmate. Go ahead and introduce yourself.'),
+  n('Thirty faces. Thirty pairs of eyes. I run through the lines Shiori drilled into me over the phone.'),
+  qz('Introduce yourself to the class!','',[['はじめまして、$nです。よろしくお{願|ねが}いします。','Nice to meet you, I’m $r. Please treat me well.'],['さようなら、$nでした。','Goodbye, that was $r.'],['いただきます、$nさんです。','Let’s eat, I am Mr./Ms. $r.']],
+    [ME, o('{先生|せんせい}','はい、よくできました。','Very good.'), n('Polite applause. Somewhere in the back row, someone is clapping way, way too hard.')],
+    [ME, n('Dead silence. Somebody coughs.'), o('{先生|せんせい}','……ええと、「はじめまして」ですね。','…Ah, I think you mean “hajimemashite.”'), n('From the back row: a very loud, very familiar snort of laughter.')]),
+  sp('sei'),
+  s('sei','$N～！ こっちこっち！ {隣|となり}の{席|せき}だよ！','$R~! Over here! You’re in the seat next to me!'),
+  n('Shiori, in uniform. Same low pigtails, same sparkle — noticeably more ink on her hands.'),
+  s('sei_calm','さっきの{自己紹介|じこしょうかい}、なかなかだったよ～。','Your self-intro was pretty good~'),
+  o('{男子|だんし}','おい{白河|しらかわ}、{知|し}り{合|あ}い？','Hey Shirakawa, you know them?'),
+  s('sei','うん！ あたしの{生徒|せいと}！','Yep! My student!'),
+  o('{男子|だんし}','……{生徒|せいと}？ お{前|まえ}が{先生|せんせい}？ {大丈夫|だいじょうぶ}かよ。','…Student? YOU’RE the teacher? Is that gonna be okay?'),
+  s('sei_shut','むー！ {失礼|しつれい}だなぁ！','Mmmph! How rude!'),
+  n('He shrugs and goes back to his manga. Shiori turns to me, suddenly very serious.'),
+  s('sei','ねえ$N。いま{気|き}づいたんだけど……','Hey $R. I just noticed something…'),
+  s('sei_calm','あの{子|こ}、「お{前|まえ}」って{言|い}ってたでしょ？ {日本語|にほんご}の“you”って、いっぱいあるんだよ。','He said “omae,” right? There are tons of ways to say “you” in Japanese.'),
+  L('pron'),
+  s('sei','$Nは、{自分|じぶん}のことなんて{言|い}う？','So what will you call yourself, $R?'),
+  ch('どの「わたし」にする？','Which “I” will you use?',
+    {j:'{僕|ぼく}',e:'Boku — soft, boyish',set:{pron:'僕'},then:[me('{僕|ぼく}かな。','Boku, I think.'), s('sei_calm','{僕|ぼく}！ やさしい{感|かん}じで、いいと{思|おも}う！','Boku! It sounds gentle. I like it!')]},
+    {j:'{俺|おれ}',e:'Ore — rough, confident',set:{pron:'俺'},then:[me('{俺|おれ}だな。','Ore, for sure.'), s('sei','おお～、ワイルドだね！ でも{先生|せんせい}の{前|まえ}では{使|つか}っちゃダメだよ？','Ooh~ wild! But don’t use it in front of teachers, okay?')]},
+    {j:'{私|わたし}',e:'Watashi — neutral, polite',set:{pron:'私'},then:[me('{私|わたし}です。','Watashi.'), s('sei_calm','{私|わたし}はいちばん{安全|あんぜん}！ どこでも{使|つか}えるよ。','Watashi is the safest! You can use it anywhere.')]},
+    {j:'あたし',e:'Atashi — like Shiori',set:{pron:'あたし'},a:1,then:[me('……あたし？','…Atashi?'), s('sei_shut','ふふっ。あたしとおそろいだ！','Fufu. We match!')]}),
+  s('sei','じゃあ、クイズ！','Okay, quiz time!'),
+  qz('How should you address your homeroom teacher?','',[['{先生|せんせい}','sensei'],['お{前|まえ}','omae'],['あんた','anta']],
+    [s('sei','せいかーい！ {先生|せんせい}には「あなた」も{使|つか}わないの。','Correct! You don’t even say “anata” to a teacher.')],
+    [s('sei_shut','ぶっぶー！ それ{言|い}ったら{職員室|しょくいんしつ}{行|い}きだよ……','Bzzt! Say that and you’re going straight to the staff room…'), s('sei','{先生|せんせい}には「{先生|せんせい}」！ {名前|なまえ}の{代|か}わりに{使|つか}えるよ。','Call a teacher “sensei”! You can use it instead of their name.')]),
+  L('copula'),
+  s('sei_calm','あたしは{高校|こうこう}{二年生|にねんせい}です。$Nは{留学生|りゅうがくせい}です。','I’m a second-year high schooler. You’re an exchange student.'),
+  qz('“I am not a teacher.”','',[['{先生|せんせい}じゃないです。','not a teacher'],['{先生|せんせい}です。','am a teacher'],['{先生|せんせい}でした。','was a teacher']],
+    [s('sei','そう！ 「じゃないです」で{否定|ひてい}だよ。','Right! じゃないです makes it negative.')],
+    [s('sei','おしい！ 「じゃないです」で“not”になるよ。','Close! じゃないです is how you make it “not.”')]),
+  s('sei','……あ。あたしも{先生|せんせい}じゃないです。','…Oh. I’m not a teacher either.'),
+  s('sei_shut','いまのナシ！ しおり{先生|せんせい}は{先生|せんせい}です！','Forget I said that! Shiori-sensei IS a teacher!'),
+  n('キーンコーンカーンコーン. The bell. The most famous four notes in Japan.'),
+  s('sei','{放課後|ほうかご}、ちょっと{付|つ}き{合|あ}って！ {行|い}きたいところがあるの！','After school, come with me! There’s somewhere I want to go!'),
+  V(['教室','きょうしつ','classroom'],['友達','ともだち','friend'],['生徒','せいと','student, pupil'],['隣','となり','next to'],['自分','じぶん','oneself'],['放課後','ほうかご','after school']),
+  go('ch2')
+],
+
+/* ================= CHAPTER 2 ================= */
+ch2:[
+  day('4月7日（月）','Monday, April 7 — after school','メイド{喫茶|きっさ}'),
+  bgm('cafe'), bg('maid_out'),
+  sp('happy'),
+  s('happy','じゃーん！ メイド{喫茶|きっさ}だよ！','Ta-daa! A maid café!'),
+  n('She went home to change first. Apparently teachers patrol Akihabara for students in uniform. She says this like it’s a spy movie.'),
+  s('default','{日本語|にほんご}の{練習|れんしゅう}には、{注文|ちゅうもん}がいちばん！','Ordering food is the best Japanese practice!'),
+  bg('maid_in'),
+  o('メイド','おかえりなさいませ、ご{主人|しゅじん}{様|さま}♪','Welcome home, Master♪'),
+  n('…Welcome HOME?'),
+  s('cat','ここでは「いらっしゃいませ」じゃなくて「おかえりなさいませ」なの。ここはご{主人|しゅじん}{様|さま}のお{家|うち}、っていう{設定|せってい}だから！','Here they don’t say “irasshaimase,” they say “okaerinasaimase.” The idea is that this is YOUR home!'),
+  s('smug','……ちなみに、{女|おんな}の{子|こ}のお{客|きゃく}さんは「お{嬢|じょう}{様|さま}」ね。','…And by the way, girl customers are “ojōsama.”'),
+  L('particles'),
+  qz('“I bought figures IN Akihabara.”　{秋葉原|あきはばら}＿＿フィギュアを{買|か}いました。','',[['で','de'],['に','ni'],['を','o']],
+    [s('happy','そう！ {買|か}うのは{動作|どうさ}だから「で」！','Yes! Buying is an action, so it’s で!')],
+    [s('deadpan','ぶー。{何|なに}かを「する」{場所|ばしょ}は「で」だよ。','Bzzt. The place where you DO something takes で.')]),
+  s('default','メニュー{見|み}て！ {何|なに}にする？','Look at the menu! What are you getting?'),
+  L('order'),
+  qz('Order the omurice politely:','',[['オムライスをお{願|ねが}いします。','The omurice, please.'],['オムライスはお{願|ねが}いですか。','Is the omurice a wish?'],['オムライスにお{願|ねが}いします。','I request to the omurice.']],
+    [ME, o('メイド','かしこまりました、ご{主人|しゅじん}{様|さま}♪','Certainly, Master♪'), s('happy','かんぺき！ 「を」もちゃんと{使|つか}えてる！','Perfect! You used を correctly too!')],
+    [ME, o('メイド','……？ オムライス、ですね？ かしこまりました♪','…? The omurice, then? Certainly♪'), s('deadpan','メイドさん、やさしい……','The maid is so kind…'), s('default','{欲|ほ}しいものは「を」でマークするの。「オムライスをお{願|ねが}いします」！','Mark the thing you want with を. “Omurice o onegai shimasu”!')]),
+  s('calm','あたしは……えっと、これと、これと……','And for me… um, this, and this…'),
+  s('surprise','あっ！ お{財布|さいふ}……','Ah! My wallet…'),
+  n('She digs through her bag. Figure. Figure. Hairbrush. Another figure.'),
+  s('fearclosed','{忘|わす}れた……','I forgot it…'),
+  ch('','',
+    {j:'$Iが{払|はら}うよ。',e:'I’ll pay.',a:2,then:[s('surprise','えっ、いいの!? ……ほんとに？','Huh, really!? …Are you sure?'), s('happy','ありがとう！ $N、{神|かみ}！','Thank you! $R, you’re a god!'), n('I don’t know yet that “god” is a very specific compliment on the Japanese internet.')]},
+    {j:'しょうがないなぁ。',e:'Guess it can’t be helped.',a:1,then:[s('cat','えへへ、ごめんね～！ {今度|こんど}おごるから！','Ehehe, sorry~! I’ll treat you next time!')]},
+    {j:'ドジだね。',e:'You’re such a klutz.',then:[s('angryclosed','むー！ ドジじゃないもん！','Hmph! I’m not a klutz!'), fx('shake'), n('She knocks over her water glass while saying this.'), s('fear','……ドジかも。','…Maybe I am a klutz.')]}),
+  n('The omurice arrives. The maid draws a heart on it in ketchup, then turns to us expectantly.'),
+  o('メイド','おいしくなーれ、{萌|も}え{萌|も}えキュン♪','Get delicious, moe moe kyun♪'),
+  s('catclosed','{萌|も}え{萌|も}えキュン♪','Moe moe kyun♪'),
+  n('I am not chanting.'),
+  o('メイド','ご{主人|しゅじん}{様|さま}も、ご{一緒|いっしょ}に♪','Master, please join in♪'),
+  n('I chant.'),
+  s('happy','いただきまーす！','Itadakimaaasu!'),
+  n('Fifteen minutes later, two clean plates.'),
+  qz('What do you say after finishing a meal?','',[['ごちそうさまでした！','Thank you for the meal!'],['いただきました！','I received it!'],['おいしいでした！','It is-was delicious!']],
+    [ME, s('happy','ばっちり！ $N、{日本人|にほんじん}より{日本人|にほんじん}っぽい！','Spot on! $R, you’re more Japanese than the Japanese!')],
+    [ME, s('deadpan','……おしい。「ごちそうさまでした」か、「おいしかったです」だよ～。','…Close. It’s “gochisōsama deshita,” or “oishikatta desu”~')]),
+  V(['注文','ちゅうもん','order (food)'],['財布','さいふ','wallet'],['忘れる','わすれる','to forget'],['払う','はらう','to pay'],['美味しい','おいしい','delicious'],['お願いします','おねがいします','please (request)']),
+  go('ch3')
+],
+
+/* ================= CHAPTER 3 ================= */
+ch3:[
+  day('4月12日（土）','Saturday, April 12','ゲームセンター'),
+  bgm('arcade'), bg('arcade_out'), sp('default'),
+  s('default','{今日|きょう}はゲーセン！ 「ゲームセンター」を{短|みじか}くした{言葉|ことば}だよ。','Today: the gēsen! It’s short for “game center.”'),
+  s('smug','{日本語|にほんご}はね、{長|なが}い{言葉|ことば}をすぐ{短|みじか}くするの。パソコン、コンビニ、アニメ……','Japanese LOVES shortening long words. Pasokon, konbini, anime…'),
+  bg('arcade_in'),
+  n('The noise hits like a wall. Rhythm-game drums, a crane-game jingle on loop, someone absolutely destroying a fighting game in the back.'),
+  s('surprise','あっ！ あれ{見|み}て！','Ah! Look at that!'),
+  n('Inside a UFO catcher: a plush of a round white cat holding a magical girl wand.'),
+  s('cat','かわいい～！ {欲|ほ}しい！ ぜったい{取|と}る！','So cuuute~! I want it! I’m totally getting it!'),
+  L('verbs'),
+  qz('Polite form of {行|い}く (to go)?','',[['{行|い}きます','ikimasu'],['{行|い}くます','ikumasu'],['{行|い}けます','ikemasu']],
+    [s('happy','せいかい！ う-{動詞|どうし}は「い」の{音|おと}にして「ます」！','Correct! For う-verbs, switch to the い sound, then add ます!')],
+    [s('deadpan','{行|い}く→{行|い}き＋ます、だよ。「{行|い}けます」は“can go”になっちゃう。','It’s iku → iki + masu. “Ikemasu” means “can go.”')]),
+  n('Ten minutes and two thousand yen later.'),
+  s('angry','なんで{取|と}れないの～!!','Why won’t it come out~!!'),
+  s('angryclosed','このアーム、{弱|よわ}すぎ！ {絶対|ぜったい}おかしい！','This claw is way too weak! It’s totally rigged!'),
+  s('fear','$N……{取|と}って？','$R… get it for me?'),
+  L('teform'),
+  qz('You need a second to think. “Please wait a moment.”','',[['ちょっと{待|ま}ってください。','Please wait a little.'],['ちょっと{待|ま}ちてください。','(wrong form)'],['ちょっと{待|ま}つてください。','(wrong form)']],
+    [ME, s('calm','うん、{待|ま}つ！ ……{待|ま}つ→{待|ま}って、ちゃんとできてるね。','Okay, I’ll wait! …matsu → matte, you got it right.')],
+    [ME, s('deadpan','……「{待|ま}って」だよ。つ→って！','…It’s “matte.” つ becomes って!')]),
+  n('I study the machine. The cat is lying on its side, tag sticking up. Maybe.'),
+  ch('どうする？','How will you play?',
+    {j:'{右|みぎ}から{狙|ねら}ってみる',e:'Try aiming from the right side',a:2,set:{plush:true},then:[n('The claw sinks… snags the tag… and drops the cat straight into the chute.'), fx('hop'), s('surprise','うそ……','No way…'), s('happy','{取|と}れたーっ！ $N、すごい！ {天才|てんさい}！','You got it! $R, amazing! You’re a genius!')]},
+    {j:'{何|なに}も{考|かんが}えずにボタンを{押|お}す',e:'Mash the button without thinking',then:[n('The claw grabs nothing, with great confidence.'), s('deadpan','……あたしと{同|おな}じだね。','…Same as me, huh.'), s('calm','でも、{一緒|いっしょ}にやってくれて{嬉|うれ}しかった。','But I was happy you tried with me.')]},
+    {j:'{店員|てんいん}さんに{頼|たの}む',e:'Ask the staff for help',a:1,set:{plush:true},then:[me('すみません、これ、ちょっと{動|うご}かしてもらえますか？','Excuse me, could you move this a little?'), o('{店員|てんいん}','はーい、ちょっと{位置|いち}{直|なお}しますねー。','Suuure, I’ll fix its position a bit.'), n('The clerk nudges the plush to the edge. One try later, it drops.'), s('happy','{店員|てんいん}さんに{頼|たの}むなんて、{上級者|じょうきゅうしゃ}だ……！','Asking the staff… you’re a pro…!')]}),
+  s('default','ねえ、プリクラも{撮|と}ろうよ！','Hey, let’s take purikura too!'),
+  n('We squeeze into the photo-sticker booth. The machine shouts instructions in a voice so high-pitched it is practically ultrasonic.'),
+  o('プリ{機|き}','ポーズをとってね！ 3、2、1……','Strike a pose! 3, 2, 1…'),
+  fx('flash'),
+  s('fearclosed','あっ、{目|め}{閉|と}じちゃった……','Ah, I closed my eyes…'),
+  s('smug','……ま、いっか！ {思|おも}い{出|で}だもんね！','…Eh, whatever! It’s a memory!'),
+  qz('te-form of {撮|と}る (to take a photo)?','',[['{撮|と}って','totte'],['{撮|と}りて','torite'],['{撮|と}んで','tonde']],
+    [s('cat','せいかい！ {撮|と}る→{撮|と}って！ じゃあ……もう{一枚|いちまい}{撮|と}って？','Correct! toru → totte! So… take one more?')],
+    [s('default','{撮|と}る→{撮|と}って！ る→って、だよ。','toru → totte! る becomes って.')]),
+  V(['取る','とる','to take, to grab'],['待つ','まつ','to wait'],['遊ぶ','あそぶ','to play, hang out'],['撮る','とる','to take (a photo)'],['頑張る','がんばる','to do one’s best'],['欲しい','ほしい','to want (a thing)']),
+  go('ch4')
+],
+
+/* ================= CHAPTER 4 ================= */
+ch4:[
+  day('4月13日（日）','Sunday, April 13','秋葉原'),
+  bgm('akiba'), bg('figure_out'), sp('happy'),
+  s('happy','{今日|きょう}は{限定|げんてい}フィギュアの{発売日|はつばいび}！','Today is release day for a limited-edition figure!'),
+  bg('figure_in'),
+  n('Glass cases from floor to ceiling. Every figure is either a magical girl, a maid, or a magical maid.'),
+  L('adj'),
+  s('cat','このフィギュア、かわいい！ でも……','This figure is so cute! But…'),
+  s('fear','{一万五千円|いちまんごせんえん}……{高|たか}すぎるよぉ……','Fifteen thousand yen… it’s way too expensive…'),
+  qz('“It’s NOT expensive.” ({高|たか}い)','',[['{高|たか}くないです','takaku nai desu'],['{高|たか}いじゃないです','takai ja nai desu'],['{高|たか}いないです','takai nai desu']],
+    [s('happy','そう！ い→くない！ ……でも{高|たか}いんだよね……','Yes! い → くない! …But it IS expensive…')],
+    [s('deadpan','い-{形容詞|けいようし}は「い」を「くない」にするの。{高|たか}くない！','For い-adjectives, swap い for くない. Takakunai!')]),
+  qz('“It was pretty.” (きれい — careful!)','',[['きれいでした','kirei deshita'],['きれかったです','kirekatta desu'],['きれいかったです','kireikatta desu']],
+    [s('smug','ひっかからなかったね！ きれいは、な-{形容詞|けいようし}なの。','You didn’t fall for it! きれい is actually a な-adjective.')],
+    [s('cat','ひっかかった～！ きれいは「い」で{終|お}わるけど、な-{形容詞|けいようし}だよ！','Gotcha~! きれい ends in い, but it’s a な-adjective!')]),
+  L('compare'),
+  s('arms','ねえ、こっちのメイドさんと、こっちの{魔法少女|まほうしょうじょ}、どっちがかわいいと{思|おも}う？','Hey, between this maid and this magical girl, which one do you think is cuter?'),
+  ch('どっちがかわいい？','Which is cuter?',
+    {j:'メイドのほうがかわいい',e:'The maid is cuter',a:1,then:[s('smug','わかってるね～。メイドは{正義|せいぎ}だよ。','You get it~. Maids are justice.')]},
+    {j:'{魔法少女|まほうしょうじょ}のほうがかわいい',e:'The magical girl is cuter',a:1,then:[s('happy','だよねー！ キラキラしてるもん！','Right!? She’s all sparkly!')]},
+    {j:'しおりのほうがかわいい',e:'Shiori is cuter',a:3,then:[s('surprise','……ふぇっ!?','…Fweh!?'), s('fearclosed','な、な、なに{言|い}ってるの!? フィギュアの{話|はなし}だよ!?','Wh-wh-what are you saying!? We’re talking about figures!?'), s('angryclosed','もう……$Nのばか……','Geez… $R, you dummy…'), n('She spends the next five minutes examining a shelf of capsule toys very, very intensely.')]}),
+  qz('“Akihabara is the best!”','',[['{秋葉原|あきはばら}がいちばんです！','Akiba is number one!'],['{秋葉原|あきはばら}よりいちばんです！','(than Akiba, the best)'],['{秋葉原|あきはばら}のほうです！','(it’s the Akiba side)']],
+    [ME, s('cat','いちばーん！ わかってるぅ！','Number one! You get it!')],
+    [ME, s('default','「〜がいちばん」で“the most”だよ！','“~ga ichiban” means “the most”!')]),
+  bg('manga_out'), bg('manga_in'), sp('default'),
+  s('default','ここは{漫画|まんが}の{本屋|ほんや}さん。{同人誌|どうじんし}もあるよ。','This is a manga store. They have doujinshi too.'),
+  s('smug','{同人誌|どうじんし}っていうのは、ファンが{自分|じぶん}で{作|つく}った{本|ほん}のこと。コミケでいっぱい{売|う}ってるの！','Doujinshi are books fans make themselves. Comiket is full of them!'),
+  s('calm','あたしもね、いつか{描|か}いてみたいんだ……{漫画|まんが}。','I want to try drawing one someday… a manga.'),
+  ch('','',
+    {j:'{読|よ}みたい！',e:'I want to read it!',a:2,then:[s('surprise','ほんと!?','Really!?'), s('happy','じゃあ、{最初|さいしょ}の{読者|どくしゃ}は$Nね！ {約束|やくそく}！','Then you’ll be my first reader, $R! Promise!')]},
+    {j:'{絵|え}、{上手|じょうず}なの？',e:'Are you good at drawing?',a:1,then:[s('deadpan2','……{棒人間|ぼうにんげん}なら{得意|とくい}。','…I’m great at stick figures.')]}),
+  V(['高い','たかい','expensive; tall'],['安い','やすい','cheap'],['可愛い','かわいい','cute'],['限定','げんてい','limited (edition)'],['好き','すき','to like (na-adj.)'],['漫画','まんが','manga, comics']),
+  go('ch5')
+],
+
+/* ================= CHAPTER 5 ================= */
+ch5:[
+  day('4月19日（土）','Saturday, April 19','マクドナルド'),
+  bgm('akiba'), bg('mcd'), sp('default'),
+  s('default','お{腹|なか}すいた～！ マック{行|い}こう！','I’m starving~! Let’s go to Makku!'),
+  me('マック？','Makku?'),
+  s('smug','{東京|とうきょう}ではマック。{大阪|おおさか}ではマクドって{言|い}うんだよ。','In Tokyo it’s “Makku.” In Osaka they say “Makudo.”'),
+  s('fear','{関西|かんさい}の{人|ひと}の{前|まえ}でマックって{言|い}ったら……{戦争|せんそう}だよ……','Say “Makku” in front of someone from Kansai and… it’s war…'),
+  L('counters'),
+  o('{店員|てんいん}','いらっしゃいませ。{店内|てんない}でお{召|め}し{上|あ}がりですか？','Welcome. Will you be eating in today?'),
+  n('…Eating WHERE?'),
+  L('keigohear'),
+  qz('店内でお召し上がりですか？ — You want to eat here.','',[['はい、{店内|てんない}で。','Yes, eating in.'],['はい、お{持|も}ち{帰|かえ}りで。','Yes, to go.'],['いいえ、{召|め}し{上|あ}がります。','No, I will honorably eat.']],
+    [ME, o('{店員|てんいん}','かしこまりました。ご{注文|ちゅうもん}をどうぞ。','Certainly. What would you like?')],
+    [ME, o('{店員|てんいん}','……え、えっと、{店内|てんない}ですね？ ご{注文|ちゅうもん}をどうぞ。','…U-um, eating in, then? What would you like?'), s('deadpan','……{召|め}し{上|あ}がるは、{店員|てんいん}さんが{使|つか}う{言葉|ことば}だよ～。','…“Meshiagaru” is for the CLERK to say, not you~')]),
+  qz('Order TWO cheeseburgers:','',[['チーズバーガーを{二|ふた}つください。','Two cheeseburgers, please.'],['チーズバーガーを{二人|ふたり}ください。','Two people of cheeseburgers, please.'],['チーズバーガーを{二枚|にまい}ください。','Two flat sheets of cheeseburger, please.']],
+    [ME, o('{店員|てんいん}','チーズバーガーお{二|ふた}つですね。{少々|しょうしょう}お{待|ま}ちください。','Two cheeseburgers. Just a moment, please.'), s('happy','すごい、{完璧|かんぺき}な{注文|ちゅうもん}！','Wow, a perfect order!')],
+    [ME, o('{店員|てんいん}','……お{二|ふた}つ、ですね？ {少々|しょうしょう}お{待|ま}ちください。','…Two of them, yes? Just a moment, please.'), s('cat','あはは！ わからないときは「つ」で{数|かぞ}えればいいの！','Ahaha! When you’re not sure, just count with つ!')]),
+  n('Shiori orders a teriyaki burger, then switches to a Filet-O-Fish, then switches back, then asks for both.'),
+  s('cat','てりやきバーガーはね、{日本|にほん}のマックで{生|う}まれたんだよ！ {知|し}ってた？','You know, the teriyaki burger was born at McDonald’s Japan! Did you know?'),
+  n('She drops a fry into her cola. After a moment of serious thought, she eats it anyway.'),
+  V(['〜個','〜こ','counter: small objects'],['〜枚','〜まい','counter: flat objects'],['〜本','〜ほん','counter: long objects'],['〜人','〜にん','counter: people'],['店内','てんない','inside the store'],['持ち帰り','もちかえり','takeout, to go']),
+  bgm('calm'), bg('park_night'), sp('calm'),
+  n('After eating, we walk until the city gets quiet. A bench. A vending machine humming. A few stubborn stars despite Tokyo.'),
+  s('calm','ねえ、$N。','Hey, $R.'),
+  s('calm','$Nは、どうして{日本語|にほんご}を{勉強|べんきょう}したかったの？','Why did you want to study Japanese?'),
+  L('pasttai'),
+  ch('どうして？','Why?',
+    {j:'アニメが{好|す}きだったから。',e:'Because I loved anime.',a:1,then:[s('happy','わかる！ {字幕|じまく}なしで{見|み}たいよね！','I get it! You wanna watch without subtitles!')]},
+    {j:'{日本|にほん}に{住|す}みたかったから。',e:'Because I wanted to live in Japan.',a:1,then:[s('default','そっか……じゃあ、{夢|ゆめ}が{叶|かな}ったんだね！','I see… then your dream came true!')]},
+    {j:'しおりに{会|あ}うため、かな。',e:'To meet you, maybe.',a:2,then:[s('surprise','……え。','…Huh.'), s('fearclosed','ず、ずるい……そういうの、ずるいよ……','Th-that’s not fair… saying stuff like that isn’t fair…')]}),
+  s('calm','あたしね、{小|ちい}さいころ、{友達|ともだち}あんまりいなかったの。','You know, when I was little, I didn’t have many friends.'),
+  s('deadpan','ドジだし、{空気|くうき}{読|よ}めないし。','I’m clumsy, and I can’t read the air.'),
+  n('“Can’t read the air.” 空気が読めない. Even I know that one stings here.'),
+  s('calm','でも、アニメとかゲームの{中|なか}では、みんな{優|やさ}しかった。ドジな{女|おんな}の{子|こ}でも、{主人公|しゅじんこう}になれたの。','But in anime and games, everyone was kind. Even a clumsy girl could be the main character.'),
+  s('eyesclosed','だから、{好|す}きなんだ。','That’s why I love them.'),
+  ch('','',
+    {j:'しおりは、もう{主人公|しゅじんこう}だよ。',e:'You’re already the main character, Shiori.',a:3,then:[s('surprise','……','……'), s('happy','……えへへ。ありがと。','…Ehehe. Thanks.')]},
+    {j:'{今|いま}は{友達|ともだち}、いるでしょ？',e:'You have friends now, right?',a:2,then:[s('calm','……うん。{一人|ひとり}、{増|ふ}えたかも。','…Yeah. Maybe one more, lately.')]},
+    {j:'{空気|くうき}って{食|た}べられる？',e:'Can you eat air?',a:1,then:[s('deadpan','……え？','…Huh?'), s('happy','あはははっ！ $N、いまのわざとでしょ！','Ahahaha! $R, you did that on purpose!'), n('I did not do that on purpose. But I’ll take it.')]}),
+  s('default','あ、そうだ！ {明日|あした}、あたしの{家|いえ}{来|こ}ない？ すごいサイト{見|み}せてあげる！','Oh, right! Want to come to my house tomorrow? I’ll show you an amazing website!'),
+  V(['勉強','べんきょう','studying'],['夢','ゆめ','dream'],['主人公','しゅじんこう','protagonist, main character'],['空気を読む','くうきをよむ','to read the room'],['住む','すむ','to live (somewhere)']),
+  go('ch6')
+],
+
+/* ================= CHAPTER 6 ================= */
+ch6:[
+  day('4月20日（日）','Sunday, April 20','{白河家|しらかわけ}'),
+  bgm('home'), bg('outdoors'),
+  n('Her house is a twenty-minute walk from the station, past a shrine, a laundromat, and three vending machines she ranks out loud by quality.'),
+  bg('house'), sp('default'),
+  s('default','どうぞ{上|あ}がって～！ ちょっと{散|ち}らかってるけど！','Come on in~! It’s a little messy though!'),
+  s('fear','あっ、{靴|くつ}！ {靴|くつ}は{脱|ぬ}いでね！','Ah — shoes! Shoes off, please!'),
+  n('I am already halfway up the step in my sneakers. Her mother waves at me from the kitchen with the patience of someone who has seen worse.'),
+  bg('bedroom'),
+  n('Her room: posters, a chunky CRT monitor, a beige PC tower covered in stickers, and enough figures to raise a small army.'),
+  s('smug','じゃーん！ これがあたしのパソコン！ ウィンドウズXPだよ！','Ta-daa! My computer! It’s Windows XP!'),
+  n('The modem screams as it dials in. She looks at me like this is a normal sound for a machine to make.'),
+  s('default','{今日|きょう}は{特別|とくべつ}{授業|じゅぎょう}！ {日本|にほん}のネットの{言葉|ことば}を{教|おし}えてあげる！','Today is a special class! I’ll teach you Japanese internet words!'),
+  s('calm','{教科書|きょうかしょ}には{絶対|ぜったい}{載|の}ってないけど、ネットじゃみんな{使|つか}ってるの。','They’ll never be in your textbook, but everyone online uses them.'),
+  L('netslang'),
+  s('cat','これが「ふたば☆ちゃんねる」！ {匿名|とくめい}の{画像|がぞう}{掲示板|けいじばん}だよ。','This is Futaba Channel! An anonymous image board.'),
+  s('smug','{名前|なまえ}を{入|い}れないと、みんな「としあき」になるの。','If you don’t enter a name, everyone becomes “Toshiaki.”'),
+  me('……なんで？','…Why?'),
+  s('deadpan','……{知|し}らない。','…No idea.'),
+  s('default','じゃあ、{読|よ}んでみよう！ わからない{言葉|ことば}はクリックしてね！','Okay, let’s try reading! Click any word you don’t understand!'),
+  {t:'futaba'},
+  sp('default'),
+  iff(st=>st.futaba>=60,
+    [s('happy','すごーい！ もう{立派|りっぱ}なとしあきだね！','Amazing! You’re a proper Toshiaki now!'), aff(2)],
+    [s('calm','まあ、{最初|さいしょ}はみんな{厨房|ちゅうぼう}だから！ {気|き}にしない、{気|き}にしない！','Well, everyone starts out a chūbō! Don’t worry about it!')]),
+  bg('bedroom_night'),
+  n('We lose track of time. The window goes orange, then purple, then dark.'),
+  s('surprise','……あ、もうこんな{時間|じかん}。','…Oh, it’s already this late.'),
+  s('default','ねえ、{来週|らいしゅう}{渋谷|しぶや}{行|い}かない？ {夏|なつ}の{服|ふく}{買|か}いたいの！','Hey, want to go to Shibuya next week? I want to buy summer clothes!'),
+  me('うん、{行|い}こう。','Yeah, let’s go.'),
+  s('happy','やったー！ {約束|やくそく}だよ！','Yay! It’s a promise!'),
+  V(['靴','くつ','shoes'],['脱ぐ','ぬぐ','to take off (clothes)'],['掲示板','けいじばん','bulletin board, BBS'],['匿名','とくめい','anonymous'],['約束','やくそく','promise']),
+  go('ch7')
+],
+
+/* ================= CHAPTER 7 ================= */
+ch7:[
+  day('4月26日（土）','Saturday, April 26','{渋谷|しぶや}'),
+  bgm('shibuya'), bg('shibuya'),
+  n('Shibuya Scramble. A thousand people cross at once from every direction and somehow nobody collides.'),
+  n('Nobody except Shiori.'),
+  fx('shake'), sp('fearclosed'),
+  s('fearclosed','す、すみません！ すみません！','S-sorry! Sorry!'),
+  s('fear','{人|ひと}、{多|おお}すぎ……','So many people…'),
+  L('endparts'),
+  s('default','でも、いい{天気|てんき}だね！','But it’s nice weather, huh!'),
+  qz('You want to agree with her, warmly.','',[['そうだね。','Yeah, it is.'],['そうだよ。','It IS, I’m telling you.'],['そうだぞ。','It is, dammit.']],
+    [ME, s('happy','ね～！','Riiight~!')],
+    [ME, s('deadpan','……なんで{怒|おこ}ってるの？','…Why do you sound mad?'), s('default','{同意|どうい}するときは「ね」だよ！','When you agree with someone, use ね!')]),
+  bg('s109_out'), sp('happy'),
+  s('happy','ここが109！ ギャルの{聖地|せいち}だよ！','This is 109! The holy land of gyaru!'),
+  n('Around us: deep tans, white eyeshadow, towering platform boots, and flip phones encrusted with rhinestones. Shiori is wearing a turtleneck.'),
+  s('fear','……あたし、{場違|ばちが}いかな……','…Do I not belong here…'),
+  ch('','',
+    {j:'しおりは、しおりのままでいいよ。',e:'You’re fine just the way you are.',a:2,then:[s('calm','……うん。ありがと。','…Yeah. Thanks.')]},
+    {j:'{行|い}こう！',e:'Let’s go in!',a:1,then:[s('happy','うん！','Yeah!')]}),
+  bg('s109_in'), sp('default'),
+  L('casual'),
+  o('{店員|てんいん}','いらっしゃいませー！ {今|いま}、{夏物|なつもの}フェアやってまーす！','Welcome~! We’re having a summer collection fair!'),
+  s('surprise','{水着|みずぎ}だ！ {夏休|なつやす}み、クラスのみんなで{海|うみ}{行|い}くんだって！ {買|か}おうかな……','Swimsuits! The whole class is going to the beach over summer break! Maybe I’ll buy one…'),
+  sp(null),
+  n('She vanishes into a fitting room with three swimsuits. There is a crash. Then a small voice: “I’m fine!”'),
+  sp('swim_calm'),
+  s('swim_calm','……ど、どうかな。{似合|にあ}う？','…H-how is it? Does it suit me?'),
+  ch('……','',
+    {j:'すごく{似合|にあ}ってる！',e:'It really suits you!',a:2,then:[s('swim_shut','……えへへ。じゃあ、これにする。','…Ehehe. Then I’ll get this one.')]},
+    {j:'やばい。',e:'Yabai.',a:1,then:[s('swim','……「やばい」って、いい{意味|いみ}？ {悪|わる}い{意味|いみ}？','…Good “yabai”? Or bad “yabai”?'), me('いい{意味|いみ}で。','The good kind.'), s('swim_shut','そ、そっか……','O-oh…')]},
+    {j:'{普通|ふつう}。',e:'It’s… normal.',a:-1,then:[s('swim_calm','……ふつう。','…“Normal.”'), n('I have made a terrible mistake.'), s('swim','……もう{一着|いっちゃく}、{着|き}てくる。','…I’ll go try on another one.')]}),
+  sp('default'),
+  qz('So what does やばい actually mean?','',[['Both “awesome” and “terrible” — context decides','Context!'],['Only “dangerous”','Only one meaning'],['Only “delicious”','Food only']],
+    [s('smug','そのとおり！ {言|い}い{方|かた}と{顔|かお}で{判断|はんだん}するの。','Exactly! You judge by tone and face.')],
+    [s('default','{今|いま}は“すごい”の{意味|いみ}でもよく{使|つか}うよ！ {昔|むかし}は“{危|あぶ}ない”だけだったけどね。','These days it often means “amazing”! It used to only mean “dangerous.”')]),
+  bg('shibuya_night'), sp('calm'),
+  n('By the time we leave, every building is a glowing screen and the crossing has turned into a river of headlights.'),
+  s('calm','{今日|きょう}、{楽|たの}しかったね。','Today was fun, wasn’t it.'),
+  s('default','あ、{月曜|げつよう}は{体力|たいりょく}テストなんだ。50メートル{走|そう}もあるの。','Oh, Monday is the physical fitness test. There’s a 50-meter dash too.'),
+  s('fear','……{転|ころ}ばないかな。','…I hope I don’t fall.'),
+  me('{転|ころ}ぶでしょ。','You’re definitely going to fall.'),
+  s('angry','ひどーい！','So mean!'),
+  V(['天気','てんき','weather'],['似合う','にあう','to suit, look good on'],['水着','みずぎ','swimsuit'],['普通','ふつう','normal, ordinary'],['やばい','やばい','crazy (good or bad)'],['転ぶ','ころぶ','to trip and fall']),
+  go('ch8')
+],
+
+/* ================= CHAPTER 8 ================= */
+ch8:[
+  day('4月28日（月）','Monday, April 28 — fitness test day','{体力|たいりょく}テスト'),
+  bgm('sports'), bg('school'), sp('gym'),
+  s('gym','$N～！ {見|み}て{見|み}て、{体操服|たいそうふく}！','$R~! Look, look — gym clothes!'),
+  s('gym_calm','……{似合|にあ}う？ なーんてね！','…Does it suit me? Just kidding!'),
+  L('because'),
+  s('gym','{今日|きょう}は{頑張|がんば}るよ。みんな{見|み}てるから！','I’m giving it everything today. Because everyone’s watching!'),
+  qz('“I’m tired, so I’ll rest.”','',[['{疲|つか}れたから、{休|やす}みます。','Because I’m tired, I’ll rest.'],['{疲|つか}れたけど、{休|やす}みます。','I’m tired, but I’ll rest.'],['{休|やす}みますから、{疲|つか}れた。','Because I’ll rest, I got tired.']],
+    [s('gym','そう！ {理由|りゆう}が{先|さき}、{結果|けっか}があと！','Right! Reason first, result after!')],
+    [s('gym_calm','{日本語|にほんご}は「{理由|りゆう}＋から」が{先|さき}だよ。{疲|つか}れたから、{休|やす}む。','In Japanese, “reason + から” comes first. I’m tired, so I rest.')]),
+  n('The 50-meter dash. Shiori is in the third heat. She launches off the line clean — she’s fast, genuinely fast — and then, thirty meters in, her shoelace meets her other shoe.'),
+  fx('shake'), sp(null),
+  o('みんな','あーっ！','Ahhh!'),
+  n('She rolls. Gets up. Keeps running. Crosses the line with gravel on both knees and her arms raised like she won. The whole grade cheers louder for her than for the actual winner.'),
+  sp('gym_shut'),
+  s('gym_shut','……{転|ころ}んじゃった。','…I fell.'),
+  L('volitional'),
+  ch('','',
+    {j:'{保健室|ほけんしつ}、{行|い}こう。',e:'Let’s go to the nurse’s office.',a:2,then:[s('gym_calm','……うん。','…Okay.')]},
+    {j:'かっこよかったよ。',e:'That was really cool.',a:2,then:[s('gym_shut','……ほんと？ ……えへへ。','…Really? …Ehehe.')]},
+    {j:'だから{言|い}ったでしょ。',e:'Told you so.',then:[s('gym','もーっ！ {今|いま}それ{言|い}う!?','Geez! You’re saying that NOW!?')]}),
+  bgm('calm'), bg('library'), sp('sei'),
+  n('After school. Shiori has two band-aids on each knee and a tower of textbooks.'),
+  s('sei','{中間|ちゅうかん}テスト、もうすぐなんだ……','Midterms are coming up soon…'),
+  s('sei_shut','……あたし、{国語|こくご}の{点数|てんすう}で{留学生|りゅうがくせい}に{負|ま}けたらどうしよう……','…What if I lose to an exchange student in Japanese class…'),
+  L('keigo'),
+  s('sei','{先生|せんせい}と{話|はな}すときは、{敬語|けいご}を{使|つか}うの。テストに{出|で}るよ！','You use keigo when you talk to teachers. It’ll be on the test!'),
+  qz('Honorific: “Sensei, will you eat?”','',[['{先生|せんせい}、{召|め}し{上|あ}がりますか？','meshiagarimasu ka'],['{先生|せんせい}、いただきますか？','itadakimasu ka'],['{先生|せんせい}、{食|く}うか？','kuu ka']],
+    [s('sei','さすが！ {先生|せんせい}の{動作|どうさ}だから、{尊敬語|そんけいご}！','Nice! It’s the teacher’s action, so sonkeigo!')],
+    [s('sei_shut','「いただく」は{自分|じぶん}が{食|た}べるとき。{先生|せんせい}には「{召|め}し{上|あ}がる」だよ。','“Itadaku” is for when YOU eat. For a teacher, it’s “meshiagaru.”')]),
+  qz('Humble: “I will go (to your office).”','',[['{参|まい}ります。','mairimasu'],['いらっしゃいます。','irasshaimasu'],['{行|い}くぞ。','iku zo']],
+    [s('sei_calm','{完璧|かんぺき}……あたしより{上手|じょうず}かも……','Perfect… maybe better than me…')],
+    [s('sei','「いらっしゃる」は{相手|あいて}を{上|あ}げる{言葉|ことば}。{自分|じぶん}は「{参|まい}る」で{下|さ}げるの。','“Irassharu” raises the other person. For yourself, lower it with “mairu.”')]),
+  s('sei_calm','……$Nって、ほんとに{上手|じょうず}になったね。','…$R, you’ve really gotten good.'),
+  s('sei_calm','{初|はじ}めて{会|あ}ったとき、「すこしだけ」しか{言|い}えなかったのに。','When we first met, all you could say was “just a little.”'),
+  s('sei','ねえ。{明日|あした}、{祝日|しゅくじつ}でしょ？ {公園|こうえん}の{桜|さくら}……{見|み}に{行|い}かない？','Hey. Tomorrow’s a holiday, right? Want to go see the cherry blossoms at the park?'),
+  s('sei_shut','{八重桜|やえざくら}が、まだ{少|すこ}しだけ{咲|さ}いてるんだって。','Apparently the double cherry blossoms are still blooming, just a little.'),
+  me('うん。{行|い}こう。','Yeah. Let’s go.'),
+  V(['疲れる','つかれる','to get tired'],['休む','やすむ','to rest; to take a day off'],['保健室','ほけんしつ','nurse’s office'],['敬語','けいご','polite/honorific language'],['召し上がる','めしあがる','to eat (honorific)'],['参る','まいる','to go/come (humble)']),
+  go('fin')
+],
+
+/* ================= FINALE ================= */
+fin:[
+  day('4月29日（火・祝）','Tuesday, April 29 — Greenery Day (a national holiday)','{公園|こうえん}'),
+  bgm('romance'), bg('park'),
+  n('The park is half-empty. Families, a man asleep under a newspaper, a dog wearing a sweater. Shiori walks ahead, unusually quiet.'),
+  bg('cherry'), sp('calm'),
+  n('The last double-flowered cherry blossoms of the season. Petals in her hair, on the bench, in my drink.'),
+  s('calm','……きれいだね。','…It’s beautiful, isn’t it.'),
+  s('arms','あのね、$N。{今日|きょう}は、{最後|さいご}の{授業|じゅぎょう}をします。','So, $R. Today, I’ll be giving you one last lesson.'),
+  L('feelings'),
+  s('calm','「{好|す}き」は、{英語|えいご}の“like”と“love”の、まんなかくらい。','“Suki” is somewhere right between “like” and “love.”'),
+  s('smug','「{愛|あい}してる」は……{日本人|にほんじん}は、あんまり{言|い}わないの。{重|おも}すぎるから。','“Aishiteru”… Japanese people don’t really say it. It’s too heavy.'),
+  s('default','{夏目漱石|なつめそうせき}が“I love you”を「{月|つき}が{綺麗|きれい}ですね」って{訳|やく}したって{話|はなし}、{知|し}ってる？','Have you heard the story that Natsume Sōseki translated “I love you” as “The moon is beautiful, isn’t it?”'),
+  s('calm','{本当|ほんとう}かどうかは、わからないんだけどね。','Nobody knows if it really happened, though.'),
+  s('eyesclosed','……でも、すてきだと{思|おも}う。','…But I think it’s lovely.'),
+  n('A long pause. A petal lands on her nose. She doesn’t notice.'),
+  iff(st=>st.aff>=24, [go('end_true')],
+    [iff(st=>st.aff>=12, [go('end_good')], [go('end_orz')])])
+],
+
+end_true:[
+  s('fearclosed','$N。あ、あたし……','$R. I… I…'),
+  s('fear','あたし、$Nのことが……','I… about you, $R…'),
+  n('She stands up too fast, catches her foot on a tree root, and pitches forward. I catch her.'),
+  fx('hop'), s('surprise','……','……'),
+  s('fearclosed','……す、{好|す}き、です。','…I… I like you.'),
+  qz('Answer her — in Japanese.','',[['$Iも、しおりのことが{好|す}きです。','I like you too, Shiori.'],['しおりは{好|す}きですか？','Is Shiori liked?'],['{好|す}きでした。','I liked you. (past tense)']],
+    [ME, s('surprise','……ほんと？','…Really?'), s('happy','……えへへ。{文法|ぶんぽう}も、かんぺき。','…Ehehe. And your grammar’s perfect, too.')],
+    [ME, s('fear','……え、ええっ!? ちょ、ちょっと{待|ま}って、どういう{意味|いみ}!?','…Wh-what!? W-wait, what does that mean!?'), me('ちがう！ {今|いま}も{好|す}き！ {大好|だいす}き！','No! I like you now! I really like you!'), s('happy','……えへへ。{知|し}ってた。','…Ehehe. I knew.')]),
+  s('cat','{月|つき}が{綺麗|きれい}ですね……って、まだお{昼|ひる}だった！','The moon is beautiful… wait, it’s still daytime!'),
+  s('happy','にぱー☆','Nipaa☆'),
+  {t:'end',id:'true'}
+],
+end_good:[
+  s('default','$Nはね、あたしのいちばんの{生徒|せいと}で……','You’re my very best student, $R… and…'),
+  s('happy','いちばんの{友達|ともだち}だよ！','my very best friend!'),
+  s('calm','……{今|いま}は、まだ、それでいいの。','…For now, that’s enough.'),
+  n('She hooks her pinky around mine — a promise, though she doesn’t say what kind. Above us, the last petals let go of the branch.'),
+  {t:'end',id:'good'}
+],
+end_orz:[
+  s('deadpan','……あ。あたし、{用事|ようじ}{思|おも}い{出|だ}した。','…Oh. I just remembered I have something to do.'),
+  s('deadpan2','じゃあね、$N。','See ya, $R.'),
+  sp(null),
+  n('She leaves. She trips on a root on the way out, gets up, and keeps walking without looking back.'),
+  n('I sit alone with a pile of petals and a very thorough vocabulary notebook.'),
+  n('ＯＴＬ'),
+  {t:'end',id:'orz'}
+]
+};
+'use strict';
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const $=q=>document.querySelector(q);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const furi=s=>String(s??'').replace(/\{([^|{}]+)\|([^{}]+)\}/g,'<ruby>$1<rt>$2</rt></ruby>');
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const clone=o=>JSON.parse(JSON.stringify(o));
+const sprURL=n=>SPR+encodeURIComponent(n)+'.png';
+const bgURL=k=>BGS[k]?BGP+encodeURIComponent(BGS[k]):'';
+const pick=a=>a[Math.random()*a.length|0];
+
+/* ---------- persistence ---------- */
+const KEY='akiba_nihongo_v1';
+let SYS={};
+function loadSys(){
+  try{SYS=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){SYS={}}
+  SYS.slots=SYS.slots||{}; SYS.lessons=SYS.lessons||[]; SYS.vocab=SYS.vocab||[]; SYS.slang=SYS.slang||[];
+  SYS.endings=SYS.endings||[]; SYS.best=SYS.best||{};
+  SYS.cfg=Object.assign({speed:28,auto:1,tr:'always',furi:true,sfx:true,vol:.6,bgm:.5,crt:false,op:.92},SYS.cfg||{});
+}
+function saveSys(){try{localStorage.setItem(KEY,JSON.stringify(SYS))}catch(e){}}
+const CFG=()=>SYS.cfg;
+
+/* ---------- state ---------- */
+const G={st:null,stack:[],snap:null,mode:null,log:[],auto:false,skip:false,ctrl:false,inGame:false,autoT:null,lastPrev:''};
+function newState(){return {name:'としあき',romaji:'Toshiaki',honor:'くん',pron:'僕',aff:0,score:0,qtotal:0,met:false,bg:null,pose:null,chapter:'',futaba:0,bgm:null,vocab:[],lessons:[],lastJ:'',lastE:''}}
+const HON_R={'くん':'-kun','さん':'-san','ちゃん':'-chan','先輩':'-senpai','':''};
+const PRON_F={'僕':'{僕|ぼく}','俺':'{俺|おれ}','私':'{私|わたし}','あたし':'あたし'};
+function sub(str,en){
+  const st=G.st||newState(); if(!str) return '';
+  return String(str).replace(/\$([NnIRrLE])/g,(m,k)=>{switch(k){
+    case 'N':return st.name+st.honor; case 'n':return st.name;
+    case 'I':return en?'I':(PRON_F[st.pron]||st.pron);
+    case 'R':return st.romaji+(HON_R[st.honor]??''); case 'r':return st.romaji;
+    case 'L':return st.lastJ||''; case 'E':return st.lastE||'';}});
+}
+
+/* ---------- sound ---------- */
+const SFX={ctx:null,
+  beep(f=880,d=.03,type='square',v=.04){ if(!CFG().sfx) return;
+    try{ this.ctx=this.ctx||new (window.AudioContext||window.webkitAudioContext)(); const c=this.ctx;
+      const o=c.createOscillator(),g=c.createGain(); o.type=type; o.frequency.value=f;
+      g.gain.setValueAtTime(v*CFG().vol,c.currentTime); g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+d);
+      o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime+d+.02);}catch(e){} },
+  click(){this.beep(1400,.035,'square',.05)},
+  blip(w){this.beep(w==='s'?1180:w==='p'?760:620,.022,'square',.025)},
+  ok(){[988,1318,1568].forEach((f,i)=>setTimeout(()=>this.beep(f,.13,'triangle',.18),i*80))},
+  ng(){[330,247].forEach((f,i)=>setTimeout(()=>this.beep(f,.2,'sawtooth',.08),i*130))},
+  pop(){this.beep(660,.08,'triangle',.15);setTimeout(()=>this.beep(990,.08,'triangle',.12),60)}
+};
+const Music={a:new Audio(),cur:null,
+  play(k){ if(G.st&&G.inGame) G.st.bgm=k; if(k===this.cur) return; this.cur=k; const u=k&&MUSIC[k];
+    if(!u){this.a.pause();return} this.a.src=u; this.a.loop=true; this.a.volume=CFG().bgm; this.a.play().catch(()=>{}); },
+  vol(){this.a.volume=CFG().bgm}
+};
+
+/* ---------- sprite controller (blink + lip flap) ---------- */
+const Spr={pose:undefined,talk:false,mouth:false,blinking:false,ft:null,
+  init(){this.wrap=$('#chara');this.img=$('#charaImg');this.loop();},
+  set(p,instant){ if(p===this.pose) return; const was=this.pose; this.pose=p; if(G.st) G.st.pose=p||null;
+    if(!p){this.wrap.classList.remove('show');return}
+    this.render();
+    if(!was){this.wrap.classList.remove('show','enter');void this.wrap.offsetWidth;this.wrap.classList.add('show');if(!instant)this.wrap.classList.add('enter')} },
+  render(){ const P=POSES[this.pose]; if(!P) return; const f=(this.talk&&this.mouth&&P.c)?P.o:(P.c||P.o); this.img.src=sprURL(f); },
+  startTalk(){ const P=POSES[this.pose]; if(!P||!P.c) return; this.talk=true; clearInterval(this.ft);
+    this.ft=setInterval(()=>{this.mouth=!this.mouth; if(!this.blinking) this.render()},120); },
+  stopTalk(){ clearInterval(this.ft); this.talk=false; this.mouth=false; this.render(); },
+  loop(){ setTimeout(()=>{this.blink();this.loop()},2200+Math.random()*3600) },
+  blink(){ const P=POSES[this.pose]; if(!P||!P.b||this.talk||this.blinking) return; const pose=this.pose;
+    const seq=[...P.b,...P.b.slice(0,-1).reverse()]; this.blinking=true; let k=0;
+    const tick=()=>{ if(this.pose!==pose||k>=seq.length){this.blinking=false;this.render();return}
+      this.img.src=sprURL(seq[k++]); setTimeout(tick,k===P.b.length?90:50) }; tick(); },
+  hop(){this.wrap.classList.remove('hop');void this.wrap.offsetWidth;this.wrap.classList.add('hop')}
+};
+function preload(){ const seen=new Set(); Object.values(POSES).forEach(P=>[P.o,P.c,...(P.b||[])].forEach(f=>{if(f&&!seen.has(f)){seen.add(f);new Image().src=sprURL(f)}})); }
+
+/* ---------- background ---------- */
+let bgFront='A';
+function setBg(k,instant){
+  if(G.st&&G.inGame) G.st.bg=k||null;
+  const a=$('#bgA'),b=$('#bgB'),cur=bgFront==='A'?a:b,nxt=bgFront==='A'?b:a;
+  if(!k){cur.classList.remove('on');nxt.classList.remove('on');cur.dataset.k='';nxt.dataset.k='';return}
+  if(cur.dataset.k===k&&cur.classList.contains('on')) return;
+  if(instant){a.style.transition=b.style.transition='none'}
+  nxt.dataset.k=k; nxt.src=bgURL(k); nxt.classList.add('on'); cur.classList.remove('on'); bgFront=bgFront==='A'?'B':'A';
+  if(instant) requestAnimationFrame(()=>requestAnimationFrame(()=>{a.style.transition=b.style.transition=''}));
+}
+
+/* ---------- typewriter tokens ---------- */
+function tokens(str){ const out=[];let hl=false,i=0;
+  while(i<str.length){const c=str[i];
+    if(c==='['){hl=true;i++;continue} if(c===']'){hl=false;i++;continue}
+    if(c==='{'){const j=str.indexOf('}',i);const [b,r]=str.slice(i+1,j).split('|');out.push({h:`<ruby>${esc(b)}<rt>${esc(r||'')}</rt></ruby>`,hl});i=j+1;continue}
+    if(c==='\n'){out.push({h:'<br>',hl});i++;continue}
+    out.push({h:esc(c),hl});i++;}
+  return out;
+}
+
+/* ---------- script runner ---------- */
+function frameCmds(f){let a=SCENES[f.s];for(const k of f.p)a=a[k];return a}
+function snap(idx){const s=clone(G.stack);s[s.length-1].i=idx;G.snap={stack:s,st:clone(G.st)}}
+function run(){
+  G.mode=null;
+  while(G.stack.length){
+    const f=G.stack[G.stack.length-1],cmds=frameCmds(f);
+    if(f.i>=cmds.length){G.stack.pop();continue}
+    const idx=f.i,c=cmds[f.i++];
+    if(exec(c,f,idx)==='wait') return;
+  }
+}
+function exec(c,f,idx){
+  const st=G.st;
+  switch(c.t){
+    case 'say': snap(idx); if(c.p!==undefined) Spr.set(c.p); showLine(c); G.mode='say'; return 'wait';
+    case 'bg': setBg(c.k); return;
+    case 'sp': Spr.set(c.p); return;
+    case 'bgm': Music.play(c.k); return;
+    case 'set': st[c.k]=c.v; return;
+    case 'aff': st.aff+=c.v; return;
+    case 'go': G.stack=[{s:c.s,p:[],i:0}]; return;
+    case 'if': G.stack.push({s:f.s,p:[...f.p,idx,c.c(st)?'y':'n'],i:0}); return;
+    case 'fx': doFx(c.f); return;
+    case 'v': addVocab(c.w); return;
+    case 'lesson': snap(idx); stopSkip(); unlockLesson(c.id); hideBox(); openLesson(c.id,()=>run()); G.mode='modal'; return 'wait';
+    case 'day': snap(idx); st.chapter=c.place; autosave(); hideBox(); showDay(c,()=>run()); G.mode='day'; return 'wait';
+    case 'name': snap(idx); stopSkip(); hideBox(); openNameDialog(()=>run()); G.mode='modal'; return 'wait';
+    case 'futaba': snap(idx); stopSkip(); hideBox(); Futaba.start('story',pct=>{G.st.futaba=pct;Music.play('home');run()}); G.mode='futaba'; return 'wait';
+    case 'end': snap(idx); stopSkip(); showEnding(c.id); G.mode='end'; return 'wait';
+    case 'ch': {
+      snap(idx); stopSkip(); autosave();
+      const opts=c.opts.map(o=>({jp:o.j,en:o.e}));
+      showChoices(c.q,c.en,opts,k=>{const o=c.opts[k]; if(o.a) st.aff+=o.a; if(o.set) Object.assign(st,o.set);
+        addLog('▶',sub(o.j),sub(o.e,true)); if(o.then) G.stack.push({s:f.s,p:[...f.p,idx,'opts',k,'then'],i:0}); run();});
+      G.mode='choice'; return 'wait';
+    }
+    case 'qz': {
+      snap(idx); stopSkip(); autosave();
+      const norm=c.o.map(x=>Array.isArray(x)?{jp:x[0],en:x[1]}:{jp:x,en:''});
+      const order=shuffle(norm.map((x,i)=>i));
+      showChoices('<span class="qtag">QUIZ</span>'+c.q,c.en,order.map(i=>norm[i]),k=>{
+        const i=order[k],ok=i===c.a; st.qtotal++; if(ok){st.score++;st.aff+=1}
+        st.lastJ=sub(norm[i].jp); st.lastE=sub(norm[i].en,true);
+        stamp(ok,norm[c.a].jp,()=>{const key=ok?'ok':'ng'; if(c[key]) G.stack.push({s:f.s,p:[...f.p,idx,key],i:0}); run();});
+      },true);
+      G.mode='choice'; return 'wait';
+    }
+  }
+}
+
+/* ---------- textbox ---------- */
+const TB={typing:false,timer:null,spans:[],k:0,who:null};
+function hideBox(){$('#textbox').classList.add('hidden')}
+function showLine(c){
+  const tb=$('#textbox'); tb.classList.remove('hidden');
+  const jp=sub(c.jp||''),en=sub(c.en||'',true),narr=!jp,who=c.w;
+  tb.classList.toggle('narr',narr);
+  let nj='',nr='';
+  if(who==='s'){ if(G.st.met){nj='白河 栞';nr='Shirakawa Shiori'} else {nj='？？？';nr=''} }
+  else if(who==='p'){nj=G.st.name;nr=G.st.romaji}
+  else if(who&&who!=='n'){nj=who}
+  $('#namebox').style.display=nj?'':'none'; $('#nameJ').innerHTML=furi(nj); $('#nameR').textContent=nr;
+  tb.dataset.who=(who==='s'||who==='p'||who==='n')?who:'other';
+  const toks=narr?[...en].map(ch=>({h:esc(ch)})):tokens(jp);
+  const main=$('#jp'); main.innerHTML=toks.map(t=>`<span class="tk${t.hl?' hl':''}">${t.h}</span>`).join('');
+  $('#en').innerHTML=narr?'':esc(en); $('#en').classList.remove('peek');
+  TB.spans=[...main.querySelectorAll('.tk')]; TB.k=0; TB.who=who; TB.typing=true;
+  $('#cursor').classList.remove('on');
+  G.lastPrev=narr?en:jp.replace(/\{([^|]+)\|[^}]+\}/g,'$1');
+  addLog(nj,jp,en);
+  if(who==='s') Spr.startTalk();
+  clearInterval(TB.timer); clearTimeout(G.autoT);
+  const spd=fast()?0:CFG().speed;
+  if(spd<=0){finishType();return}
+  TB.timer=setInterval(()=>{const s=TB.spans[TB.k++]; if(s){s.classList.add('on'); if(TB.k%2===0&&!narr) SFX.blip(who)} if(TB.k>=TB.spans.length) finishType()},spd);
+}
+function finishType(){
+  clearInterval(TB.timer); TB.spans.forEach(s=>s.classList.add('on')); TB.typing=false;
+  if(TB.who==='s') Spr.stopTalk();
+  $('#cursor').classList.add('on');
+  clearTimeout(G.autoT);
+  if(fast()) G.autoT=setTimeout(advance,45);
+  else if(G.auto) G.autoT=setTimeout(advance,(1400+TB.spans.length*55)/CFG().auto);
+}
+const fast=()=>G.skip||G.ctrl;
+function advance(){
+  if(G.mode!=='say'||modalOpen()) return;
+  if($('#textbox').classList.contains('hidden')&&!TB.typing){ $('#textbox').classList.remove('hidden'); return; }
+  if(TB.typing){finishType();return}
+  clearTimeout(G.autoT); run();
+}
+function stopSkip(){G.skip=false;G.auto=false;clearTimeout(G.autoT);updateQbar()}
+function updateQbar(){$('#qbar [data-q=auto]').classList.toggle('on',G.auto);$('#qbar [data-q=skip]').classList.toggle('on',G.skip)}
+function addLog(n,jp,en){G.log.push({n,jp,en});if(G.log.length>150)G.log.shift()}
+
+/* ---------- choices & stamp ---------- */
+function showChoices(q,en,opts,cb,isQuiz){
+  const box=$('#choices'); box.innerHTML='';
+  if(q||en){const d=document.createElement('div');d.className='cq';d.innerHTML=furi(sub(q))+(en?`<small>${esc(en)}</small>`:'');box.appendChild(d)}
+  opts.forEach((o,k)=>{const b=document.createElement('button');b.className='choice';
+    b.innerHTML=`<span class="key">${k+1}</span>${furi(sub(o.jp))}${o.en&&!isQuiz&&CFG().tr!=='off'?`<small>${esc(sub(o.en,true))}</small>`:''}`;
+    b.onclick=e=>{e.stopPropagation();SFX.click();box.classList.remove('on');box.innerHTML='';cb(k)};
+    box.appendChild(b)});
+  box.classList.add('on');
+  setTimeout(()=>{const f=box.querySelector('.choice');f&&f.focus({preventScroll:true})},30);
+}
+function stamp(ok,ans,cb){
+  const s=$('#stamp'); ok?SFX.ok():SFX.ng();
+  s.innerHTML=`<div class="mk ${ok?'ok':'ng'}">${ok?'○':'×'}</div><div class="lbl">${ok?'せいかい！':'ざんねん…'}</div>${ok?'':`<div class="ans"><ruby>答<rt>こた</rt></ruby>え：${furi(sub(ans))}</div>`}`;
+  s.classList.add('on'); setTimeout(()=>{s.classList.remove('on');cb()},ok?900:1700);
+}
+
+/* ---------- fx / toast / day ---------- */
+function doFx(f){
+  if(f==='shake'){const s=$('#stage');s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake');SFX.beep(110,.18,'sawtooth',.12)}
+  if(f==='flash'){const e=$('#flash');e.classList.remove('go');void e.offsetWidth;e.classList.add('go');SFX.beep(2000,.06,'square',.05)}
+  if(f==='hop'){Spr.hop();SFX.pop()}
+}
+function toast(html){const t=document.createElement('div');t.className='tst';t.innerHTML=html;$('#toast').appendChild(t);setTimeout(()=>t.remove(),2600)}
+function showDay(c,cb){
+  const d=$('#day'); let done=false;
+  d.innerHTML=`<div class="cal"><div class="top">平成15年</div><div class="big">${esc(c.jp)}</div><div class="place">${furi(c.place)}</div><div class="en">${esc(c.en)}</div></div>`;
+  d.classList.add('on'); G.dayDone=()=>{if(done)return;done=true;d.classList.remove('on');G.dayDone=null;cb()};
+  setTimeout(()=>G.dayDone&&G.dayDone(),fast()?500:2800);
+}
+
+/* ---------- unlocks ---------- */
+function unlockLesson(id){ if(!G.st.lessons.includes(id)) G.st.lessons.push(id); if(!SYS.lessons.includes(id)){SYS.lessons.push(id);saveSys()} }
+function addVocab(ws){ let nw=0;
+  ws.forEach(w=>{ if(!G.st.vocab.some(v=>v[0]===w[0])) {G.st.vocab.push(w);nw++} if(!SYS.vocab.some(v=>v[0]===w[0])) SYS.vocab.push(w) });
+  saveSys(); if(nw) toast(`📒 <b>単語ノート</b> +${nw} new words`);
+}
+
+/* ---------- saves ---------- */
+function makeSave(){ if(!G.snap) return null; return {stack:G.snap.stack,st:G.snap.st,log:G.log.slice(-60),t:Date.now(),prev:G.lastPrev} }
+function autosave(){ const d=makeSave(); if(d){SYS.slots.auto=d;saveSys()} }
+function startGame(){
+  closeAllWins(); $('#title').classList.remove('on'); $('#ending').classList.remove('on');
+  G.st=newState(); G.stack=[{s:'pro',p:[],i:0}]; G.log=[]; G.snap=null; G.inGame=true; G.auto=G.skip=false; updateQbar();
+  setBg(null); Spr.set(null); hideBox(); run();
+}
+function loadSave(d){
+  if(!d) return; closeAllWins(); $('#title').classList.remove('on'); $('#ending').classList.remove('on'); $('#futaba').classList.remove('on');
+  G.st=Object.assign(newState(),clone(d.st)); G.stack=clone(d.stack); G.log=clone(d.log||[]); G.inGame=true; G.auto=G.skip=false; updateQbar();
+  setBg(G.st.bg,true); Spr.pose=undefined; Spr.set(G.st.pose,true); Music.cur=null; Music.play(G.st.bgm); hideBox(); run();
+}
+function latestSave(){ return Object.values(SYS.slots).filter(Boolean).sort((a,b)=>b.t-a.t)[0] }
+function toTitle(){
+  if(G.inGame&&G.mode!=='end') autosave();
+  G.inGame=false; G.mode=null; stopSkip(); closeAllWins(); clearInterval(TB.timer); Spr.stopTalk();
+  $('#futaba').classList.remove('on'); $('#ending').classList.remove('on'); $('#choices').classList.remove('on'); $('#day').classList.remove('on'); hideBox();
+  showTitle();
+}
+
+/* ---------- window manager ---------- */
+const WIN=[]; let SCALE=1;
+function openWin({title,html='',w=520,cls='',icon='📄',onClose}){
+  const m=$('#modal'); m.classList.add('on');
+  const win=document.createElement('div'); win.className='win dlg '+cls; win.style.width=w+'px';
+  win.innerHTML=`<div class="win-title"><span>${icon}</span><span class="wt">${title}</span><div class="tbtns"><button class="tbtn" aria-label="Close">✕</button></div></div><div class="win-body">${html}</div>`;
+  m.appendChild(win); const rec={win,onClose}; WIN.push(rec);
+  win.querySelector('.tbtn').onclick=()=>closeWin(rec);
+  // drag by title bar
+  const bar=win.querySelector('.win-title'); let dx=0,dy=0,sx,sy,drag=false;
+  bar.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;drag=true;sx=e.clientX;sy=e.clientY;bar.setPointerCapture(e.pointerId)});
+  bar.addEventListener('pointermove',e=>{if(!drag)return;const nx=dx+(e.clientX-sx)/SCALE,ny=dy+(e.clientY-sy)/SCALE;win.style.transform=`translate(calc(-50% + ${nx}px),calc(-50% + ${ny}px))`;win._nx=nx;win._ny=ny});
+  bar.addEventListener('pointerup',()=>{if(!drag)return;drag=false;dx=win._nx||0;dy=win._ny||0});
+  return {win,body:win.querySelector('.win-body'),close:()=>closeWin(rec)};
+}
+function closeWin(rec){ rec=rec||WIN[WIN.length-1]; const i=WIN.indexOf(rec); if(i<0) return; WIN.splice(i,1); rec.win.remove();
+  if(!WIN.length) $('#modal').classList.remove('on'); SFX.click(); rec.onClose&&rec.onClose(); }
+function closeAllWins(){ while(WIN.length){const r=WIN.pop();r.win.remove()} $('#modal').classList.remove('on') }
+const modalOpen=()=>WIN.length>0;
+function confirmBox(msg,yes,icon='⚠️'){
+  const w=openWin({title:'確認 - Confirm',icon,w:340,html:`<div class="row" style="align-items:flex-start;gap:12px"><div style="font-size:30px">${icon}</div><div>${msg}</div></div><div class="right"><button class="btn" data-y>はい (Yes)</button><button class="btn" data-n>いいえ (No)</button></div>`});
+  w.body.querySelector('[data-y]').onclick=()=>{w.close();yes()}; w.body.querySelector('[data-n]').onclick=()=>w.close();
+  setTimeout(()=>w.body.querySelector('[data-n]').focus(),10);
+}
+function msgBox(title,html,icon='ℹ️',w=380){ const x=openWin({title,icon,w,html:`<div class="row" style="align-items:flex-start;gap:12px"><div style="font-size:30px">${icon}</div><div>${html}</div></div><div class="right"><button class="btn">OK</button></div>`}); x.body.querySelector('.right .btn').onclick=()=>x.close(); return x; }
+
+/* ---------- lessons ---------- */
+function lessonHTML(id){ const L=LESSONS[id]; const num=LESSON_ORDER.indexOf(id)+1;
+  return `<div class="lesson"><span class="lnum">LESSON ${num}</span><h2>${furi(L.t)}</h2><div class="len">${esc(L.e)}</div>${furi(sub(L.b))}</div>`; }
+function openLesson(id,cb){
+  const w=openWin({title:'しおりのノート.txt - メモ帳',icon:'📝',w:620,cls:'notepad',onClose:cb,
+    html:`<div class="np-menu"><span>ファイル(F)</span><span>編集(E)</span><span>書式(O)</span><span>ヘルプ(H)</span></div><div class="np-body">${lessonHTML(id)}</div><div class="np-foot"><button class="btn">わかった！ (Got it)</button></div>`});
+  const b=w.body.querySelector('.np-foot .btn'); b.onclick=()=>w.close(); setTimeout(()=>b.focus({preventScroll:true}),20);
+}
+
+/* ---------- name entry ---------- */
+const RK=(()=>{const m={};KROMA.forEach((r,i)=>{if(!(r in m))m[r]=KHIRA[i]});
+  const yo={k:'き',g:'ぎ',n:'に',h:'ひ',m:'み',r:'り',b:'び',p:'ぴ'}; for(const c in yo){m[c+'ya']=yo[c]+'ゃ';m[c+'yu']=yo[c]+'ゅ';m[c+'yo']=yo[c]+'ょ'}
+  Object.assign(m,{sha:'しゃ',shu:'しゅ',sho:'しょ',she:'しぇ',cha:'ちゃ',chu:'ちゅ',cho:'ちょ',che:'ちぇ',ja:'じゃ',ju:'じゅ',jo:'じょ',je:'じぇ',jya:'じゃ',
+    ti:'てぃ',di:'でぃ',tu:'とぅ',du:'どぅ',fa:'ふぁ',fi:'ふぃ',fe:'ふぇ',fo:'ふぉ',va:'ゔぁ',vi:'ゔぃ',vu:'ゔ',ve:'ゔぇ',vo:'ゔぉ',wi:'うぃ',we:'うぇ',ye:'いぇ',
+    si:'し',zi:'じ',hu:'ふ',ca:'か',ci:'し',cu:'く',ce:'せ',co:'こ',qu:'く',xa:'ざ',ji:'じ',zu:'ず',tsu:'つ',chi:'ち',shi:'し'});return m})();
+function romaToKata(src){
+  let s=src.toLowerCase().replace(/l/g,'r').replace(/([bcdfghjkmnpqrstvwxz])y(?![a-z])/g,'$1i~');
+  let out='',i=0;
+  while(i<s.length){const c=s[i],nx=s[i+1]||'',prev=s[i-1]||'';
+    if(c==='~'){out+='ー';i++;continue}
+    if(c===' '||c==='-'){out+='・';i++;continue}
+    if(!/[a-z]/.test(c)){i++;continue}
+    if(c===nx&&!'aeioun'.includes(c)){out+='っ';i++;continue}
+    if(c==='c'&&nx==='k'){out+='っ';i++;continue}
+    if(c==='c'&&nx==='h'&&!/[aeiou]/.test(s[i+2]||'')){out+='く';i+=2;continue}
+    let m=null; for(const L of [3,2,1]){const p=s.substr(i,L);if(RK[p]){m=p;break}}
+    if(m){out+=RK[m];i+=m.length;continue}
+    if(c==='n'){out+='ん';i++;continue}
+    const vp='aeiou'.includes(prev);
+    if(c==='h'&&vp){i++;continue}
+    if(c==='r'&&vp&&!/[aeiouy]/.test(nx)){out+='ー';i++;continue}
+    const lone={t:'と',d:'ど',k:'く',g:'ぐ',s:'す',z:'ず',b:'ぶ',p:'ぷ',m:'む',f:'ふ',r:'る',v:'ゔ',j:'じ',w:'う',y:'い',c:'く',x:'くす',q:'く',h:'ふ'};
+    out+=lone[c]||''; i++;}
+  return toKata(out);
+}
+function openNameDialog(cb){
+  const w=openWin({title:'名前入力 - Name Entry',icon:'✏️',w:440,
+    html:`<p style="margin:2px 0 8px">Type your name in romaji. It’ll be converted to katakana — the script Japanese uses for foreign names. You can fix the katakana by hand.</p>
+    <div class="row"><label>Name (romaji)</label><input type="text" id="nmR" maxlength="16" placeholder="e.g. Alex" style="flex:1"></div>
+    <div class="row"><label>なまえ (katakana)</label><input type="text" id="nmK" maxlength="10" style="flex:1;font-family:'M PLUS Rounded 1c',sans-serif;font-weight:700"></div>
+    <div class="field" style="font-family:'M PLUS Rounded 1c',sans-serif;font-size:16px;font-weight:700;color:var(--ink)" id="nmP"></div>
+    <div class="right"><button class="btn" id="nmOK">OK</button></div>`});
+  const R=w.body.querySelector('#nmR'),K=w.body.querySelector('#nmK'),P=w.body.querySelector('#nmP'); let edited=false;
+  const clean=v=>v.replace(/[<>&{}\[\]$"'\\]/g,'').trim();
+  const upd=()=>{P.innerHTML=`はじめまして。${esc(K.value||'としあき')}です。<br><small style="font:12px Tahoma;color:#666">Nice to meet you. I’m ${esc(R.value||'Toshiaki')}.</small>`};
+  R.oninput=()=>{if(!edited)K.value=romaToKata(clean(R.value));upd()}; K.oninput=()=>{edited=true;upd()}; upd();
+  const ok=()=>{ G.st.romaji=clean(R.value)||'Toshiaki'; G.st.name=clean(K.value)||(R.value?romaToKata(clean(R.value)):'としあき'); w.close(); };
+  w.body.querySelector('#nmOK').onclick=ok; [R,K].forEach(x=>x.onkeydown=e=>{if(e.key==='Enter')ok();e.stopPropagation()});
+  WIN[WIN.length-1].onClose=cb;
+  setTimeout(()=>R.focus(),30);
+}
+
+/* ---------- save / load window ---------- */
+function slotHTML(k,d){ const lbl=k==='auto'?'AUTO':'No.'+k;
+  if(!d) return `<button class="slot empty" data-k="${k}"><div class="th" style="background:#556"></div><div class="meta"><b>${lbl}</b>— empty —</div></button>`;
+  const dt=new Date(d.t),ds=`${dt.getFullYear()}/${String(dt.getMonth()+1).padStart(2,'0')}/${String(dt.getDate()).padStart(2,'0')} ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;
+  return `<button class="slot" data-k="${k}"><div class="th" style="background-image:url('${bgURL(d.st.bg)}')"></div><div class="meta"><b>${lbl}　${furi(d.st.chapter||'')}</b><span style="color:#555">${ds}</span><div class="pv">${esc((d.prev||'').slice(0,60))}</div></div></button>`;
+}
+function openSaveLoad(mode){
+  const keys=mode==='save'?[1,2,3,4,5,6,7,8]:['auto',1,2,3,4,5,6,7,8];
+  const w=openWin({title:mode==='save'?'セーブ - Save':'ロード - Load',icon:mode==='save'?'💾':'📂',w:600,
+    html:`<div class="slots">${keys.map(k=>slotHTML(k,SYS.slots[k])).join('')}</div>`});
+  w.body.querySelectorAll('.slot').forEach(b=>b.onclick=()=>{const k=b.dataset.k,d=SYS.slots[k];
+    if(mode==='save'){ const doSave=()=>{SYS.slots[k]=makeSave();saveSys();w.close();toast('💾 <b>Saved</b> to slot '+k)};
+      if(!G.snap) return; d?confirmBox('Overwrite slot '+k+'?',doSave):doSave(); }
+    else { if(!d) return; if(G.inGame) confirmBox('Load this save? Unsaved progress will be lost.',()=>loadSave(d)); else loadSave(d); }});
+}
+
+/* ---------- log ---------- */
+function openLog(){
+  const w=openWin({title:'バックログ - Backlog',icon:'📜',w:600,html:`<div class="log">${G.log.map(e=>`<div class="le">${e.n?`<div class="ln">${furi(e.n)}</div>`:''}${e.jp?`<div class="lj">${furi(e.jp)}</div>`:''}<div class="lE">${esc(e.en)}</div></div>`).join('')||'<p>Nothing yet.</p>'}</div>`});
+  const l=w.body.querySelector('.log'); l.scrollTop=l.scrollHeight;
+}
+
+/* ---------- config ---------- */
+function applyCfg(){ const c=CFG(),tb=$('#textbox');
+  tb.classList.remove('tr-always','tr-hover','tr-off'); tb.classList.add('tr-'+c.tr);
+  $('#stage').classList.toggle('nofuri',!c.furi); $('#crt').classList.toggle('on',c.crt);
+  tb.style.setProperty('--op',c.op); Music.vol(); }
+function openConfig(){
+  const c=CFG();
+  const w=openWin({title:'設定 - Settings',icon:'⚙️',w:470,html:`
+  <fieldset><legend>テキスト (Text)</legend>
+    <div class="row"><label>Text speed</label><input type="range" min="0" max="80" step="2" id="cSpd" style="direction:rtl;flex:1"></div>
+    <div class="row"><label>Auto mode speed</label><input type="range" min=".5" max="3" step=".25" id="cAuto" style="flex:1"></div>
+    <div class="row"><label>Textbox opacity</label><input type="range" min=".5" max="1" step=".02" id="cOp" style="flex:1"></div>
+  </fieldset>
+  <fieldset><legend>{日本語|にほんご}サポート (Learning aids)</legend>
+    <div class="row"><label>English translation</label>
+      <label style="min-width:0"><input type="radio" name="tr" value="always"> Show</label>
+      <label style="min-width:0"><input type="radio" name="tr" value="hover"> Hover/tap to peek</label>
+      <label style="min-width:0"><input type="radio" name="tr" value="off"> Hide</label></div>
+    <div class="row"><label><input type="checkbox" id="cFuri"> Show furigana (reading over kanji)</label></div>
+  </fieldset>
+  <fieldset><legend>サウンド・画面 (Sound & screen)</legend>
+    <div class="row"><label><input type="checkbox" id="cSfx"> Sound effects &amp; text blips</label></div>
+    <div class="row"><label>SFX volume</label><input type="range" min="0" max="1" step=".05" id="cVol" style="flex:1"></div>
+    <div class="row"><label>BGM volume</label><input type="range" min="0" max="1" step=".05" id="cBgm" style="flex:1"></div>
+    <div class="row"><label><input type="checkbox" id="cCrt"> CRT scanlines</label></div>
+  </fieldset>
+  <div class="right"><button class="btn" id="cOK">OK</button></div>`.replace(/\{([^|]+)\|([^}]+)\}/g,'<ruby>$1<rt>$2</rt></ruby>')});
+  const B=w.body,q=x=>B.querySelector(x);
+  q('#cSpd').value=c.speed; q('#cAuto').value=c.auto; q('#cOp').value=c.op; q('#cVol').value=c.vol; q('#cBgm').value=c.bgm;
+  q('#cFuri').checked=c.furi; q('#cSfx').checked=c.sfx; q('#cCrt').checked=c.crt; B.querySelector(`[name=tr][value=${c.tr}]`).checked=true;
+  const upd=()=>{c.speed=+q('#cSpd').value;c.auto=+q('#cAuto').value;c.op=+q('#cOp').value;c.vol=+q('#cVol').value;c.bgm=+q('#cBgm').value;
+    c.furi=q('#cFuri').checked;c.sfx=q('#cSfx').checked;c.crt=q('#cCrt').checked;c.tr=B.querySelector('[name=tr]:checked').value;applyCfg();saveSys()};
+  B.querySelectorAll('input').forEach(i=>i.oninput=i.onchange=upd); q('#cOK').onclick=()=>w.close();
+}
+
+/* ---------- notebook ---------- */
+function openNotebook(tab){
+  const tabs=[['lessons','ノート'],['vocab','単語'],['slang','スラング'],['kana','かな'],['status','ステータス']];
+  const w=openWin({title:'しおりのノート - Notebook',icon:'📒',w:680,html:`<div class="tabs">${tabs.map(t=>`<div class="tab" data-t="${t[0]}">${t[1]}</div>`).join('')}</div><div class="tabpane"></div>`});
+  const pane=w.body.querySelector('.tabpane');
+  const show=t=>{w.body.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x.dataset.t===t));SFX.click();NB[t](pane)};
+  w.body.querySelectorAll('.tab').forEach(x=>x.onclick=()=>show(x.dataset.t)); show(tab||'lessons');
+}
+const NB={
+  lessons(p){ const have=SYS.lessons;
+    p.innerHTML=`<div class="nb-split"><div class="nb-list">${LESSON_ORDER.map((id,i)=>have.includes(id)?`<div data-id="${id}">${i+1}. ${esc(LESSONS[id].e)}</div>`:`<div class="lock">${i+1}. ？？？</div>`).join('')}</div><div class="nb-view np-body">${have.length?'<p class="en">← Pick a lesson.</p>':'<p class="en">No lessons yet. Start the story and Shiori will fill this notebook!</p>'}</div></div>`;
+    p.querySelectorAll('[data-id]').forEach(d=>d.onclick=()=>{p.querySelectorAll('[data-id]').forEach(x=>x.classList.remove('sel'));d.classList.add('sel');p.querySelector('.nb-view').innerHTML=lessonHTML(d.dataset.id);p.querySelector('.nb-view').scrollTop=0}); },
+  vocab(p){ const V=SYS.vocab;
+    p.innerHTML=`<div class="row"><input type="search" placeholder="Search…" style="flex:1" id="vs"><span>${V.length} words</span><button class="btn" id="vt">単語テスト (Quiz)</button></div><div style="height:350px;overflow:auto;border:2px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo)"><table class="vt"><thead><tr><th>Word</th><th>Reading</th><th>Meaning</th></tr></thead><tbody></tbody></table></div>`;
+    const tb=p.querySelector('tbody'),draw=f=>{tb.innerHTML=V.filter(v=>!f||v.join(' ').toLowerCase().includes(f.toLowerCase())).map(v=>`<tr><td>${esc(v[0])}</td><td>${esc(v[1])}</td><td>${esc(v[2])}</td></tr>`).join('')||'<tr><td colspan="3" style="font-size:13px;font-family:Tahoma">No words yet — they’re collected as you play.</td></tr>'};
+    draw(''); p.querySelector('#vs').oninput=e=>draw(e.target.value); p.querySelector('#vt').onclick=openVocabTest; },
+  slang(p){ const keys=Object.keys(SLANG);
+    p.innerHTML=`<p style="margin:0 0 6px">${SYS.slang.length} / ${keys.length} decoded on ふたば☆ちゃんねる.</p><table class="vt"><thead><tr><th>Term</th><th>Romaji</th><th>Meaning</th></tr></thead><tbody>${keys.map(k=>{const S=SLANG[k];return SYS.slang.includes(k)?`<tr title="${esc(S.n)}"><td>${esc(S.w)}</td><td>${esc(S.r)}</td><td>${esc(S.m)}<br><small style="color:#777">${esc(S.n)}</small></td></tr>`:`<tr><td style="color:#aaa">？？？</td><td></td><td></td></tr>`}).join('')}</tbody></table>`; },
+  kana(p){ let kata=false; const draw=()=>{p.innerHTML=`<div class="row"><button class="btn ${kata?'':'on'}" data-m="0">ひらがな</button><button class="btn ${kata?'on':''}" data-m="1">カタカナ</button><button class="btn" id="kd" style="margin-left:auto">かな道場 (Practice)</button></div><div class="kgrid">${KROWS.map(r=>r.map(i=>i===null?'<div class="e"></div>':`<div>${kata?toKata(KHIRA[i]):KHIRA[i]}<small>${KROMA[i]}</small></div>`).join('')).join('')}</div>`;
+      p.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{kata=b.dataset.m==='1';draw()}); p.querySelector('#kd').onclick=openKanaDojo;}; draw(); },
+  status(p){ if(!G.st){p.innerHTML='<p>Start a game to see your status.</p>';return} const st=G.st,h=Math.max(0,Math.min(10,Math.round(st.aff/3)));
+    p.innerHTML=`<div class="field" style="font-size:14px;line-height:2">
+    <b>なまえ</b>：${esc(st.name)}（${esc(st.romaji)}）<br>
+    <b>しおりの呼び方</b>：${esc(st.name+st.honor)}　<b>一人称</b>：${esc(st.pron)}<br>
+    <b>ときめき</b>：<span class="hearts">${'♥'.repeat(h)}<span class="off">${'♥'.repeat(10-h)}</span></span><br>
+    <b>クイズ</b>：${st.score} / ${st.qtotal} correct<br>
+    <b>ふたば</b>：${st.futaba?st.futaba+'%':'—'}<br>
+    <b>単語</b>：${st.vocab.length} words　<b>レッスン</b>：${st.lessons.length} / ${LESSON_ORDER.length}<br>
+    <b>現在地</b>：${furi(st.chapter||'—')}</div>`; }
+};
+
+/* ---------- mini games ---------- */
+function openKanaDojo(){
+  let mode='h',streak=0,cur=null;
+  const w=openWin({title:'かな道場 - Kana Dojo',icon:'🥋',w:400,html:`<div class="row"><label style="min-width:0"><input type="radio" name="km" value="h" checked> ひらがな</label><label style="min-width:0"><input type="radio" name="km" value="k"> カタカナ</label><label style="min-width:0"><input type="radio" name="km" value="b"> Both</label></div><div class="big-kana" id="kk"></div><div class="opts4" id="ko"></div><div class="fb-msg" id="km"></div><div class="row" style="justify-content:space-between"><span>Streak: <b id="ks">0</b></span><span>Best: <b id="kb">${SYS.best.kana||0}</b></span></div>`});
+  const B=w.body;
+  const next=()=>{ const i=Math.random()*KROMA.length|0, kata=mode==='k'||(mode==='b'&&Math.random()<.5); cur={i,ch:kata?toKata(KHIRA[i]):KHIRA[i],r:KROMA[i]};
+    const opts=shuffle([cur.r,...shuffle([...new Set(KROMA)].filter(r=>r!==cur.r)).slice(0,3)]);
+    B.querySelector('#kk').textContent=cur.ch;
+    B.querySelector('#ko').innerHTML=opts.map(o=>`<button class="btn">${o}</button>`).join('');
+    B.querySelectorAll('#ko .btn').forEach(b=>b.onclick=()=>{ const ok=b.textContent===cur.r;
+      B.querySelectorAll('#ko .btn').forEach(x=>{x.disabled=true;if(x.textContent===cur.r)x.classList.add('good')}); if(!ok)b.classList.add('bad');
+      ok?(SFX.ok(),streak++):(SFX.ng(),streak=0); if(streak>(SYS.best.kana||0)){SYS.best.kana=streak;saveSys()}
+      B.querySelector('#ks').textContent=streak; B.querySelector('#kb').textContent=SYS.best.kana||0;
+      B.querySelector('#km').textContent=ok?'せいかい！':`${cur.ch} = ${cur.r}`; setTimeout(next,ok?550:1300); }); };
+  B.querySelectorAll('[name=km]').forEach(r=>r.onchange=()=>{mode=r.value;streak=0;next()}); next();
+}
+function openVocabTest(){
+  const V=SYS.vocab; if(V.length<4){msgBox('単語テスト','Learn at least 4 words in the story first!','📒');return}
+  let score=0,tot=0;
+  const w=openWin({title:'単語テスト - Vocab Quiz',icon:'📒',w:440,html:`<div class="big-kana word" id="vw"></div><div class="opts4" id="vo"></div><div class="fb-msg" id="vm"></div><div style="text-align:center">Score: <b id="vsc">0 / 0</b></div>`});
+  const B=w.body;
+  const next=()=>{ const cur=pick(V); const opts=shuffle([cur,...shuffle(V.filter(v=>v[0]!==cur[0])).slice(0,3)]);
+    B.querySelector('#vw').innerHTML=`<ruby>${esc(cur[0])}<rt>${esc(cur[1])}</rt></ruby>`;
+    B.querySelector('#vo').innerHTML=opts.map((o,i)=>`<button class="btn" data-i="${i}" style="font-family:Tahoma;font-size:13px">${esc(o[2])}</button>`).join('');
+    B.querySelectorAll('#vo .btn').forEach(b=>b.onclick=()=>{const ok=opts[b.dataset.i][0]===cur[0];tot++;if(ok)score++;
+      B.querySelectorAll('#vo .btn').forEach(x=>{x.disabled=true;if(opts[x.dataset.i][0]===cur[0])x.classList.add('good')}); if(!ok)b.classList.add('bad');
+      ok?SFX.ok():SFX.ng(); B.querySelector('#vsc').textContent=`${score} / ${tot}`; B.querySelector('#vm').textContent=`${cur[0]}（${cur[1]}）— ${cur[2]}`; setTimeout(next,ok?800:1600)}); };
+  next();
+}
+function openSprites(){
+  const w=openWin({title:'スプライト一覧 - Sprite Viewer',icon:'🖼️',w:640,html:`<p style="margin:0 0 6px">All of Shiori’s poses. Click one to watch it blink and talk.</p><div class="sprgrid" style="max-height:440px;overflow:auto">${Object.keys(POSES).map(k=>`<div data-k="${k}"><img loading="lazy" src="${sprURL(POSES[k].c||POSES[k].o)}" alt=""><br>${k}</div>`).join('')}</div>`});
+  w.body.querySelectorAll('[data-k]').forEach(d=>d.onclick=()=>{
+    const k=d.dataset.k,P=POSES[k];
+    const v=openWin({title:k,icon:'🖼️',w:340,html:`<div style="background:#fff;text-align:center"><img id="pv" style="height:330px" src="${sprURL(P.c||P.o)}"></div><div class="right"><button class="btn" id="pb" ${P.b?'':'disabled'}>まばたき</button><button class="btn" id="pt" ${P.c?'':'disabled'}>しゃべる</button></div><div style="font-size:11px;margin-top:4px;word-break:break-all">${[P.o,P.c,...(P.b||[])].filter(Boolean).map(esc).join('<br>')}</div>`});
+    const img=v.body.querySelector('#pv');
+    v.body.querySelector('#pb').onclick=()=>{const seq=[...P.b,...P.b.slice(0,-1).reverse(),P.c||P.o];seq.forEach((f,i)=>setTimeout(()=>img.src=sprURL(f),i*60))};
+    v.body.querySelector('#pt').onclick=()=>{for(let i=0;i<12;i++)setTimeout(()=>img.src=sprURL(i%2?P.c:P.o),i*120)};
+  });
+}
+function openEndings(){
+  msgBox('エンディング - Endings',Object.keys(ENDINGS).map(k=>SYS.endings.includes(k)?`<div style="margin:4px 0"><b>${ENDINGS[k].t}</b> ${furi(ENDINGS[k].s)}</div>`:`<div style="margin:4px 0;color:#888">？？？ END</div>`).join('')+`<p style="font-size:11px;color:#555">Hint: how Shiori feels depends on your choices — and on how well you learn.</p>`,'🌸',360);
+}
+function openExtras(){
+  const items=[['futaba','📋','ふたば☆ちゃんねる','Slang-decoding image board'],['kana','🥋','かな道場','Hiragana & katakana drill'],['vocab','📒','単語テスト','Quiz the words you’ve learned'],['note','📝','しおりのノート','Lessons, vocab, slang, kana chart'],['spr','🖼️','スプライト一覧','Sprite viewer'],['end','🌸','エンディング','Endings you’ve seen']];
+  const w=openWin({title:'おまけ - Extras',icon:'🎁',w:420,html:items.map(i=>`<button class="btn" data-x="${i[0]}" style="display:flex;width:100%;margin:4px 0;text-align:left;gap:10px;align-items:center"><span style="font-size:20px">${i[1]}</span><span><b>${i[2]}</b><br><small>${i[3]}</small></span></button>`).join('')});
+  w.body.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>({futaba:()=>{w.close();Futaba.start('free',()=>Music.play('title'))},kana:openKanaDojo,vocab:openVocabTest,note:()=>openNotebook(),spr:openSprites,end:openEndings})[b.dataset.x]());
+}
+
+/* ---------- FUTABA ---------- */
+const Futaba={
+  start(mode,cb){ this.mode=mode;this.cb=cb;this.score=0;this.max=0;this.ti=0;this.list=mode==='story'?shuffle(THREADS).slice(0,3):shuffle(THREADS);
+    Music.play('futaba'); $('#futaba').classList.add('on'); this.thread(); },
+  stamp(){ const d=new Date(2003,3,1+Math.random()*28|0,Math.random()*24|0,Math.random()*60|0,Math.random()*60|0),w='日月火水木金土'[d.getDay()],p=n=>String(n).padStart(2,'0');
+    return `03/${p(d.getMonth()+1)}/${p(d.getDate())}(${w})${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`; },
+  no(){return 'No.'+(10000000+Math.random()*8999999|0)},
+  txt(s){ return s.split('\n').map(l=>{const q=l.startsWith('>');let h=furi(esc(l)).replace(/\(\(([a-z_]+)(?:\|([^)]+))?\)\)/g,(m,k,d)=>`<a class="term" data-k="${k}">${esc(d||SLANG[k].w)}</a>`);return q?`<span class="fb-q">${h}</span>`:h}).join('<br>'); },
+  post(p,mine){ const nm=mine?esc(G.st&&G.inGame?G.st.name:'としあき'):'としあき'; const sod=Math.random()<.35?`<span class="fb-sod">そうだねx${1+Math.random()*9|0}</span>`:'<span class="fb-sod">+</span>';
+    return `<table class="fb-r${mine?' mine':''}"><tr><td class="rts">…</td><td class="rtd"><input type="checkbox"> <span class="fb-sub">無念</span> Name <span class="fb-name">${nm}</span> ${this.stamp()} ${this.no()} ${sod}<a class="fb-tr">[訳]</a><blockquote>${this.txt(p.j)}</blockquote><div class="fb-en">${esc(p.e)}</div></td></tr></table>`; },
+  thread(){
+    const T=this.T=this.list[this.ti]; this.solved={}; this.done=false;
+    const terms=[...new Set((T.op.j+T.posts.map(p=>p.j).join('')).match(/\(\(([a-z_]+)/g).map(x=>x.slice(2)))]; this.terms=terms;
+    const story=this.mode==='story';
+    $('#futaba').innerHTML=`<div class="fb-hud"><b>ふたば☆ちゃんねる</b><span>スレ ${this.ti+1} / ${story?this.list.length:'∞'}</span><span>そうだね: <b id="fbS">${this.score}</b></span><span id="fbT"></span><span class="sp"></span><button class="btn" id="fbX">${story?'やめる (quit)':'とじる (close)'}</button></div>
+    <div class="fb-inner"><div class="fb-links">[<a>掲示板に戻る</a>] [<a>ホーム</a>]</div>
+    <div class="fb-h1">二次元裏＠ふたば<small>img.2chan.net</small></div><hr class="fb-hr"><div class="fb-mode">レス送信モード</div>
+    <div class="fb-help">🔍 Click each <span class="term" style="cursor:default">highlighted word</span> to decode it. Click <b>[訳]</b> to see a post’s translation. Once every word is decoded, write a reply at the bottom.</div>
+    <div class="fb-op"><div class="fb-fn">画像ファイル名：<a>${1040000000+Math.random()*9999999|0}.jpg</a>-(${20+Math.random()*180|0} KB)</div><div class="fb-img">${esc(T.img)}</div>
+    <input type="checkbox"> <span class="fb-sub">無念</span> Name <span class="fb-name">としあき</span> ${this.stamp()} ${this.no()} <span class="fb-sod">そうだねx${2+Math.random()*12|0}</span><a class="fb-tr">[訳]</a>
+    <blockquote>${this.txt(T.op.j)}</blockquote><div class="fb-en">${esc(T.op.e)}</div></div>
+    <div id="fbPosts">${T.posts.map(p=>this.post(p)).join('')}</div>
+    <div class="fb-form" id="fbForm"></div></div>`;
+    $('#fbX').onclick=()=>{ if(story) confirmBox('Stop reading Futaba? Your current score counts.',()=>this.finish()); else this.close(); };
+    this.bind($('#futaba')); this.form(); $('#futaba').scrollTop=0; this.hud();
+  },
+  hud(){ $('#fbS').textContent=this.score; const left=this.terms.filter(k=>!this.solved[k]).length; $('#fbT').textContent=left?`解読: ${this.terms.length-left}/${this.terms.length}`:'解読完了！'; },
+  bind(root){ root.querySelectorAll('.fb-tr').forEach(a=>a.onclick=()=>{a.parentElement.querySelector('.fb-en').classList.toggle('on')});
+    root.querySelectorAll('.term[data-k]').forEach(a=>a.onclick=()=>this.decode(a.dataset.k)); },
+  decode(k){
+    const S=SLANG[k];
+    if(this.solved[k]){ msgBox('解読済み',`<div class="dec-ex"><span class="w">${esc(S.w)}</span>（${esc(S.r)}）<br><b>${esc(S.m)}</b><br>${esc(S.n)}</div>`,'📖'); return; }
+    const opts=shuffle([S.m,...shuffle(Object.keys(SLANG).filter(x=>x!==k).map(x=>SLANG[x].m)).slice(0,3)]);
+    const w=openWin({title:'解読 - Decode',icon:'🔍',w:420,html:`<div class="dec-q">「${esc(S.w)}」ってどういう{意味|いみ}？</div><div class="opts4" style="grid-template-columns:1fr">${opts.map((o,i)=>`<button class="btn" data-i="${i}" style="font-family:Tahoma;font-size:13px;text-align:left">${esc(o)}</button>`).join('')}</div><div id="dx"></div>`.replace('{意味|いみ}','<ruby>意味<rt>いみ</rt></ruby>')});
+    w.body.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{
+      const ok=opts[b.dataset.i]===S.m; this.max++; if(ok) this.score++; this.solved[k]=ok?'ok':'ng';
+      if(!SYS.slang.includes(k)){SYS.slang.push(k);saveSys()}
+      w.body.querySelectorAll('[data-i]').forEach(x=>{x.disabled=true;if(opts[x.dataset.i]===S.m)x.style.background='#b9f0cd'}); if(!ok) b.style.background='#f7c0c0';
+      ok?SFX.ok():SFX.ng();
+      w.body.querySelector('#dx').innerHTML=`<div class="dec-ex" style="margin-top:8px">${ok?'✔ <b>せいかい！ そうだね +1</b>':'✘ <b>ざんねん…</b>'}<br><span class="w">${esc(S.w)}</span>（${esc(S.r)}）— ${esc(S.m)}<br>${esc(S.n)}</div><div class="right"><button class="btn">OK</button></div>`;
+      w.body.querySelector('#dx .btn').onclick=()=>w.close();
+      document.querySelectorAll(`#futaba .term[data-k="${k}"]`).forEach(a=>{a.classList.add(ok?'ok':'ng');a.title=`${S.w}: ${S.m}`});
+      this.hud(); this.form();
+    });
+  },
+  form(){
+    const T=this.T,R=T.reply,f=$('#fbForm'); if(this.done) return;
+    const locked=this.terms.some(k=>!this.solved[k]);
+    f.innerHTML=`<div class="fb-task">✎ <b>Your turn:</b> ${esc(R.ctx)}</div>
+    <table><tr><td class="fb-fh">おなまえ</td><td><input type="text" disabled value="${esc(G.st&&G.inGame?G.st.name:'')}" placeholder="としあき"></td></tr>
+    <tr><td class="fb-fh">E-mail</td><td>${R.mail?`<label class="fb-opt"><input type="radio" name="fbm" value="age"> (blank) — bump the thread</label><label class="fb-opt"><input type="radio" name="fbm" value="sage"> sage — don’t bump it</label>`:'<input type="text" disabled>'}</td></tr>
+    <tr><td class="fb-fh">コメント</td><td>${shuffle(R.opts.map((o,i)=>({o,i}))).map(({o,i})=>`<label class="fb-opt"><input type="radio" name="fbc" value="${i}"> <b>${furi(esc(o.j))}</b> <small>(${esc(o.e)})</small></label>`).join('')}</td></tr>
+    <tr><td></td><td><button class="btn" id="fbSend" ${locked?'disabled':''}>返信する</button> ${locked?'<span class="fb-lock">Decode every highlighted word first!</span>':''}</td></tr></table>`;
+    const send=$('#fbSend'); if(send) send.onclick=()=>this.send();
+  },
+  send(){
+    const T=this.T,R=T.reply,c=document.querySelector('[name=fbc]:checked'),m=document.querySelector('[name=fbm]:checked');
+    if(!c||(R.mail&&!m)){ msgBox('ふたば','Pick a comment'+(R.mail?' and an E-mail setting':'')+' first.','⚠️'); return; }
+    const o=R.opts[+c.value],ok=!!o.ok,mok=R.mail?m.value===R.mail:true;
+    this.max+=2+(R.mail?1:0); if(ok) this.score+=2; if(R.mail&&mok) this.score+=1;
+    (ok&&mok)?SFX.ok():SFX.ng(); this.done=true;
+    const posts=$('#fbPosts'); posts.insertAdjacentHTML('beforeend',this.post({j:o.j,e:o.e},true));
+    const re=ok?T.react.ok:T.react.ng; setTimeout(()=>{posts.insertAdjacentHTML('beforeend',this.post(re));this.bind(posts)},400);
+    const last=this.ti>=this.list.length-1&&this.mode==='story';
+    $('#fbForm').innerHTML=`<div class="fb-result ${ok&&mok?'':'bad'}">${ok?'✔ Good reply! <b>+2</b>':`✘ Not quite. The best reply was <b>${furi(esc(R.opts.find(x=>x.ok).j))}</b> — ${esc(R.opts.find(x=>x.ok).e)}`}
+      ${R.mail?`<br>${mok?'✔ E-mail field correct! <b>+1</b>':'✘ E-mail field:'} ${esc(R.why)}`:''}</div>
+      <button class="btn" id="fbNext">${last?'結果を見る (Results)':'次のスレへ (Next thread)'}</button>`;
+    $('#fbNext').onclick=()=>{ if(last) this.finish(); else {this.ti=(this.ti+1)%this.list.length; if(this.ti===0) this.list=shuffle(THREADS); this.thread();} };
+    this.hud(); setTimeout(()=>$('#futaba').scrollTop=$('#futaba').scrollHeight,450);
+  },
+  finish(){
+    const pct=this.max?Math.round(100*this.score/this.max):0;
+    const rank=pct>=90?['神','kami — a legend of the board']:pct>=70?['古参としあき','veteran Toshiaki']:pct>=45?['としあき','a regular Toshiaki']:['厨房','chūbō — a clueless newbie'];
+    const w=openWin({title:'結果 - Results',icon:'📋',w:360,html:`<div style="text-align:center;font-family:'M PLUS Rounded 1c',sans-serif"><div style="font-size:14px">そうだね</div><div style="font-size:44px;font-weight:800;color:#800000">${this.score} / ${this.max}</div><div style="font-size:13px">${pct}%</div><div style="margin-top:8px;font-size:22px;font-weight:800;color:#117743">${rank[0]}</div><div style="font:12px Tahoma">${rank[1]}</div></div><div class="right"><button class="btn">OK</button></div>`});
+    w.body.querySelector('.right .btn').onclick=()=>w.close();
+    WIN[WIN.length-1].onClose=()=>{ $('#futaba').classList.remove('on'); this.cb&&this.cb(pct); };
+  },
+  close(){ $('#futaba').classList.remove('on'); this.cb&&this.cb(0); }
+};
+
+/* ---------- ending ---------- */
+function showEnding(id){
+  const E=ENDINGS[id],st=G.st; if(!SYS.endings.includes(id)){SYS.endings.push(id);saveSys()}
+  SYS.slots.auto=null; saveSys(); Music.play('ending'); hideBox();
+  const h=Math.max(0,Math.min(10,Math.round(st.aff/3)));
+  const e=$('#ending');
+  e.innerHTML=`<img class="e-bg" src="${bgURL(E.bg)}" alt=""><img class="e-ch" src="${sprURL(POSES[E.p].c||POSES[E.p].o)}" alt="">
+  <div class="e-box"><div class="e-t">${E.t}</div><div class="e-s">${furi(E.s)}</div><div class="e-d">${esc(E.d)}</div>
+  <div class="e-stats">ときめき <span class="hearts">${'♥'.repeat(h)}<span class="off" style="color:#666">${'♥'.repeat(10-h)}</span></span><br>
+  Quiz answers: <b>${st.score} / ${st.qtotal}</b><br>Words learned: <b>${st.vocab.length}</b>　Lessons: <b>${st.lessons.length} / ${LESSON_ORDER.length}</b><br>
+  Futaba score: <b>${st.futaba}%</b>　Endings found: <b>${SYS.endings.length} / ${Object.keys(ENDINGS).length}</b></div>
+  <div class="e-credit">あきば☆にほんご ～しおり先生におまかせっ！～<br>Character design &amp; art — Shiori’s creator　/　Scenario &amp; program — Shiori Soft<br>Thank you for playing!</div>
+  <div style="margin-top:14px"><button class="btn" id="eT">タイトルへ (Title)</button></div></div>`;
+  e.classList.add('on'); $('#eT').onclick=()=>{G.inGame=false;toTitle()};
+}
+
+/* ---------- title ---------- */
+function showTitle(){
+  const t=$('#title'); t.classList.add('on'); Music.play('title'); setBg(null); Spr.set(null);
+  t.querySelector('.t-bg').src=bgURL('akiba_night'); t.querySelector('.t-chara').src=sprURL(pick(['cat face eyes open mouth open','happy eyes closed mouth open','default eyes open mouth open']));
+  $('#tCont').disabled=!latestSave();
+}
+function titleAct(a){ SFX.click();
+  ({new:()=>{ if(latestSave()) confirmBox('Start a new game? (Your save slots are kept.)',startGame,'🌸'); else startGame(); },
+    cont:()=>loadSave(latestSave()), load:()=>openSaveLoad('load'), extra:openExtras, config:openConfig})[a]();
+}
+
+/* ---------- input ---------- */
+function qAct(a){ SFX.click(); ({
+  save:()=>{ if(G.mode==='say'||G.mode==='choice') openSaveLoad('save') },
+  load:()=>openSaveLoad('load'), log:openLog, note:()=>openNotebook(),
+  auto:()=>{G.auto=!G.auto;G.skip=false;updateQbar();if(G.auto&&G.mode==='say'&&!TB.typing)finishType()},
+  skip:()=>{G.skip=!G.skip;G.auto=false;updateQbar();if(G.skip&&G.mode==='say')advance()},
+  config:openConfig, hide:()=>{$('#textbox').classList.add('hidden')},
+  title:()=>confirmBox('Return to the title screen? (Progress is auto-saved.)',toTitle)})[a](); }
+
+function bindInput(){
+  const stage=$('#stage');
+  stage.addEventListener('click',e=>{
+    if(e.target.closest('button,.win,#choices,#title,#futaba,#ending,input,a,#en')) return;
+    if(G.mode==='day'&&G.dayDone){G.dayDone();return}
+    if(G.inGame) advance();
+  });
+  $('#en').addEventListener('click',e=>{ if(CFG().tr==='hover'&&!e.currentTarget.classList.contains('peek')){e.currentTarget.classList.add('peek')} else if(G.inGame) advance(); });
+  stage.addEventListener('contextmenu',e=>{ if(G.inGame&&G.mode==='say'&&!modalOpen()){e.preventDefault();$('#textbox').classList.toggle('hidden')} });
+  stage.addEventListener('wheel',e=>{ if(G.inGame&&G.mode==='say'&&!modalOpen()&&e.deltaY<0) openLog() },{passive:true});
+  $('#qbar').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(b){e.stopPropagation();qAct(b.dataset.q)}});
+  document.querySelectorAll('.t-menu button').forEach(b=>b.onclick=e=>{e.stopPropagation();titleAct(b.dataset.t)});
+  $('#title').addEventListener('click',()=>{ const m=$('.t-menu'); if(!m.classList.contains('on')){m.classList.add('on');$('.t-press').style.display='none';SFX.pop()} });
+  document.addEventListener('keydown',e=>{
+    if(e.target.matches('input[type=text],input[type=search]')) return;
+    if(e.key==='Control'){G.ctrl=true;if(G.mode==='say'&&!modalOpen())advance()}
+    if(e.key==='Escape'){ if(modalOpen()){closeWin();return} if($('#startMenu').classList.contains('on')){$('#startMenu').classList.remove('on')} return; }
+    if(modalOpen()) return;
+    if($('#title').classList.contains('on')&&!$('#futaba').classList.contains('on')){ if(e.key==='Enter'||e.key===' '){ const m=$('.t-menu'); if(!m.classList.contains('on')){m.classList.add('on');$('.t-press').style.display='none';e.preventDefault()} } return; }
+    if(!G.inGame) return;
+    if(G.mode==='choice'&&/^[1-4]$/.test(e.key)){const b=document.querySelectorAll('#choices .choice')[+e.key-1];b&&b.click();return}
+    if((e.key==='Enter'||e.key===' ')&&!e.target.closest('button')){e.preventDefault(); if(G.mode==='day'&&G.dayDone)G.dayDone(); else advance()}
+    const k=e.key.toLowerCase();
+    if(G.mode==='say'){ if(k==='a')qAct('auto'); if(k==='l')openLog(); if(k==='n')openNotebook(); if(k==='h')$('#textbox').classList.toggle('hidden'); if(k==='t'&&CFG().tr==='hover')$('#en').classList.toggle('peek'); }
+  });
+  document.addEventListener('keyup',e=>{if(e.key==='Control')G.ctrl=false});
+  addEventListener('beforeunload',()=>{if(G.inGame&&G.mode!=='end')autosave()});
+}
+
+/* ---------- desktop chrome ---------- */
+function fit(){
+  const W=$('#appwin'); if(W.classList.contains('min')) return;
+  const ww=W.offsetWidth,wh=W.offsetHeight,aw=innerWidth-8,ah=innerHeight-36-8;
+  SCALE=Math.max(.25,Math.min(aw/ww,ah/wh,2)); W.style.transform=`scale(${SCALE})`;
+  W.style.left=Math.max(0,(innerWidth-ww*SCALE)/2)+'px'; W.style.top=Math.max(2,(innerHeight-36-wh*SCALE)/2)+'px';
+}
+function bindDesktop(){
+  const sm=$('#startMenu');
+  $('#startBtn').onclick=e=>{e.stopPropagation();sm.classList.toggle('on');$('#startBtn').classList.toggle('on')};
+  document.addEventListener('click',e=>{if(!e.target.closest('#startMenu,#startBtn')){sm.classList.remove('on');$('#startBtn').classList.remove('on')}});
+  sm.querySelectorAll('[data-s]').forEach(li=>li.onclick=()=>{sm.classList.remove('on');$('#startBtn').classList.remove('on');restore();
+    ({note:()=>openNotebook(),cfg:openConfig,kana:openKanaDojo,futaba:()=>{ if(G.inGame) msgBox('ふたば','Finish or leave the story first — Futaba free play is in おまけ (Extras) on the title screen.','📋'); else Futaba.start('free',()=>Music.play('title')) },
+      about:openAbout,title:()=>{ if(G.inGame) confirmBox('Return to the title screen? (Progress is auto-saved.)',toTitle); else toTitle(); }})[li.dataset.s]()});
+  const W=$('#appwin'),task=$('#task');
+  const restore=()=>{W.classList.remove('min');task.classList.add('active');fit()};
+  $('#bMin').onclick=()=>{W.classList.add('min');task.classList.remove('active')};
+  task.onclick=()=>W.classList.contains('min')?restore():(W.classList.add('min'),task.classList.remove('active'));
+  $('#bMax').onclick=()=>{fit();SFX.click()};
+  $('#bX').onclick=()=>{ if(G.inGame) confirmBox('Quit to the title screen? (Progress is auto-saved.)',toTitle); else msgBox('白河 栞','えっ、もう{帰|かえ}っちゃうの……？<br><small style="font-family:Tahoma">Eh, you’re leaving already…?</small>'.replace('{帰|かえ}','<ruby>帰<rt>かえ</rt></ruby>'),'🥺',320); };
+  document.querySelectorAll('.menubar [data-m]').forEach(m=>m.onclick=()=>({
+    file:()=>{ if(G.inGame&&(G.mode==='say'||G.mode==='choice')) openSaveLoad('save'); else openSaveLoad('load') }, view:openConfig, note:()=>openNotebook(), help:openAbout})[m.dataset.m]());
+  document.querySelectorAll('.dicon').forEach(d=>{d.ondblclick=()=>({app:restore,trash:()=>{restore();msgBox('ごみ箱','ごみ箱は空です。<br><small>The Recycle Bin is empty.</small>','🗑️')},pc:()=>{restore();msgBox('マイ コンピュータ','C:\\ (ローカル ディスク)<br>A:\\ (3.5 インチ FD)<br><small>Nothing to see here. Go study.</small>','🖥️')}})[d.dataset.d]();
+    d.onclick=()=>{document.querySelectorAll('.dicon').forEach(x=>x.classList.remove('sel'));d.classList.add('sel')}});
+  const clock=()=>{const d=new Date();$('#clock').textContent=`${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`};clock();setInterval(clock,10000);
+  addEventListener('resize',fit);
+}
+function openAbout(){
+  msgBox('バージョン情報 - About',`<b>あきば☆にほんご</b><br>～しおり先生におまかせっ！～<br>Version 1.03 (Heisei 15 edition)<br><br>
+  <small style="font-family:Tahoma;line-height:1.6">Click / Space / Enter: advance · Ctrl: skip while held · A: auto · L or mouse wheel up: backlog · N: notebook · H or right-click: hide textbox · 1–4: pick a choice · Esc: close window<br><br>
+  Your progress saves automatically in this browser.</small>`,'✿',400);
+}
+
+/* ---------- boot ---------- */
+function petals(){ const p=document.querySelector('.petals'); for(let i=0;i<18;i++){const e=document.createElement('i');e.style.left=(Math.random()*110)+'%';e.style.animationDuration=(7+Math.random()*8)+'s';e.style.animationDelay=(-Math.random()*12)+'s';e.style.transform=`scale(${.6+Math.random()*.8})`;p.appendChild(e)} }
+window.addEventListener('DOMContentLoaded',()=>{
+  loadSys(); applyCfg(); Spr.init(); preload(); bindInput(); bindDesktop(); petals(); fit(); setTimeout(fit,300);
+  showTitle();
+});
+
+</script>
+</body>
+</html>
