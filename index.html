@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>あきば☆にほんご ～しおり先生におまかせっ！～</title>
+<link rel="icon" href="https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
@@ -26,18 +27,87 @@ button{font-family:inherit}
 /* ---------- Win9x primitives ---------- */
 .out{border:2px solid;border-color:var(--hi) var(--dk) var(--dk) var(--hi);box-shadow:inset -1px -1px var(--lo),inset 1px 1px var(--light)}
 .in{border:2px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo);box-shadow:inset 1px 1px var(--dk)}
-.win{background:var(--face);border:2px solid;border-color:var(--light) var(--dk) var(--dk) var(--light);box-shadow:inset -1px -1px var(--lo),inset 1px 1px var(--hi);padding:3px}
-.win-title{height:22px;display:flex;align-items:center;gap:5px;padding:0 3px 0 4px;color:#fff;font-size:13px;
-  background:linear-gradient(90deg,var(--t1),var(--t2));user-select:none;cursor:default}
-.win-title .wt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;letter-spacing:.02em}
-.tbtns{display:flex;gap:2px;margin-left:auto}
-.tbtn{width:18px;height:16px;padding:0;font-size:11px;line-height:10px;background:var(--face);color:#000;
-  border:2px solid;border-color:var(--hi) var(--dk) var(--dk) var(--hi);box-shadow:inset -1px -1px var(--lo);cursor:pointer;margin-left:2px}
-.tbtn:active{border-color:var(--dk) var(--hi) var(--hi) var(--dk)}
-.btn{background:var(--face);color:#000;font-size:13px;padding:5px 16px;min-width:76px;cursor:pointer;
-  border:2px solid;border-color:var(--hi) var(--dk) var(--dk) var(--hi);box-shadow:inset -1px -1px var(--lo),inset 1px 1px var(--light)}
-.btn:active,.btn.on{border-color:var(--dk) var(--hi) var(--hi) var(--dk);box-shadow:inset 1px 1px var(--lo);padding:6px 15px 4px 17px}
-.btn:disabled{color:var(--lo);text-shadow:1px 1px #fff;cursor:default}
+/* ---- vendored from 98.css v0.1.21 (MIT, © Jordan Scales) — https://github.com/jdan/98.css ---- */
+.btn{background:silver;border:none;border-radius:0;box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf;box-sizing:border-box;color:transparent;min-height:23px;min-width:75px;padding:0 12px;text-shadow:0 0 #222}
+.btn:not(:disabled):active{box-shadow:inset -1px -1px #fff,inset 1px 1px #0a0a0a,inset -2px -2px #dfdfdf,inset 2px 2px grey;text-shadow:1px 1px #222}
+.btn:focus{outline:1px dotted #000;outline-offset:-4px}
+.dlg :disabled,.dlg :disabled+label,.dlg input[readonly],.dlg input[readonly]+label{color:grey}
+.dlg :disabled+label,.btn:disabled{text-shadow:1px 1px 0 #fff}
+.btn:disabled{color:grey}
+.window{background:silver;box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #dfdfdf,inset -2px -2px grey,inset 2px 2px #fff;padding:3px}
+.title-bar{align-items:center;background:linear-gradient(90deg,navy,#1084d0);display:flex;justify-content:space-between;padding:3px 2px 3px 3px}
+.title-bar.inactive{background:linear-gradient(90deg,grey,#b5b5b5)}
+.title-bar-text{color:#fff;font-weight:700;letter-spacing:0;margin-right:24px}
+.title-bar-controls{display:flex}
+.title-bar-controls button{display:block;min-height:14px;min-width:16px;padding:0}
+.title-bar-controls button:active{padding:0}
+.title-bar-controls button:focus{outline:none}
+.title-bar-controls button[aria-label=Minimize],.title-bar-controls button[aria-label].minimize{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='6' height='2' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23000' d='M0 0h6v2H0z'/%3E%3C/svg%3E");background-position:bottom 3px left 4px;background-repeat:no-repeat}
+.title-bar-controls button[aria-label=Maximize],.title-bar-controls button[aria-label].maximize{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='9' height='9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 0H0v9h9V0zM8 2H1v6h7V2z' fill='%23000'/%3E%3C/svg%3E");background-position:top 2px left 3px;background-repeat:no-repeat}
+.title-bar-controls button[aria-label=Maximize]:disabled,.title-bar-controls button[aria-label].maximize:disabled{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='10' height='10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10 1H1v9h9V1zM9 3H2v6h7V3z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 0H0v9h9V0zM8 2H1v6h7V2z' fill='gray'/%3E%3C/svg%3E");background-position:top 2px left 3px;background-repeat:no-repeat}
+.title-bar-controls button[aria-label=Restore],.title-bar-controls button[aria-label].restore{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='8' height='9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23000' d='M2 0h6v2H2zM7 2h1v4H7zM2 2h1v1H2zM6 5h1v1H6zM0 3h6v2H0zM5 5h1v4H5zM0 5h1v4H0zM1 8h4v1H1z'/%3E%3C/svg%3E");background-position:top 2px left 3px;background-repeat:no-repeat}
+.title-bar-controls button[aria-label=Help],.title-bar-controls button[aria-label].help{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='6' height='9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23000' d='M0 1h2v2H0zM1 0h4v1H1zM4 1h2v2H4zM3 3h2v1H3zM2 4h2v2H2zM2 7h2v2H2z'/%3E%3C/svg%3E");background-position:top 2px left 5px;background-repeat:no-repeat}
+.title-bar-controls button[aria-label=Close],.title-bar-controls button[aria-label].close{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='8' height='7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0h2v1h1v1h2V1h1V0h2v1H7v1H6v1H5v1h1v1h1v1h1v1H6V6H5V5H3v1H2v1H0V6h1V5h1V4h1V3H2V2H1V1H0V0z' fill='%23000'/%3E%3C/svg%3E");background-position:top 3px left 4px;background-repeat:no-repeat;margin-left:2px}
+.status-bar{gap:1px;display:flex;margin:0 1px}
+.status-bar-field{box-shadow:inset -1px -1px #dfdfdf,inset 1px 1px grey;flex-grow:1;margin:0;padding:2px 3px}
+.dlg fieldset{border-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='5' height='5' fill='gray' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0h5v5H0V2h2v1h1V2H0' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0h4v4H0V1h1v2h2V1H0'/%3E%3C/svg%3E") 2;margin:0;padding:10px;padding-block-start:8px}
+.dlg legend{background:silver}
+.dlg label{align-items:center;display:inline-flex;user-select:none}
+.dlg input[type=checkbox],.dlg input[type=radio]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background:0;border:none;margin:0;opacity:0;position:fixed}
+.dlg input[type=checkbox]+label,.dlg input[type=radio]+label{line-height:13px}
+.dlg input[type=radio]+label{margin-left:18px;position:relative}
+.dlg input[type=radio]+label:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg width='12' height='12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 0H4v1H2v1H1v2H0v4h1v2h1V8H1V4h1V2h2V1h4v1h2V1H8V0z' fill='gray'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 1H4v1H2v2H1v4h1v1h1V8H2V4h1V3h1V2h4v1h2V2H8V1z' fill='%23000'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 3h1v1H9V3zm1 5V4h1v4h-1zm-2 2V9h1V8h1v2H8zm-4 0v1h4v-1H4zm0 0V9H2v1h2z' fill='%23DFDFDF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11 2h-1v2h1v4h-1v2H8v1H4v-1H2v1h2v1h4v-1h2v-1h1V8h1V4h-1V2z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M4 2h4v1h1v1h1v4H9v1H8v1H4V9H3V8H2V4h1V3h1V2z' fill='%23fff'/%3E%3C/svg%3E");content:"";display:inline-block;height:12px;left:-18px;margin-right:6px;position:absolute;top:0;width:12px}
+.dlg input[type=radio]:active+label:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg width='12' height='12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 0H4v1H2v1H1v2H0v4h1v2h1V8H1V4h1V2h2V1h4v1h2V1H8V0z' fill='gray'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 1H4v1H2v2H1v4h1v1h1V8H2V4h1V3h1V2h4v1h2V2H8V1z' fill='%23000'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 3h1v1H9V3zm1 5V4h1v4h-1zm-2 2V9h1V8h1v2H8zm-4 0v1h4v-1H4zm0 0V9H2v1h2z' fill='%23DFDFDF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11 2h-1v2h1v4h-1v2H8v1H4v-1H2v1h2v1h4v-1h2v-1h1V8h1V4h-1V2z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M4 2h4v1h1v1h1v4H9v1H8v1H4V9H3V8H2V4h1V3h1V2z' fill='silver'/%3E%3C/svg%3E")}
+.dlg input[type=radio]:checked+label:after{background:url("data:image/svg+xml;charset=utf-8,%3Csvg width='4' height='4' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M3 0H1v1H0v2h1v1h2V3h1V1H3V0z' fill='%23000'/%3E%3C/svg%3E");content:"";display:block;height:4px;left:-14px;position:absolute;top:4px;width:4px}
+.dlg input[type=checkbox]:focus+label,.dlg input[type=radio]:focus+label{outline:1px dotted #000}
+.dlg input[type=radio][disabled]+label:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg width='12' height='12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 0H4v1H2v1H1v2H0v4h1v2h1V8H1V4h1V2h2V1h4v1h2V1H8V0z' fill='gray'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 1H4v1H2v2H1v4h1v1h1V8H2V4h1V3h1V2h4v1h2V2H8V1z' fill='%23000'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 3h1v1H9V3zm1 5V4h1v4h-1zm-2 2V9h1V8h1v2H8zm-4 0v1h4v-1H4zm0 0V9H2v1h2z' fill='%23DFDFDF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11 2h-1v2h1v4h-1v2H8v1H4v-1H2v1h2v1h4v-1h2v-1h1V8h1V4h-1V2z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M4 2h4v1h1v1h1v4H9v1H8v1H4V9H3V8H2V4h1V3h1V2z' fill='silver'/%3E%3C/svg%3E")}
+.dlg input[type=radio][disabled]:checked+label:after{background:url("data:image/svg+xml;charset=utf-8,%3Csvg width='4' height='4' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M3 0H1v1H0v2h1v1h2V3h1V1H3V0z' fill='gray'/%3E%3C/svg%3E")}
+.dlg input[type=checkbox]+label{margin-left:19px;position:relative}
+.dlg input[type=checkbox]+label:before{background:#fff;box-shadow:inset -1px -1px #fff,inset 1px 1px grey,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a;content:"";display:inline-block;height:13px;left:-19px;margin-right:6px;position:absolute;width:13px}
+.dlg input[type=checkbox]:active+label:before{background:silver}
+.dlg input[type=checkbox]:checked+label:after{background:url("data:image/svg+xml;charset=utf-8,%3Csvg width='7' height='7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M7 0H6v1H5v1H4v1H3v1H2V3H1V2H0v3h1v1h1v1h1V6h1V5h1V4h1V3h1V0z' fill='%23000'/%3E%3C/svg%3E");content:"";display:block;height:7px;left:-16px;position:absolute;width:7px}
+.dlg input[type=checkbox][disabled]+label:before{background:silver}
+.dlg input[type=checkbox][disabled]:checked+label:after{background:url("data:image/svg+xml;charset=utf-8,%3Csvg width='7' height='7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M7 0H6v1H5v1H4v1H3v1H2V3H1V2H0v3h1v1h1v1h1V6h1V5h1V4h1V3h1V0z' fill='gray'/%3E%3C/svg%3E")}
+.dlg input[type=email],.dlg input[type=number],.dlg input[type=password],.dlg input[type=search],.dlg input[type=tel],.dlg input[type=text],.dlg input[type=url]{-webkit-appearance:none;-moz-appearance:none;appearance:none;border:none;border-radius:0}
+.dlg input[type=email],.dlg input[type=number],.dlg input[type=password],.dlg input[type=search],.dlg input[type=tel],.dlg input[type=text],.dlg input[type=url],.dlg select{background-color:#fff;box-shadow:inset -1px -1px #fff,inset 1px 1px grey,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a;box-sizing:border-box;padding:3px 4px}
+.dlg input[type=email],.dlg input[type=password],.dlg input[type=search],.dlg input[type=tel],.dlg input[type=text],.dlg input[type=url],.dlg select{height:21px}
+.dlg input[type=email],.dlg input[type=number],.dlg input[type=password],.dlg input[type=search],.dlg input[type=tel],.dlg input[type=text],.dlg input[type=url]{line-height:2}
+.dlg input[type=email]:disabled,.dlg input[type=email]:read-only,.dlg input[type=number]:disabled,.dlg input[type=number]:read-only,.dlg input[type=password]:disabled,.dlg input[type=password]:read-only,.dlg input[type=search]:disabled,.dlg input[type=search]:read-only,.dlg input[type=tel]:disabled,.dlg input[type=tel]:read-only,.dlg input[type=text]:disabled,.dlg input[type=text]:read-only,.dlg input[type=url]:disabled,.dlg input[type=url]:read-only,.dlg textarea:disabled{background-color:silver}
+.dlg input[type=email]:focus,.dlg input[type=number]:focus,.dlg input[type=password]:focus,.dlg input[type=search]:focus,.dlg input[type=tel]:focus,.dlg input[type=text]:focus,.dlg input[type=url]:focus,.dlg select:focus,.dlg textarea:focus{outline:none}
+.dlg input[type=range]{-webkit-appearance:none;background:transparent;width:100%}
+.dlg input[type=range]:focus{outline:none}
+.dlg input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;background:url("data:image/svg+xml;charset=utf-8,%3Csvg width='11' height='21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0v16h2v2h2v2h1v-1H3v-2H1V1h9V0z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M1 1v15h1v1h1v1h1v1h2v-1h1v-1h1v-1h1V1z' fill='%23C0C7C8'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 1h1v15H8v2H6v2H5v-1h2v-2h2z' fill='%2387888F'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10 0h1v16H9v2H7v2H5v1h1v-2h2v-2h2z' fill='%23000'/%3E%3C/svg%3E");border:none;box-shadow:none;height:21px;transform:translateY(-8px);width:11px}
+.dlg input[type=range].has-box-indicator::-webkit-slider-thumb{background:url("data:image/svg+xml;charset=utf-8,%3Csvg width='11' height='21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0v20h1V1h9V0z' fill='%23fff'/%3E%3Cpath fill='%23C0C7C8' d='M1 1h8v18H1z'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 1h1v19H1v-1h8z' fill='%2387888F'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10 0h1v21H0v-1h10z' fill='%23000'/%3E%3C/svg%3E");transform:translateY(-10px)}
+.dlg input[type=range]::-moz-range-thumb{background:url("data:image/svg+xml;charset=utf-8,%3Csvg width='11' height='21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0v16h2v2h2v2h1v-1H3v-2H1V1h9V0z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M1 1v15h1v1h1v1h1v1h2v-1h1v-1h1v-1h1V1z' fill='%23C0C7C8'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 1h1v15H8v2H6v2H5v-1h2v-2h2z' fill='%2387888F'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10 0h1v16H9v2H7v2H5v1h1v-2h2v-2h2z' fill='%23000'/%3E%3C/svg%3E");border:0;border-radius:0;height:21px;transform:translateY(2px);width:11px}
+.dlg input[type=range].has-box-indicator::-moz-range-thumb{background:url("data:image/svg+xml;charset=utf-8,%3Csvg width='11' height='21' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0v20h1V1h9V0z' fill='%23fff'/%3E%3Cpath fill='%23C0C7C8' d='M1 1h8v18H1z'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 1h1v19H1v-1h8z' fill='%2387888F'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10 0h1v21H0v-1h10z' fill='%23000'/%3E%3C/svg%3E");transform:translateY(0)}
+.dlg input[type=range]::-webkit-slider-runnable-track{background:#000;border-bottom:1px solid grey;border-right:1px solid grey;box-shadow:1px 0 0 #fff,1px 1px 0 #fff,0 1px 0 #fff,-1px 0 0 #a9a9a9,-1px -1px 0 #a9a9a9,0 -1px 0 #a9a9a9,-1px 1px 0 #fff,1px -1px #a9a9a9;box-sizing:border-box;height:2px;width:100%}
+.dlg input[type=range]::-moz-range-track{background:#000;border-bottom:1px solid grey;border-right:1px solid grey;box-shadow:1px 0 0 #fff,1px 1px 0 #fff,0 1px 0 #fff,-1px 0 0 #a9a9a9,-1px -1px 0 #a9a9a9,0 -1px 0 #a9a9a9,-1px 1px 0 #fff,1px -1px #a9a9a9;box-sizing:border-box;height:2px;width:100%}
+::-webkit-scrollbar{width:16px}
+::-webkit-scrollbar:horizontal{height:17px}
+::-webkit-scrollbar-corner{background:#dfdfdf}
+::-webkit-scrollbar-track{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='2' height='2' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M1 0H0v1h1v1h1V1H1V0z' fill='silver'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M2 0H1v1H0v1h1V1h1V0z' fill='%23fff'/%3E%3C/svg%3E")}
+::-webkit-scrollbar-thumb{background-color:#dfdfdf;box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf}
+::-webkit-scrollbar-button:horizontal:end:increment,::-webkit-scrollbar-button:horizontal:start:decrement,::-webkit-scrollbar-button:vertical:end:increment,::-webkit-scrollbar-button:vertical:start:decrement{display:block}
+::-webkit-scrollbar-button:vertical:start{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='17' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M15 0H0v16h1V1h14V0z' fill='%23DFDFDF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M2 1H1v14h1V2h12V1H2z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16 17H0v-1h15V0h1v17z' fill='%23000'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M15 1h-1v14H1v1h14V1z' fill='gray'/%3E%3Cpath fill='silver' d='M2 2h12v13H2z'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M8 6H7v1H6v1H5v1H4v1h7V9h-1V8H9V7H8V6z' fill='%23000'/%3E%3C/svg%3E");height:17px}
+::-webkit-scrollbar-button:vertical:end{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='17' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M15 0H0v16h1V1h14V0z' fill='%23DFDFDF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M2 1H1v14h1V2h12V1H2z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16 17H0v-1h15V0h1v17z' fill='%23000'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M15 1h-1v14H1v1h14V1z' fill='gray'/%3E%3Cpath fill='silver' d='M2 2h12v13H2z'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11 6H4v1h1v1h1v1h1v1h1V9h1V8h1V7h1V6z' fill='%23000'/%3E%3C/svg%3E");height:17px}
+::-webkit-scrollbar-button:horizontal:start{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='17' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M15 0H0v16h1V1h14V0z' fill='%23DFDFDF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M2 1H1v14h1V2h12V1H2z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16 17H0v-1h15V0h1v17z' fill='%23000'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M15 1h-1v14H1v1h14V1z' fill='gray'/%3E%3Cpath fill='silver' d='M2 2h12v13H2z'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 4H8v1H7v1H6v1H5v1h1v1h1v1h1v1h1V4z' fill='%23000'/%3E%3C/svg%3E");width:16px}
+::-webkit-scrollbar-button:horizontal:end{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='17' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M15 0H0v16h1V1h14V0z' fill='%23DFDFDF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M2 1H1v14h1V2h12V1H2z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16 17H0v-1h15V0h1v17z' fill='%23000'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M15 1h-1v14H1v1h14V1z' fill='gray'/%3E%3Cpath fill='silver' d='M2 2h12v13H2z'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M7 4H6v7h1v-1h1V9h1V8h1V7H9V6H8V5H7V4z' fill='%23000'/%3E%3C/svg%3E");width:16px}
+.title-bar-controls button{background:silver;border:none;border-radius:0;box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf;box-sizing:border-box;width:16px;height:14px;margin-left:2px;cursor:pointer}
+.title-bar-controls button:active{box-shadow:inset -1px -1px #fff,inset 1px 1px #0a0a0a,inset -2px -2px #dfdfdf,inset 2px 2px grey}
+
+/* ---- 98.css adapted to this game: Japanese pixel font, sizes ---- */
+.window,.btn,#taskbar,#startMenu{font-family:'DotGothic16','MS UI Gothic',sans-serif;font-size:12px;color:#222}
+.title-bar{height:22px;padding:2px 2px 2px 3px;gap:6px}
+.title-bar-text{display:flex;align-items:center;gap:5px;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:12px;font-weight:400;letter-spacing:.02em;margin-right:8px;user-select:none}
+.title-bar-text .ti{width:16px;height:16px;flex:none;object-fit:contain}
+.title-bar-controls{flex:none}
+.btn{font-size:12px;cursor:pointer}
+.btn.on{box-shadow:inset -1px -1px #fff,inset 1px 1px #0a0a0a,inset -2px -2px #dfdfdf,inset 2px 2px grey;background:repeating-conic-gradient(#fff 0 25%,silver 0 50%) 0 0/2px 2px;text-shadow:1px 1px #222}
+.status-bar{margin-top:2px}
+.status-bar-field{margin:0;padding:2px 5px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#sbPlace{flex:2}#sbVer{flex:0 0 auto}
+.dlg label{gap:0}
+.dlg input[type=checkbox]+label,.dlg input[type=radio]+label{line-height:15px}
 .menubar{display:flex;gap:2px;font-size:12px;padding:2px 2px 3px;user-select:none}
 .menubar span{padding:1px 7px;cursor:pointer}
 .menubar span:hover{background:var(--t1);color:#fff}
@@ -45,13 +115,13 @@ button{font-family:inherit}
 /* ---------- desktop ---------- */
 #icons{position:absolute;left:10px;top:10px;display:flex;flex-direction:column;gap:14px;z-index:0}
 .dicon{width:74px;text-align:center;color:#fff;font-size:12px;cursor:pointer;user-select:none}
-.dicon .ig{font-size:30px;display:block;filter:drop-shadow(1px 1px 0 rgba(0,0,0,.4))}
+.dicon .ig{display:block;width:32px;height:32px;margin:0 auto 4px}
+.dicon .ig img{width:32px;height:32px;object-fit:contain;display:block}
 .dicon span:last-child{padding:1px 3px}
 .dicon:focus span:last-child,.dicon.sel span:last-child{background:var(--t1);outline:1px dotted #fff}
+.dicon.sel .ig img{filter:sepia(1) hue-rotate(190deg) saturate(4) brightness(.75)}
 #appwin{position:absolute;transform-origin:0 0;z-index:2}
 #appwin.min{display:none}
-#appwin .win-title{height:20px}
-#appwin .ico{font-size:13px}
 #stage{position:relative;width:800px;height:600px;overflow:hidden;background:#000;cursor:default;user-select:none}
 #stage.shake{animation:shake .45s}
 @keyframes shake{0%,100%{transform:translate(0,0)}15%{transform:translate(-9px,4px)}30%{transform:translate(8px,-5px)}45%{transform:translate(-6px,3px)}60%{transform:translate(5px,-2px)}80%{transform:translate(-2px,1px)}}
@@ -59,9 +129,8 @@ button{font-family:inherit}
 /* ---------- taskbar ---------- */
 #taskbar{position:fixed;left:0;right:0;bottom:0;height:32px;background:var(--face);border-top:2px solid var(--hi);
   box-shadow:inset 0 1px var(--light);display:flex;align-items:center;gap:4px;padding:2px 3px calc(2px + env(safe-area-inset-bottom,0px));z-index:50}
-#startBtn{display:flex;align-items:center;gap:5px;font-weight:bold;height:24px;padding:0 7px;min-width:0}
-.flag{width:16px;height:14px;display:inline-grid;grid-template-columns:1fr 1fr;gap:1px;transform:skewY(-6deg)}
-.flag i{display:block}.flag i:nth-child(1){background:#f35325}.flag i:nth-child(2){background:#81bc06}.flag i:nth-child(3){background:#05a6f0}.flag i:nth-child(4){background:#ffba08}
+#startBtn{display:flex;align-items:center;gap:4px;font-weight:bold;height:24px;min-height:24px;padding:0 6px;min-width:0}
+#startBtn img,.task img{width:16px;height:16px;object-fit:contain;flex:none}
 .task{height:24px;display:flex;align-items:center;gap:5px;padding:0 10px;font-size:12px;min-width:170px;max-width:220px;cursor:pointer;
   border:2px solid;border-color:var(--hi) var(--dk) var(--dk) var(--hi);white-space:nowrap;overflow:hidden}
 .task.active{border-color:var(--dk) var(--hi) var(--hi) var(--dk);background:repeating-conic-gradient(#fff 0 25%,var(--face) 0 50%) 0 0/2px 2px;font-weight:bold}
@@ -70,9 +139,11 @@ button{font-family:inherit}
 #startMenu{position:fixed;left:2px;bottom:34px;width:230px;display:none;z-index:60;padding:2px}
 #startMenu.on{display:flex}
 #startMenu .side{width:24px;background:linear-gradient(0deg,var(--t1),var(--t2));color:#fff;writing-mode:vertical-rl;transform:rotate(180deg);
-  font-weight:bold;font-size:15px;padding:8px 2px;letter-spacing:.06em}
+  font:bold 17px Arial,'DotGothic16',sans-serif;padding:8px 2px;letter-spacing:.02em}
+#startMenu .side span{font-weight:normal;color:#cfd8ff}
 #startMenu ul{list-style:none;margin:0;padding:2px;flex:1}
-#startMenu li{padding:7px 8px;font-size:13px;cursor:pointer;display:flex;gap:9px;align-items:center}
+#startMenu li{padding:5px 14px 5px 6px;font-size:13px;cursor:pointer;display:flex;gap:10px;align-items:center}
+#startMenu li img{width:24px;height:24px;object-fit:contain;flex:none}
 #startMenu li:hover{background:var(--t1);color:#fff}
 #startMenu hr{border:0;border-top:1px solid var(--lo);border-bottom:1px solid #fff;margin:3px 2px}
 
@@ -106,9 +177,9 @@ button{font-family:inherit}
 #namebox small{font-size:10px;font-weight:400;opacity:.85;letter-spacing:.03em}
 #textbox[data-who="p"] #namebox{background:linear-gradient(180deg,#9ab7ff,#4466c8)}
 #textbox[data-who="other"] #namebox{background:linear-gradient(180deg,#d6a1ff,#8c4fc0)}
-#jp{font-family:'M PLUS Rounded 1c','Hiragino Maru Gothic ProN',sans-serif;font-size:22px;line-height:1.95;color:var(--ink);font-weight:700;
+#jp{font-family:'M PLUS Rounded 1c','Hiragino Maru Gothic ProN',sans-serif;font-size:22px;line-height:2.05;color:var(--ink);font-weight:700;
   text-shadow:0 1px 0 #fff;min-height:44px}
-#jp rt{font-size:.48em;color:var(--pink-dk);font-weight:700;letter-spacing:0}
+#jp rt{font-size:.56em;color:var(--pink-dk);font-weight:700;letter-spacing:0}
 .nofuri #jp rt,.nofuri .furi rt{visibility:hidden}
 .tk{opacity:0}.tk.on{opacity:1}
 #jp .hl{color:var(--pink-dk);border-bottom:2px dotted var(--pink)}
@@ -130,12 +201,14 @@ button{font-family:inherit}
 .cq{font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800;color:#fff;background:rgba(35,121,76,.92);padding:6px 18px;border-radius:14px;
   font-size:15px;max-width:600px;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.3)}
 .cq small{display:block;font:12px Tahoma,sans-serif;opacity:.9;margin-top:2px}
-.cq rt{font-size:.5em}
+.cq rt{font-size:.58em}
 .qtag{background:var(--pink);color:#fff;padding:0 7px;border-radius:7px;margin-right:6px;font-size:12px}
 .choice{width:520px;padding:7px 16px;border-radius:24px;border:2px solid var(--green);background:rgba(255,255,255,.95);cursor:pointer;
   font-family:'M PLUS Rounded 1c',sans-serif;font-weight:700;font-size:18px;color:var(--ink);text-align:center;line-height:1.7;
   box-shadow:0 3px 0 var(--green-dk);transition:transform .08s}
-.choice rt{font-size:.5em;color:var(--pink-dk)}
+.choice rt{font-size:.58em;color:var(--pink-dk)}
+.choice .rom{display:block;font:italic 13px Tahoma,Verdana,sans-serif;color:var(--green-dk);line-height:1.25;margin-top:1px}
+.choice .rom+small{margin-top:1px}
 .choice small{display:block;font:12px Tahoma,sans-serif;color:#557;line-height:1.2}
 .choice:hover,.choice:focus-visible{background:#fff0f7;border-color:var(--pink-dk);box-shadow:0 3px 0 var(--pink-dk);transform:translateX(4px)}
 .choice .key{float:left;font-size:11px;color:var(--lo);margin-top:6px}
@@ -146,11 +219,11 @@ button{font-family:inherit}
 #stamp .mk.ng{color:#3d7dff;-webkit-text-stroke:4px #fff}
 #stamp .lbl{font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800;font-size:26px;color:#fff;text-shadow:0 2px 0 #000,0 0 8px #000}
 #stamp .ans{margin-top:6px;background:rgba(255,255,255,.95);padding:5px 14px;border-radius:10px;font-family:'M PLUS Rounded 1c',sans-serif;font-weight:700;font-size:16px;color:var(--ink)}
-#stamp .ans rt{font-size:.5em}
+#stamp .ans rt{font-size:.58em}
 @keyframes stampin{from{transform:scale(2.4) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
 
 #toast{position:absolute;right:14px;top:14px;z-index:8;display:flex;flex-direction:column;gap:6px;align-items:flex-end;pointer-events:none}
-.tst{background:#ffffe1;border:1px solid #000;padding:6px 10px;font-size:12px;box-shadow:2px 2px 0 rgba(0,0,0,.3);animation:tin .3s}
+.tst{background:#ffffe1;border:1px solid #000;padding:4px 8px;font-size:12px;animation:tin .25s}
 .tst b{color:var(--green-dk)}
 @keyframes tin{from{transform:translateX(30px);opacity:0}}
 
@@ -177,8 +250,7 @@ button{font-family:inherit}
 .t-pre{font:12px Tahoma,sans-serif;letter-spacing:.06em;color:var(--pink-dk)}
 .t-main{white-space:nowrap;font-size:58px;font-weight:800;line-height:1.1;color:#fff;letter-spacing:-.02em;transform:rotate(-3deg);transform-origin:left;margin:8px 0 4px;
   text-shadow:3px 3px 0 var(--green),-3px -3px 0 var(--green),3px -3px 0 var(--green),-3px 3px 0 var(--green),0 4px 0 var(--green),6px 8px 0 var(--pink)}
-.t-main .star{color:#ffe14d;display:inline-block;animation:spin 6s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+.t-main .star{color:#ffe14d;display:inline-block}
 .t-sub{font-weight:800;font-size:22px;color:var(--pink-dk);margin-left:30px}
 .t-en{font:italic 12px Tahoma,sans-serif;color:#7a5568;margin:6px 0 0 34px}
 .t-press{position:absolute;left:0;width:470px;bottom:110px;text-align:center;font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800;color:var(--green-dk);font-size:18px;animation:blinkt 1.2s steps(2) infinite}
@@ -206,9 +278,11 @@ button{font-family:inherit}
 .row{display:flex;gap:8px;align-items:center;margin:6px 0}
 .row label{min-width:150px}
 .right{display:flex;justify-content:flex-end;gap:6px;margin-top:10px}
-fieldset{border:2px groove var(--hi);margin:6px 0;padding:6px 10px}
+fieldset{margin:6px 0}
 legend{padding:0 4px}
-input[type=text],input[type=search]{font-family:inherit;font-size:14px;padding:3px 5px;border:2px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo);background:#fff}
+.dlg input[type=text],.dlg input[type=search]{font-family:inherit;font-size:14px;height:24px}
+.row label.nm{min-width:0;margin-right:14px}
+.mbi{width:32px;height:32px;flex:none;display:block}
 .field{background:#fff;border:2px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo);padding:8px}
 
 /* notepad / lessons */
@@ -220,7 +294,7 @@ input[type=text],input[type=search]{font-family:inherit;font-size:14px;padding:3
 .np-foot{display:flex;justify-content:flex-end;padding:6px 3px 2px}
 .lesson .lnum{display:inline-block;background:var(--pink);color:#fff;font-weight:800;font-size:11px;padding:0 9px;border-radius:9px}
 .lesson h2{margin:4px 0 0;font-size:22px;color:var(--green-dk)}
-.lesson h2 rt,.lesson rt{font-size:.5em;color:var(--pink-dk)}
+.lesson h2 rt,.lesson rt{font-size:.58em;color:var(--pink-dk)}
 .lesson .len{font:italic 13px Tahoma,sans-serif;color:#7a5568;margin-bottom:8px}
 .lesson h4{margin:12px 0 2px;color:var(--pink-dk);font-size:15px}
 .lesson p{margin:6px 0}
@@ -270,7 +344,7 @@ input[type=text],input[type=search]{font-family:inherit;font-size:14px;padding:3
 .log .le{padding:6px 0;border-bottom:1px dotted #ccc}
 .log .ln{font-size:11px;color:var(--green-dk)}
 .log .lj{font-family:'M PLUS Rounded 1c',sans-serif;font-weight:700;font-size:15px;color:var(--ink);line-height:1.8}
-.log .lj rt{font-size:.5em;color:var(--pink-dk)}
+.log .lj rt{font-size:.58em;color:var(--pink-dk)}
 .log .lE{font:12px Tahoma,sans-serif;color:#566}
 
 /* games */
@@ -295,7 +369,7 @@ input[type=text],input[type=search]{font-family:inherit;font-size:14px;padding:3
 .e-box{position:absolute;left:40px;top:60px;width:430px;font-family:'M PLUS Rounded 1c',sans-serif}
 .e-t{font-size:52px;font-weight:800;color:#fff;text-shadow:0 0 14px var(--pink),3px 3px 0 var(--pink-dk)}
 .e-s{font-size:22px;font-weight:800;color:#ffd6ea;margin-bottom:12px}
-.e-s rt{font-size:.5em}
+.e-s rt{font-size:.58em}
 .e-d{font:14px/1.6 Tahoma,sans-serif;color:#f4eef1;margin-bottom:14px}
 .e-stats{background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:10px 14px;font:13px/1.8 Tahoma,sans-serif}
 .e-stats b{color:#ffd6ea}
@@ -350,18 +424,84 @@ blockquote{margin:6px 0 6px 2.5em;line-height:1.6}
 .dec-ex{background:#fff;border:2px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo);padding:8px 10px;font-family:Tahoma,sans-serif;font-size:13px;line-height:1.5}
 .dec-ex .w{font-family:'M PLUS Rounded 1c',sans-serif;font-size:22px;font-weight:800;color:#800000}
 
+/* ---------- niconico douga (2008 style) ---------- */
+#nico{position:absolute;inset:0;z-index:13;display:none;flex-direction:column;background:#fff;color:#333;cursor:auto;user-select:text;
+  font:12px 'MS PGothic','Hiragino Kaku Gothic Pro','Meiryo',sans-serif}
+#nico.on{display:flex}
+.nc-top{height:26px;flex:none;display:flex;align-items:center;gap:14px;padding:0 6px 0 10px;background:linear-gradient(#555,#2a2a2a);color:#bbb;border-bottom:1px solid #000}
+.nc-logo{font:bold 14px Arial,'MS PGothic',sans-serif;color:#fff}
+.nc-logo small{font-size:10px;color:#aaa;margin-left:2px;font-weight:normal}
+.nc-nav{font-size:11px}
+.nc-hud{margin-left:auto;font-size:11px;color:#ddd}.nc-hud b{color:#ffd400}
+.nc-top .btn{min-height:18px;height:18px;min-width:0;padding:0 8px;font-size:11px}
+.nc-info{flex:none;padding:5px 10px 5px;border-bottom:1px solid #ccc;background:#f7f7f7}
+.nc-title{font-weight:bold;font-size:15px;color:#000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nc-meta{font-size:11px;color:#666;margin-top:2px}
+.nc-tags{font-size:11px;margin-top:3px;color:#666}.nc-tags a{color:#0033cc;text-decoration:underline;margin-right:9px}
+.nc-main{flex:none;display:flex;gap:8px;padding:6px 8px 0}
+.nc-left{width:400px;flex:none}
+.nc-screen{position:relative;width:400px;height:300px;background:#000;overflow:hidden}
+.nc-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85;animation:ncpan 30s linear infinite alternate}
+@keyframes ncpan{from{transform:scale(1.04)}to{transform:scale(1.16) translateX(-12px)}}
+.nc-aa{position:absolute;left:0;right:0;top:50%;margin-top:-24px;text-align:center;white-space:pre;font:bold 36px 'MS PGothic',sans-serif;color:#fff;
+  text-shadow:2px 2px 0 #000,-2px 2px 0 #000,2px -2px 0 #000,-2px -2px 0 #000}
+.nc-aa.bounce{animation:ncbounce .7s ease-in-out infinite alternate}.nc-aa.sway{animation:ncsway 1.1s ease-in-out infinite alternate}.nc-aa.float{animation:ncfloat 2.6s ease-in-out infinite alternate}
+@keyframes ncbounce{to{transform:translateY(-16px)}}@keyframes ncsway{from{transform:translateX(-40px) rotate(-6deg)}to{transform:translateX(40px) rotate(6deg)}}@keyframes ncfloat{to{transform:translateY(-10px) scale(1.06)}}
+.nc-screen.paused .nc-bg,.nc-screen.paused .nc-aa{animation-play-state:paused}
+.nc-screen.paused::after{content:"一時停止中";position:absolute;right:6px;bottom:4px;font:bold 11px 'MS PGothic',sans-serif;color:#fff;background:rgba(0,0,0,.6);padding:1px 6px}
+.nc-live{position:absolute;left:6px;top:6px;z-index:2;background:#d00;color:#fff;font-weight:bold;font-size:11px;padding:1px 7px}
+.nc-cmt{position:absolute;inset:0;pointer-events:none;z-index:3}
+.nc-c{position:absolute;left:100%;white-space:nowrap;font:bold 20px/24px 'MS PGothic','Hiragino Kaku Gothic Pro',sans-serif;color:#fff;
+  text-shadow:1px 1px 0 #000,-1px 1px 0 #000,1px -1px 0 #000,-1px -1px 0 #000,0 0 3px #000}
+.nc-c.fixed{left:0;right:0;text-align:center}
+.nc-c.big{font-size:32px;line-height:38px}
+.nc-c.hl{color:#ffe600}
+.nc-c.mine{outline:2px solid #ffe600;outline-offset:1px}
+.nc-jihou{position:absolute;left:0;right:0;top:44%;z-index:4;display:none;text-align:center;padding:8px 4px;background:rgba(0,0,0,.75);color:#fff;font:bold 14px 'MS PGothic',sans-serif;border-top:1px solid #888;border-bottom:1px solid #888}
+.nc-jihou.on{display:block}
+.nc-ctrl{height:22px;display:flex;align-items:center;gap:6px;padding:0 5px;background:linear-gradient(#f4f4f4,#d4d4d4);border:1px solid #999;border-top:0}
+.nc-pb{width:26px;height:16px;padding:0;font-size:9px;line-height:14px;border:1px solid #888;background:linear-gradient(#fff,#d8d8d8);cursor:pointer;color:#333}
+.nc-seek{flex:1;height:6px;background:#bbb;border:1px solid #888;position:relative}
+.nc-seek i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(#ff9a3c,#e05a00)}
+.nc-time{font:11px Tahoma,sans-serif;color:#333;min-width:76px;text-align:right}
+.nc-input{display:flex;gap:4px;padding:4px 0 0}
+.nc-input input{height:20px;border:1px solid #999;font-size:12px;padding:0 4px;background:#f2f2f2;min-width:0}
+.nc-input .cmd{width:74px}.nc-input .txt{flex:1}
+.nc-input button{font-size:11px;border:1px solid #999;background:linear-gradient(#fff,#ddd);padding:0 8px;color:#999}
+.nc-right{flex:1;min-width:0;display:flex;flex-direction:column;height:348px;border:1px solid #999}
+.nc-lh{display:flex;background:linear-gradient(#f4f4f4,#d4d4d4);border-bottom:1px solid #999;font-size:11px;padding:2px 6px}.nc-lh span:first-child{flex:1}
+.nc-list{flex:1;overflow:auto}
+.nc-row{display:flex;gap:6px;padding:1px 6px;border-bottom:1px solid #eee;font-size:12px}
+.nc-row:nth-child(even){background:#f6f6f6}
+.nc-row span:first-child{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.nc-row span:last-child{color:#888;font:11px Tahoma,sans-serif}
+.nc-row.hl{background:#fff4a8!important}.nc-row.mine{background:#e6efff!important}
+.nc-panel{flex:1;min-height:0;overflow:auto;margin:6px 8px 8px;border:1px solid #bbb;background:#f3f3f3;padding:6px 10px}
+.nc-q{font:bold 14px 'M PLUS Rounded 1c',sans-serif;color:#222;margin-bottom:5px}
+.nc-q small{display:block;font:12px Tahoma,sans-serif;color:#555;margin-top:1px}
+.nc-q rt{font-size:.58em}
+.nc-opts{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.nc-opts .btn{font:13px 'M PLUS Rounded 1c',sans-serif;text-align:left;padding:3px 8px;line-height:1.35;min-height:28px}
+.nc-opts .btn small{display:block;font:11px Tahoma,sans-serif}
+.nc-opts .btn .rom{display:block;font:italic 11px Tahoma,sans-serif}
+.nc-opts .btn.good{background:#b9f0cd}.nc-opts .btn.bad{background:#f7c0c0}
+.nc-res{font:12px/1.55 Tahoma,sans-serif;color:#333}
+.nc-res .w{font:800 16px 'M PLUS Rounded 1c',sans-serif;color:#c25000}
+.nc-res .ok{color:#117743;font-weight:bold}.nc-res .ng{color:#c03030;font-weight:bold}
+.nc-go{display:flex;justify-content:flex-end;margin-top:4px}
+.fb-opt .rom{font:italic 11px Tahoma,sans-serif;color:#117743;margin-left:4px}
 </style>
 </head>
 <body>
 <div id="icons">
-  <div class="dicon" data-d="pc" tabindex="0"><span class="ig">🖥️</span><span>マイ コンピュータ</span></div>
-  <div class="dicon" data-d="trash" tabindex="0"><span class="ig">🗑️</span><span>ごみ箱</span></div>
-  <div class="dicon" data-d="app" tabindex="0"><span class="ig">🌸</span><span>あきば☆にほんご</span></div>
+  <div class="dicon" data-d="pc" tabindex="0"><span class="ig"><img src="https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/exe.png" alt=""></span><span>マイ コンピュータ</span></div>
+  <div class="dicon" data-d="trash" tabindex="0"><span class="ig"><img src="https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/trash%20bin.webp" alt=""></span><span>ごみ箱</span></div>
+  <div class="dicon" data-d="app" tabindex="0"><span class="ig"><img src="https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/icon.png" alt=""></span><span>あきば☆にほんご</span></div>
 </div>
 
-<div id="appwin" class="win">
-  <div class="win-title"><span class="ico">🌸</span><span class="wt">あきば☆にほんご ～しおり先生におまかせっ！～</span>
-    <div class="tbtns"><button class="tbtn" id="bMin" aria-label="Minimize">_</button><button class="tbtn" id="bMax" aria-label="Maximize">□</button><button class="tbtn" id="bX" aria-label="Close">✕</button></div></div>
+<div id="appwin" class="window">
+  <div class="title-bar"><div class="title-bar-text"><img class="ti" src="https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/icon.png" alt="">あきば☆にほんご ～しおり先生におまかせっ！～</div>
+    <div class="title-bar-controls"><button id="bMin" aria-label="Minimize"></button><button id="bMax" aria-label="Maximize"></button><button id="bX" aria-label="Close"></button></div></div>
   <div class="menubar"><span data-m="file">ファイル(<u>F</u>)</span><span data-m="view">表示(<u>V</u>)</span><span data-m="note">ノート(<u>N</u>)</span><span data-m="help">ヘルプ(<u>H</u>)</span></div>
   <div id="stage">
     <img id="bgA" class="bg" alt=""><img id="bgB" class="bg" alt="">
@@ -399,30 +539,33 @@ blockquote{margin:6px 0 6px 2.5em;line-height:1.6}
         <button data-t="extra">おまけ<small>Extras</small></button>
         <button data-t="config">せってい<small>Settings</small></button>
       </div>
-      <div class="t-copy">©2003 Shiori Soft　Ver.1.03</div>
+      <div class="t-copy">©2008 Shiori Soft　Ver.1.04</div>
     </div>
     <div id="futaba"></div>
+    <div id="nico"></div>
     <div id="flash"></div>
     <div id="modal"></div>
     <div id="crt"></div>
   </div>
+  <div class="status-bar"><p class="status-bar-field" id="sbPlace">タイトル</p><p class="status-bar-field" id="sbQuiz">クイズ —</p><p class="status-bar-field" id="sbVer">Ver.1.04</p></div>
 </div>
 
 <div id="taskbar">
-  <button class="btn" id="startBtn"><span class="flag"><i></i><i></i><i></i><i></i></span>スタート</button>
-  <div class="task active" id="task">🌸 あきば☆にほんご</div>
+  <button class="btn" id="startBtn"><img src="https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/windows.png" alt="">スタート</button>
+  <div class="task active" id="task"><img src="https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/icon.png" alt="">あきば☆にほんご</div>
   <div id="tray">🔊 <span id="clock"></span></div>
 </div>
-<div id="startMenu" class="win">
-  <div class="side">Shiori 2003</div>
+<div id="startMenu" class="window">
+  <div class="side">Shiori<span>98</span></div>
   <ul>
-    <li data-s="note">📒 しおりのノート</li>
-    <li data-s="kana">🥋 かな道場</li>
-    <li data-s="futaba">📋 ふたば☆ちゃんねる</li>
-    <li data-s="cfg">⚙️ 設定</li>
+    <li data-s="note"><img src="https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/exe.png" alt="">しおりのノート</li>
+    <li data-s="kana"><img src="https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/exe.png" alt="">かな道場</li>
+    <li data-s="futaba"><img src="https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/exe.png" alt="">ふたば☆ちゃんねる</li>
+    <li data-s="nico"><img src="https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/exe.png" alt="">ニコニコ動画</li>
+    <li data-s="cfg"><img src="https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/exe.png" alt="">設定</li>
     <hr>
-    <li data-s="about">✿ バージョン情報</li>
-    <li data-s="title">⏻ タイトルに戻る</li>
+    <li data-s="about"><img src="https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/icon.png" alt="">バージョン情報</li>
+    <li data-s="title"><img src="https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/icon.png" alt="">タイトルに戻る</li>
   </ul>
 </div>
 <script>
@@ -434,7 +577,7 @@ const BGP = 'https://file.garden/ZyUgbYyEhGi7VILo/jplearn/backgrounds/';
 
 /* ---- MUSIC: paste a URL (mp3/ogg) next to any key and it will play on loop in those scenes ---- */
 const MUSIC = {
-  title:'', akiba:'', school:'', cafe:'', arcade:'', calm:'', home:'', futaba:'', shibuya:'', sports:'', romance:'', ending:''
+  title:'', akiba:'', school:'', cafe:'', arcade:'', calm:'', home:'', futaba:'', nico:'', shibuya:'', sports:'', romance:'', ending:''
 };
 
 const BGS = {
@@ -482,7 +625,7 @@ const POSES = {
 };
 
 /* ---- Lessons (shown as Shiori’s notepad). {漢字|かな} = furigana ---- */
-const LESSON_ORDER = ['greet','intro','honor','pron','copula','particles','order','verbs','teform','adj','compare','counters','keigohear','pasttai','netslang','endparts','casual','because','volitional','keigo','feelings'];
+const LESSON_ORDER = ['greet','intro','honor','pron','copula','particles','order','verbs','teform','adj','compare','counters','keigohear','pasttai','netslang','nicoslang','gameterms','endparts','casual','because','volitional','keigo','feelings'];
 const LESSONS = {
 greet:{t:'あいさつ', e:'Greetings & survival phrases', b:`
 <p class="en">“These are the words you’ll use every single day! Learn these and you can survive anywhere in Japan… probably!”</p>
@@ -694,6 +837,50 @@ netslang:{t:'ネットスラング{入門|にゅうもん}', e:'Intro to Japanes
 <tr><td>Abbreviations</td><td>kwsk = くわしく (details!). Just the first letters of each kana!</td></tr>
 </table>
 <p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">These are FUN to read, but please don’t use them at a job interview… or with your host family’s grandma. Click the highlighted words on the board to decode them!</span></p>`},
+
+nicoslang:{t:'ニコニコ{動画|どうが}の{言葉|ことば}', e:'NicoNico Douga words', b:`
+<p class="en">“On Nico, everyone’s comments fly right across the video. Here’s how to read them!”</p>
+<table class="lt">
+<tr><th>Japanese</th><th>Meaning</th></tr>
+<tr><td>ニコ{動|どう}</td><td>Short for ニコニコ動画: the video site where comments scroll across the screen (since 2006).</td></tr>
+<tr><td>うp{主|ぬし}</td><td>The uploader. うp (upload) + 主 (owner).</td></tr>
+<tr><td>うぽつ</td><td>“Thanks for uploading!” アップロード + {乙|おつ}. The classic first comment.</td></tr>
+<tr><td>わこつ</td><td>The live-stream version: {枠|わく} (broadcast slot) + 乙.</td></tr>
+<tr><td>{初見|しょけん}です</td><td>“First time watching!”</td></tr>
+<tr><td>wwww</td><td>LOL. From {笑|わら}い. More w = more laughing.</td></tr>
+<tr><td>8888</td><td>Applause! 8 is はち → パチパチ, the sound of clapping.</td></tr>
+<tr><td>{弾幕|だんまく}</td><td>A “bullet curtain”: everyone posting the same comment at once.</td></tr>
+<tr><td>{職人|しょくにん}</td><td>A comment artist who draws pictures or lyrics with comments.</td></tr>
+<tr><td>{才能|さいのう}の{無駄遣|むだづか}い</td><td>“A waste of talent” — big praise for amazing skill spent on something silly.</td></tr>
+<tr><td>{自重|じちょう}しろ</td><td>“Show some restraint!” — for uploaders who go way overboard.</td></tr>
+<tr><td>{時報|じほう}</td><td>Time signal. Nico used to break into every video on the hour to announce the time.</td></tr>
+<tr><td>ue ・ shita</td><td>Comment commands, typed in romaji: {上|うえ} (top) and {下|した} (bottom).</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">Look at the video titles: 「{歌|うた}ってみた」「{踊|おど}ってみた」「{弾|ひ}いてみた」. That’s the て-form + みる, “try doing.” {歌|うた}ってみた = “I tried singing it.” You already know this grammar!</span></p>`},
+
+gameterms:{t:'ゲームの{言葉|ことば}', e:'Game & visual novel words', b:`
+<p class="en">“Japanese gamers talk in their own code. Learn it and you can read any game magazine… or any forum fight.”</p>
+<table class="lt">
+<tr><th>Japanese</th><th>Meaning</th></tr>
+<tr><td>ギャルゲー</td><td>Galge: a game about romancing girls. ギャル + ゲーム.</td></tr>
+<tr><td>{美少女|びしょうじょ}ゲーム</td><td>Bishōjo game: the wider genre of PC games with cute-girl art.</td></tr>
+<tr><td>{乙女|おとめ}ゲー</td><td>Otome game: romance games made for women.</td></tr>
+<tr><td>ノベルゲー</td><td>Novel game (visual novel): mostly reading, with choices.</td></tr>
+<tr><td>{選択肢|せんたくし}</td><td>A choice / option.</td></tr>
+<tr><td>{好感度|こうかんど}</td><td>Affection level — how much a character likes you.</td></tr>
+<tr><td>フラグが{立|た}つ</td><td>“A flag goes up”: an event or route has been triggered.</td></tr>
+<tr><td>{攻略|こうりゃく}する</td><td>To beat a game — or to win a heroine’s route. {攻略本|こうりゃくぼん} = strategy guide.</td></tr>
+<tr><td>{個別|こべつ}ルート</td><td>A heroine’s own story branch.</td></tr>
+<tr><td>{立|た}ち{絵|え}</td><td>A character sprite (like the one you’re looking at!).</td></tr>
+<tr><td>イベントCG ・ CG{回収|かいしゅう}</td><td>A special full-screen picture · collecting every one.</td></tr>
+<tr><td>{既読|きどく}スキップ</td><td>Skipping text you’ve already read.</td></tr>
+<tr><td>{積|つ}みゲー</td><td>A game you bought and haven’t played (it’s “stacked” on the pile).</td></tr>
+<tr><td>{神|かみ}ゲー ・ クソゲー</td><td>God-tier game · garbage game.</td></tr>
+<tr><td>{格|かく}ゲー ・ {音|おと}ゲー</td><td>Fighting game · rhythm game.</td></tr>
+<tr><td>ラスボス ・ {裏|うら}ボス</td><td>Final boss · secret post-game boss.</td></tr>
+<tr><td>{縛|しば}りプレイ</td><td>A self-imposed challenge run (“tied-up play”).</td></tr>
+</table>
+<p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">Gamers shorten everything to about four syllables: ゲームセンター → ゲーセン, {格闘|かくとう}ゲーム → {格|かく}ゲー, ロールプレイングゲーム → RPG. …And yes, $R, you’re playing a ノベルゲー right now. I noticed.</span></p>`},
 
 endparts:{t:'{終助詞|しゅうじょし}', e:'Sentence-ending particles', b:`
 <p class="en">These tiny sounds at the end of sentences carry all the feeling.</p>
@@ -907,6 +1094,58 @@ const THREADS = [
   react:{ok:{j:'ｗｗｗ', e:'lololol'}, ng:{j:'こわい', e:'Scary.'}}}
 ];
 
+/* ---- NicoNico Douga: terms and videos ----
+   Video comments: [seconds, text, {pos:'ue'|'shita', big:true}]
+   Events: {t, k:'term'} = decode a comment, or {t, ctx, opts:[{j,e,ok}], why} = choose what to post */
+const NICO_TERMS = {
+  upotsu:{w:'うぽつ',r:'upotsu',m:'Thanks for uploading!',n:'アップロード + 乙 (thanks for the effort). The classic first comment on a video.'},
+  wakotsu:{w:'わこつ',r:'wakotsu',m:'Thanks for starting the stream!',n:'枠 (broadcast slot) + 乙. Used on ニコニコ生放送 (live streams).'},
+  shoken:{w:'初見',r:'shoken',m:'First time watching',n:'Literally “first look.” 「初見です」 = “I’m new here!”'},
+  wara:{w:'wwwww',r:'wara',m:'LOL',n:'From 笑 (warai, laugh). More w = harder laughing.'},
+  hakushu:{w:'8888888',r:'pachipachi',m:'Applause (clap clap clap)',n:'8 is read はち (hachi) → パチパチ, the sound of clapping.'},
+  danmaku:{w:'弾幕',r:'danmaku',m:'A wall of identical comments',n:'Literally “bullet curtain,” borrowed from shoot-’em-up games.'},
+  shokunin:{w:'職人',r:'shokunin',m:'A skilled comment artist',n:'Literally “craftsman.” They draw pictures or karaoke lyrics with colored comments.'},
+  muda:{w:'才能の無駄遣い',r:'sainō no mudazukai',m:'A waste of talent (high praise!)',n:'Amazing skill spent on something ridiculous. A classic tag.'},
+  jichou:{w:'自重しろ',r:'jichō shiro',m:'Show some restraint! (you went too far)',n:'自重 = self-restraint. Shouted, lovingly, at uploaders who go overboard.'},
+  korehidoi:{w:'これはひどい',r:'kore wa hidoi',m:'“This is terrible” (said with love)',n:'A famous tag for gloriously dumb videos.'},
+  ruisen:{w:'涙腺崩壊',r:'ruisen hōkai',m:'My tear ducts collapsed (so moving!)',n:'涙腺 = tear glands, 崩壊 = collapse.'},
+  zenore:{w:'全俺が泣いた',r:'zen-ore ga naita',m:'It made me cry (every part of me cried)',n:'A parody of movie ads: 全米が泣いた (“All of America cried”).'},
+  jihou:{w:'時報',r:'jihō',m:'The hourly time signal',n:'On the hour, Nico broke into every video to announce the time. Viewers greeted it like an old friend.'},
+  gj:{w:'GJ',r:'jī jei',m:'Good job!',n:'Read ジージェー. Short for “good job.”'},
+  tera:{w:'テラワロス',r:'tera warosu',m:'MEGA LOL',n:'テラ (tera-, as in terabyte) + ワロス (a twist on ワロタ).'},
+  chudoku:{w:'中毒',r:'chūdoku',m:'Addictive (can’t stop rewatching)',n:'Literally “poisoning.” 中毒性が高い = super addictive.'},
+  nicochu:{w:'ニコ厨',r:'nikochū',m:'A NicoNico addict',n:'ニコ + 厨 (from 厨房). Usually self-mocking.'},
+  upnushi:{w:'うp主',r:'uppunushi',m:'The uploader',n:'うp (upload) + 主 (owner, master).'}
+};
+const VIDEOS = [
+ {title:'【歌ってみた】桜の季節に、春のうたを歌ってみた', user:'さくらもち', tags:['歌ってみた','癒し','涙腺崩壊','春'], bg:'cherry', aa:'♪～(´ε｀ )', move:'float', dur:34,
+  c:[[.3,'うぽつ'],[.7,'うぽつー'],[1,'うぽつ！'],[2.6,'初見です'],[4,'きれいな声'],[5.6,'イントロいいね'],[7.4,'うまい'],[9,'声が優しい'],[11,'鳥肌'],[12.6,'うp主天才か'],[14.4,'サビきたあああ'],[15.5,'キタ━(ﾟ∀ﾟ)━!'],[17.4,'泣いた'],[18.6,'涙腺崩壊'],[22.5,'全俺が泣いた'],[24.5,'もう終わり…？'],[26,'リピート確定']],
+  ev:[{t:1.4,k:'upotsu'},{t:19.4,k:'ruisen'},
+      {t:27.5,ctx:'The song just ended and everyone is clapping. Join in!',opts:[{j:'88888888',e:'(applause)',ok:1},{j:'うぽつ',e:'Thanks for uploading'},{j:'わこつ',e:'Thanks for starting the stream'}],
+       why:'8 = はち → パチパチ (clapping). うぽつ belongs at the start of a video, and わこつ is for live streams.', danmaku:'8888888'}]},
+ {title:'【ネコ】箱に入りたいネコ　これはひどいｗｗ', user:'ぬこ好き', tags:['ネコ','これはひどい','癒し','ぬこ'], bg:'park', aa:'(=^･ω･^=)', move:'bounce', dur:30,
+  c:[[.4,'ぬこおおおお'],[1,'うぽつ'],[2,'かわいい'],[3.6,'箱ちいさすぎｗ'],[5,'入れるのか…？'],[6.6,'むりだろｗｗ'],[8,'がんばれ'],[9.6,'wwwwwwww'],[10,'wwwwwww'],[12.5,'これはひどいｗ'],[13,'これはひどい'],[16,'ぬこ鍋思い出した'],[18,'何回見てもｗｗ'],[20,'中毒性高い'],[24,'ループして見てる']],
+  ev:[{t:10.8,k:'tera',show:'テラワロス'},{t:13.4,k:'korehidoi'},
+      {t:21,ctx:'The cat just fell out of the box AGAIN. It’s hilarious. React!',opts:[{j:'wwwwwwww',e:'lololol',ok:1},{j:'{涙腺崩壊|るいせんほうかい}',e:'My tear ducts collapsed'},{j:'わこつ',e:'Thanks for starting the stream'}],
+       why:'wwww is laughter — w for 笑 (warai). 涙腺崩壊 is for moving videos, not funny cats.', danmaku:'wwwwwwww'}]},
+ {title:'【作業用BGM】レトロゲーム風メドレー【1時間】', user:'BGM職人', tags:['作業用BGM','神曲','中毒','ゲーム音楽'], bg:'arcade_in', aa:'♪ ♫ ♪', move:'float', dur:32, jihou:16,
+  c:[[.4,'うぽつ'],[2,'作業用助かる'],[3.6,'勉強中です'],[5.4,'神曲'],[7,'この曲知ってる'],[8.6,'中毒になる'],[10.4,'リピート余裕'],[12,'うp主GJ'],[16.6,'時報'],[16.9,'時報キター'],[17.2,'時報'],[17.6,'時報ｗｗ'],[22,'作業が進まないｗ'],[25,'もう1時間たった…'],[28,'GJ']],
+  ev:[{t:12.6,k:'gj',show:'GJ'},{t:18,k:'jihou'},
+      {t:24,ctx:'You want your comment to sit still at the TOP of the screen. Which command do you type?',cmd:'作業用ありがとう！',opts:[{j:'ue',e:'上 — top',ok:1},{j:'shita',e:'下 — bottom'},{j:'big',e:'big text'}],
+       why:'Commands are romaji: ue = 上 (up / top), shita = 下 (down / bottom). The comment then stays still instead of flowing.'}]},
+ {title:'【踊ってみた】渋谷で踊ってみた【初投稿】', user:'ダンス練習中', tags:['踊ってみた','才能の無駄遣い','自重しろ','職人'], bg:'shibuya_night', aa:'ヽ(ﾟ∀ﾟ)ﾉ', move:'sway', dur:30,
+  c:[[.4,'うぽつ'],[1.5,'初投稿おめ'],[3,'キレがすごい'],[4.8,'足どうなってんのｗ'],[6.6,'うまっ'],[8.4,'＼(^o^)／'],[10.6,'職人GJ'],[11,'↓歌詞職人きた'],[13.8,'うp主自重しろｗｗ'],[16,'人通り多すぎｗ'],[18.4,'才能の無駄遣い'],[19,'才能の無駄遣い'],[24,'もっと踊って'],[26.5,'神']],
+  ev:[{t:11.6,k:'shokunin'},{t:14.4,k:'jichou'},
+      {t:20,ctx:'The dance is genuinely amazing… and it’s happening in the middle of Shibuya Crossing. Praise it the Nico way!',opts:[{j:'{才能|さいのう}の{無駄遣|むだづか}い',e:'A waste of talent (praise!)',ok:1},{j:'ggrks',e:'Google it, idiot'},{j:'{時報|じほう}',e:'Time signal'}],
+       why:'才能の無駄遣い — “a waste of talent” — is the highest Nico praise for amazing skill used on something silly.', danmaku:'才能の無駄遣い'}]},
+ {title:'【ニコ生】深夜の雑談ラジオ', user:'名無しのDJ', tags:['ニコニコ生放送','雑談','初見歓迎'], bg:'bedroom_night', aa:'(´・ω・｀)ﾉ', move:'float', dur:26, live:true,
+  c:[[.4,'わこつ'],[.8,'わこつー'],[1.3,'わこつです'],[3.4,'こんばんは'],[5,'今日なに話す？'],[9,'初見さんいらっしゃい'],[11,'wwww'],[14.6,'ニコ厨の集まり'],[17,'もう2時かよ'],[21,'寝ろｗ']],
+  ev:[{t:1.8,k:'wakotsu'},
+      {t:7,ctx:'It’s your first time watching this stream. Say so — the standard way.',opts:[{j:'{初見|しょけん}です',e:'First time here!',ok:1},{j:'うぽつ',e:'Thanks for uploading'},{j:'8888',e:'(applause)'}],
+       why:'初見 = “first look.” Regulars usually answer 初見さんいらっしゃい, “welcome, newcomer!”'},
+      {t:15.2,k:'nicochu'}]}
+];
+
 /* ---- Kana ---- */
 const KROMA = 'a i u e o ka ki ku ke ko sa shi su se so ta chi tsu te to na ni nu ne no ha hi fu he ho ma mi mu me mo ya yu yo ra ri ru re ro wa wo n ga gi gu ge go za ji zu ze zo da ji zu de do ba bi bu be bo pa pi pu pe po'.split(' ');
 const KHIRA = 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽ';
@@ -916,7 +1155,7 @@ const toKata = s => s.replace(/[\u3041-\u3096]/g, c => String.fromCharCode(c.cha
 /* ---- Endings ---- */
 const ENDINGS = {
   true:{t:'TRUE END', s:'～{月|つき}が{綺麗|きれい}ですね～', p:'happy', bg:'cherry',
-        d:'Under the last cherry blossoms of Heisei 15, Shiori-sensei’s lesson plan got a lot more personal. You answered in Japanese — and she understood every word.'},
+        d:'Under the last cherry blossoms of Heisei 20, Shiori-sensei’s lesson plan got a lot more personal. You answered in Japanese — and she understood every word.'},
   good:{t:'GOOD END', s:'～いちばんの{友達|ともだち}～', p:'calm', bg:'cherry',
         d:'Best student, best friend. Something unspoken hangs between you like a petal that hasn’t landed yet. There’s still a whole summer ahead.'},
   orz:{t:'orz END', s:'～{空気|くうき}が{読|よ}めない～', p:'deadpan2', bg:'cherry',
@@ -947,7 +1186,7 @@ const SCENES = {
 
 /* ================= PROLOGUE ================= */
 pro:[
-  day('3月29日（土）','Saturday, March 29, Heisei 15 (2003)','秋葉原'),
+  day('3月29日（土）','Saturday, March 29, Heisei 20 (2008)','秋葉原'),
   bgm('akiba'), bg('akiba'),
   n('Spring break. Tokyo. My first week in Japan as an exchange student.'),
   n('Three years of subtitled anime had convinced me I basically spoke Japanese. Akihabara has spent the last hour proving me wrong.'),
@@ -1135,6 +1374,10 @@ ch3:[
   qz('te-form of {撮|と}る (to take a photo)?','',[['{撮|と}って','totte'],['{撮|と}りて','torite'],['{撮|と}んで','tonde']],
     [s('cat','せいかい！ {撮|と}る→{撮|と}って！ じゃあ……もう{一枚|いちまい}{撮|と}って？','Correct! toru → totte! So… take one more?')],
     [s('default','{撮|と}る→{撮|と}って！ る→って、だよ。','toru → totte! る becomes って.')]),
+  n('On the way out we pass row after row of cabinets. Shiori narrates them like a tour guide.'),
+  s('default','あっちが{格|かく}ゲー、こっちが{音|おと}ゲー！ {奥|おく}はシューティング！','Fighting games over there, rhythm games over here! Shooters in the back!'),
+  s('smug','ゲームの{言葉|ことば}も{短|みじか}くするのが{基本|きほん}だよ。{格闘|かくとう}ゲーム→{格|かく}ゲー！','Game words get shortened too, obviously. Kakutō gēmu → kakugē!'),
+  V(['格ゲー','かくゲー','fighting game'],['音ゲー','おとゲー','rhythm game']),
   V(['取る','とる','to take, to grab'],['待つ','まつ','to wait'],['遊ぶ','あそぶ','to play, hang out'],['撮る','とる','to take (a photo)'],['頑張る','がんばる','to do one’s best'],['欲しい','ほしい','to want (a thing)']),
   go('ch4')
 ],
@@ -1232,7 +1475,7 @@ ch6:[
   bg('bedroom'),
   n('Her room: posters, a chunky CRT monitor, a beige PC tower covered in stickers, and enough figures to raise a small army.'),
   s('smug','じゃーん！ これがあたしのパソコン！ ウィンドウズXPだよ！','Ta-daa! My computer! It’s Windows XP!'),
-  n('The modem screams as it dials in. She looks at me like this is a normal sound for a machine to make.'),
+  n('It takes the PC almost three minutes to boot. She drums her fingers on the desk like this is perfectly normal.'),
   s('default','{今日|きょう}は{特別|とくべつ}{授業|じゅぎょう}！ {日本|にほん}のネットの{言葉|ことば}を{教|おし}えてあげる！','Today is a special class! I’ll teach you Japanese internet words!'),
   s('calm','{教科書|きょうかしょ}には{絶対|ぜったい}{載|の}ってないけど、ネットじゃみんな{使|つか}ってるの。','They’ll never be in your textbook, but everyone online uses them.'),
   L('netslang'),
@@ -1246,6 +1489,33 @@ ch6:[
   iff(st=>st.futaba>=60,
     [s('happy','すごーい！ もう{立派|りっぱ}なとしあきだね！','Amazing! You’re a proper Toshiaki now!'), aff(2)],
     [s('calm','まあ、{最初|さいしょ}はみんな{厨房|ちゅうぼう}だから！ {気|き}にしない、{気|き}にしない！','Well, everyone starts out a chūbō! Don’t worry about it!')]),
+  s('smug','まだまだ{終|お}わらないよ！ {次|つぎ}は……ニコニコ{動画|どうが}！','We’re not done yet! Next up… NicoNico Douga!'),
+  s('default','{動画|どうが}の{上|うえ}を、みんなのコメントが{流|なが}れていくサイトなの。','It’s a site where everyone’s comments scroll right across the video.'),
+  me('コメントが……{流|なが}れる？','The comments… scroll across?'),
+  s('cat','{百聞|ひゃくぶん}は{一見|いっけん}にしかず！ {見|み}ればわかるよ！','Seeing is believing! You’ll get it as soon as you see it!'),
+  n('百聞は一見にしかず: “hearing a hundred times is worth less than seeing once.” She looks extremely proud of herself for using a proverb.'),
+  L('nicoslang'),
+  {t:'nico'},
+  sp('default'),
+  iff(st=>st.nico>=60,
+    [s('happy','すごい！ {弾幕|だんまく}まで{読|よ}めてる！ {立派|りっぱ}なニコ{厨|ちゅう}だね！','Amazing! You can even read the danmaku! You’re a proper Nico addict!'), aff(1)],
+    [s('calm','{最初|さいしょ}は{目|め}が{回|まわ}るよね～。でも、すぐ{慣|な}れるよ！','It makes your head spin at first, right~? You’ll get used to it fast!')]),
+  n('She closes the browser. Behind the monitor is a shelf of PC game boxes: pastel colors, enormous eyes, and at least one ☆ in every title.'),
+  s('smug','そしてこれが……あたしのコレクション！','And this… is my collection!'),
+  s('default','ギャルゲーに、{乙女|おとめ}ゲーに、ノベルゲー。ぜんぶ{名作|めいさく}なんだから！','Galge, otome games, novel games. Every single one a masterpiece!'),
+  L('gameterms'),
+  s('cat','ギャルゲーはね、{選|えら}んだ{選択肢|せんたくし}で、ヒロインの{好感度|こうかんど}が{変|か}わるの。','In galge, the choices you pick change the heroine’s affection level.'),
+  s('smug','{正|ただ}しい{選択肢|せんたくし}を{選|えら}ぶと……フラグが{立|た}つ！','Pick the right ones and… a flag goes up!'),
+  qz('In a dating sim, what does 「フラグが{立|た}つ」 mean?','',[['An event or route gets triggered','an event is triggered'],['The game crashes','a crash'],['You lose the game','game over']],
+    [s('happy','{正解|せいかい}！ ……{普段|ふだん}の{会話|かいわ}でも{使|つか}うよ。「それ、{死亡|しぼう}フラグじゃん！」とか。','Correct! …People use it in normal conversation too. Like “That’s totally a death flag!”')],
+    [s('deadpan','ちがうよ～。イベントが{起|お}きる{条件|じょうけん}がそろうこと！','Nope~. It means the conditions for an event have been met!')]),
+  s('calm','……ねえ、$N。','…Hey, $R.'),
+  s('fearclosed','もし{今|いま}がギャルゲーだったら……あたし、{攻略|こうりゃく}されてる{途中|とちゅう}かな。','If this were a galge right now… I wonder if I’d be halfway through being “conquered.”'),
+  ch('','',
+    {j:'しおりルート、{攻略中|こうりゃくちゅう}です。',e:'I’m on Shiori’s route right now.',a:2,then:[s('surprise','……っ！','…!'), s('angryclosed','ば、ばか！ そういうのはセーブしてから{言|い}って！','D-dummy! Save the game before you say stuff like that!')]},
+    {j:'{選択肢|せんたくし}、まちがえないようにするよ。',e:'I’ll try not to pick the wrong choice.',a:1,then:[s('happy','えへへ、がんばって！ ……ヒントはあげないけどね！','Ehehe, good luck! …I’m not giving you any hints, though!')]},
+    {j:'{次|つぎ}はRPGやろう。',e:'Let’s play an RPG next.',then:[s('deadpan','……{空気|くうき}、{読|よ}んで？','…Read the air, maybe?')]}),
+  V(['動画','どうが','video'],['流れる','ながれる','to flow, to scroll by'],['選択肢','せんたくし','choice, option'],['好感度','こうかんど','affection level'],['攻略','こうりゃく','beating a game; winning a route'],['名作','めいさく','masterpiece']),
   bg('bedroom_night'),
   n('We lose track of time. The window goes orange, then purple, then dark.'),
   s('surprise','……あ、もうこんな{時間|じかん}。','…Oh, it’s already this late.'),
@@ -1349,7 +1619,7 @@ ch8:[
 
 /* ================= FINALE ================= */
 fin:[
-  day('4月29日（火・祝）','Tuesday, April 29 — Greenery Day (a national holiday)','{公園|こうえん}'),
+  day('4月29日（火・祝）','Tuesday, April 29 — Shōwa Day (a national holiday)','{公園|こうえん}'),
   bgm('romance'), bg('park'),
   n('The park is half-empty. Families, a man asleep under a newspaper, a dog wearing a sweater. Shiori walks ahead, unusually quiet.'),
   bg('cherry'), sp('calm'),
@@ -1409,6 +1679,14 @@ const clone=o=>JSON.parse(JSON.stringify(o));
 const sprURL=n=>SPR+encodeURIComponent(n)+'.png';
 const bgURL=k=>BGS[k]?BGP+encodeURIComponent(BGS[k]):'';
 const pick=a=>a[Math.random()*a.length|0];
+const ICO={app:'https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/icon.png',exe:'https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/exe.png',trash:'https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/trash%20bin.webp',win:'https://file.garden/ZyUgbYyEhGi7VILo/jplearn/icons/windows.png'};
+/* Win98-style message-box icons (drawn, so no emoji) */
+const SVGI={
+  info:'<svg class="mbi" viewBox="0 0 32 32" shape-rendering="crispEdges"><path d="M16 3C8.8 3 3 8.2 3 14.6c0 4 2.3 7.6 5.8 9.7L6 30l7.4-4.1c.9.2 1.7.2 2.6.2 7.2 0 13-5.2 13-11.5S23.2 3 16 3z" fill="#fff" stroke="#000"/><rect x="14" y="7" width="4" height="4" fill="#00f"/><rect x="14" y="13" width="4" height="10" fill="#00f"/></svg>',
+  warn:'<svg class="mbi" viewBox="0 0 32 32" shape-rendering="crispEdges"><path d="M16 2 31 29H1z" fill="#ff0" stroke="#000" stroke-width="1.5" stroke-linejoin="round"/><rect x="14" y="10" width="4" height="11" fill="#000"/><rect x="14" y="23" width="4" height="3" fill="#000"/></svg>',
+  question:'<svg class="mbi" viewBox="0 0 32 32"><path d="M16 3C8.8 3 3 8.2 3 14.6c0 4 2.3 7.6 5.8 9.7L6 30l7.4-4.1c.9.2 1.7.2 2.6.2 7.2 0 13-5.2 13-11.5S23.2 3 16 3z" fill="#fff" stroke="#000"/><text x="16" y="22" text-anchor="middle" font-family="Times New Roman,serif" font-weight="bold" font-size="18" fill="#00f">?</text></svg>'};
+function bigIcon(ic){ const k={'⚠️':'warn','❓':'question','🗑️':'trash','🖥️':'exe','🥺':'app','🌸':'app','✿':'app'}[ic]||ic||'info';
+  return SVGI[k]||`<img class="mbi" src="${ICO[k]||ICO.app}" alt="">`; }
 
 /* ---------- persistence ---------- */
 const KEY='akiba_nihongo_v1';
@@ -1416,15 +1694,15 @@ let SYS={};
 function loadSys(){
   try{SYS=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){SYS={}}
   SYS.slots=SYS.slots||{}; SYS.lessons=SYS.lessons||[]; SYS.vocab=SYS.vocab||[]; SYS.slang=SYS.slang||[];
-  SYS.endings=SYS.endings||[]; SYS.best=SYS.best||{};
-  SYS.cfg=Object.assign({speed:28,auto:1,tr:'always',furi:true,sfx:true,vol:.6,bgm:.5,crt:false,op:.92},SYS.cfg||{});
+  SYS.endings=SYS.endings||[]; SYS.best=SYS.best||{}; SYS.nico=SYS.nico||[];
+  SYS.cfg=Object.assign({speed:28,auto:1,tr:'always',furi:true,romaji:true,sfx:true,vol:.6,bgm:.5,crt:false,op:.92},SYS.cfg||{});
 }
 function saveSys(){try{localStorage.setItem(KEY,JSON.stringify(SYS))}catch(e){}}
 const CFG=()=>SYS.cfg;
 
 /* ---------- state ---------- */
 const G={st:null,stack:[],snap:null,mode:null,log:[],auto:false,skip:false,ctrl:false,inGame:false,autoT:null,lastPrev:''};
-function newState(){return {name:'としあき',romaji:'Toshiaki',honor:'くん',pron:'僕',aff:0,score:0,qtotal:0,met:false,bg:null,pose:null,chapter:'',futaba:0,bgm:null,vocab:[],lessons:[],lastJ:'',lastE:''}}
+function newState(){return {name:'としあき',romaji:'Toshiaki',honor:'くん',pron:'僕',aff:0,score:0,qtotal:0,met:false,bg:null,pose:null,chapter:'',futaba:0,nico:0,bgm:null,vocab:[],lessons:[],lastJ:'',lastE:''}}
 const HON_R={'くん':'-kun','さん':'-san','ちゃん':'-chan','先輩':'-senpai','':''};
 const PRON_F={'僕':'{僕|ぼく}','俺':'{俺|おれ}','私':'{私|わたし}','あたし':'あたし'};
 function sub(str,en){
@@ -1434,6 +1712,121 @@ function sub(str,en){
     case 'I':return en?'I':(PRON_F[st.pron]||st.pron);
     case 'R':return st.romaji+(HON_R[st.honor]??''); case 'r':return st.romaji;
     case 'L':return st.lastJ||''; case 'E':return st.lastE||'';}});
+}
+
+/* ---------- kana → romaji (reading aid under choices) ----------
+   Uses the furigana readings. Particles は/を/へ become wa/o/e, and
+   words are spaced with simple rules. For a line it gets wrong, add it
+   to ROMAJI_FIX below (Japanese text exactly as written → romaji). */
+const ROMAJI_FIX={
+  '{空気|くうき}って{食|た}べられる？':'Kūki tte taberareru?',
+  'しおりに{会|あ}うため、かな。':'Shiori ni au tame, ka na.'
+};
+const ROMA=(()=>{
+  const m={あ:'a',い:'i',う:'u',え:'e',お:'o',か:'ka',き:'ki',く:'ku',け:'ke',こ:'ko',さ:'sa',し:'shi',す:'su',せ:'se',そ:'so',
+  た:'ta',ち:'chi',つ:'tsu',て:'te',と:'to',な:'na',に:'ni',ぬ:'nu',ね:'ne',の:'no',は:'ha',ひ:'hi',ふ:'fu',へ:'he',ほ:'ho',
+  ま:'ma',み:'mi',む:'mu',め:'me',も:'mo',や:'ya',ゆ:'yu',よ:'yo',ら:'ra',り:'ri',る:'ru',れ:'re',ろ:'ro',わ:'wa',を:'o',ん:'n',
+  が:'ga',ぎ:'gi',ぐ:'gu',げ:'ge',ご:'go',ざ:'za',じ:'ji',ず:'zu',ぜ:'ze',ぞ:'zo',だ:'da',ぢ:'ji',づ:'zu',で:'de',ど:'do',
+  ば:'ba',び:'bi',ぶ:'bu',べ:'be',ぼ:'bo',ぱ:'pa',ぴ:'pi',ぷ:'pu',ぺ:'pe',ぽ:'po',ゔ:'vu',
+  ぁ:'a',ぃ:'i',ぅ:'u',ぇ:'e',ぉ:'o',ゃ:'ya',ゅ:'yu',ょ:'yo',ゎ:'wa'};
+  const yo={き:'ky',ぎ:'gy',に:'ny',ひ:'hy',び:'by',ぴ:'py',み:'my',り:'ry',し:'sh',じ:'j',ち:'ch',ぢ:'j'};
+  for(const k in yo){m[k+'ゃ']=yo[k]+'a';m[k+'ゅ']=yo[k]+'u';m[k+'ょ']=yo[k]+'o'}
+  return Object.assign(m,{しぇ:'she',じぇ:'je',ちぇ:'che',てぃ:'ti',でぃ:'di',とぅ:'tu',ふぁ:'fa',ふぃ:'fi',ふぇ:'fe',ふぉ:'fo',
+    うぃ:'wi',うぇ:'we',うぉ:'wo',いぇ:'ye',ゔぁ:'va',ゔぃ:'vi',ゔぇ:'ve',ゔぉ:'vo'});
+})();
+const toHira=s=>s.replace(/[\u30a1-\u30f6]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60));
+function segRoma(k){ // one chunk of kana → romaji; long vowels merge only inside a chunk
+  k=toHira(k); let out='',i=0; const MAC={a:'ā',i:'ī',u:'ū',e:'ē',o:'ō'};
+  while(i<k.length){ const c=k[i];
+    if(c==='っ'){ const nx=ROMA[k.substr(i+1,2)]||ROMA[k[i+1]]; if(nx) out+=nx[0]==='c'?'t':nx[0]; i++; continue }
+    if(c==='ー'){ const v=out.slice(-1); if(MAC[v]) out=out.slice(0,-1)+MAC[v]; i++; continue }
+    if('ゃゅょぁぃぅぇぉ'.includes(k[i+1]||'')&&ROMA[k.substr(i,2)]){out+=ROMA[k.substr(i,2)];i+=2;continue}
+    if(c==='ん'){ out+=/[あいうえおやゆよ]/.test(k[i+1]||'')?"n'":'n'; i++; continue }
+    out+=ROMA[c]??c; i++; }
+  return out.replace(/ou/g,'ō').replace(/oo/g,'ō').replace(/uu/g,'ū').replace(/aa/g,'ā').replace(/ee/g,'ē');
+}
+const RDICT={こんにちは:'konnichiwa',こんばんは:'konbanwa',ありがとう:'arigatō',ございます:'gozaimasu',すみません:'sumimasen',
+  ください:'kudasai',いただきます:'itadakimasu',いただきました:'itadakimashita',ごちそうさまでした:'gochisōsama deshita',
+  はじめまして:'hajimemashite',よろしく:'yoroshiku',おはよう:'ohayō',おやすみ:'oyasumi',しょうがないなぁ:'shōganai nā',
+  しおり:'Shiori',あたし:'atashi',わたし:'watashi',こと:'koto',これ:'kore',それ:'sore',あれ:'are',どれ:'dore',この:'kono',その:'sono',
+  あの:'ano',どの:'dono',ここ:'koko',そこ:'soko',あそこ:'asoko',どこ:'doko',ちょっと:'chotto',いちばん:'ichiban',ほう:'hō',
+  ほんと:'honto',そう:'sō',うん:'un',はい:'hai',いいえ:'iie',いい:'ii',かわいい:'kawaii',きれい:'kirei',やばい:'yabai',まま:'mama',
+  まだ:'mada',もう:'mō',また:'mata',でも:'demo',だから:'dakara',じゃあ:'jā',すごく:'sugoku',すごい:'sugoi',なに:'nani',
+  だれ:'dare',どう:'dō',おいしい:'oishii',まちがえない:'machigaenai',ように:'yō ni ',ばか:'baka',えっと:'etto',みんな:'minna'};
+const AUX_R={じゃないです:'ja nai desu',じゃない:'ja nai',でしょう:'deshō',でしょ:'desho',でした:'deshita',です:'desu',
+  ください:'kudasai',だった:'datta',だよ:'da yo',だね:'da ne',だ:'da'};
+const AUX=Object.keys(AUX_R);
+const STRONG=['から','まで','より','は','が','を','に','で','と','も','の','へ'];
+const WEAK=['かな','よね','けど','ので','って','か','ね','よ','な','わ','ぞ'];
+const TE_AFTER=['みる','みた','みます','みよう','いる','います','いた','くれる','くれない','もらう','あげる','おく','しまう','ほしい'];
+const HONS=['さん','くん','ちゃん','さま','せんぱい'];
+const PRT_R={は:'wa',を:'o',へ:'e'};
+const starts=(r,i,list)=>list.find(w=>r.startsWith(w,i));
+const dictAt=(r,i,min=1)=>Object.keys(RDICT).filter(w=>w.length>=min&&r.startsWith(w,i)).sort((a,b)=>b.length-a.length)[0];
+function toRomaji(src){
+  if(!src) return '';
+  if(ROMAJI_FIX[src]) return ROMAJI_FIX[src];
+  if(!/[\u3040-\u30ff\u4e00-\u9fff]/.test(src.replace(/\$[NnIRrLE]/g,''))) return '';
+  const st=G.st||newState();
+  src=String(src).replace(/\$([NnIRr])/g,(m,k)=>'NR'.includes(k)?'\u0001'+st.romaji+(HON_R[st.honor]??'')+'\u0002':'nr'.includes(k)?'\u0001'+st.romaji+'\u0002':(PRON_F[st.pron]||st.pron));
+  const W=[]; let cur=null; // cur: open word {segs:[], fresh, body}
+  const close=w=>{W.push(w);cur=null};
+  const open=(seg,type)=>{cur={segs:[seg],type,fresh:true};W.push(cur);return cur};
+  const re=/\{([^|{}]+)\|([^{}]+)\}|\u0001([^\u0002]*)\u0002|([\u30a1-\u30fa\u30fc]+)|([\u3041-\u3096\u30fc]+)|([、。！？!?…「」『』（）()～〜・＋+,.\s]+)|([^\s])/gy;
+  let m;
+  while((m=re.exec(src))){
+    if(m[1]){ // kanji with reading
+      const prev=cur;
+      if(prev&&(prev.type==='prefix'||(prev.body&&prev.body.length===1&&'ちりきしみびぎにひ'.includes(prev.body)))){const pre=prev.type==='prefix';prev.segs.push(m[2]);prev.type='ruby';prev.fresh=pre;prev.body='';if(!pre)prev.segs.push('')}
+      else open(m[2],'ruby');
+      continue }
+    if(m[3]!==undefined){ close({t:m[3]}); continue }
+    if(m[4]){ open(m[4],'kata'); continue }
+    if(m[5]){ hira(m[5], src[re.lastIndex]==='{'); continue }
+    if(m[6]){ close({p:m[6]}); continue }
+    if(m[7]){ if(W.length&&W[W.length-1].x!==undefined&&!cur) W[W.length-1].x+=m[7]; else close({x:m[7]}); continue }
+  }
+  function hira(r,nextRuby){
+    let i=0;
+    while(i<r.length){
+      const end=k=>i+k.length>=r.length;
+      if((r[i]==='お'||r[i]==='ご')&&i===r.length-1&&nextRuby){cur=null;open(r[i],'prefix');cur.fresh=false;i++;continue}
+      const hon=starts(r,i,HONS);
+      if(hon&&!cur&&W.length&&W[W.length-1].t!==undefined){W[W.length-1].t+='-'+segRoma(hon);i+=hon.length;continue}
+      if(hon&&cur&&cur.fresh&&cur.type!=='prefix'){cur.segs.push('-'+hon);i+=hon.length;continue}
+      if(!cur){ // start of a new word
+        const d=dictAt(r,i); if(d){open(d,'dict');i+=d.length;continue}
+        if(W.length){ const a=starts(r,i,AUX)||starts(r,i,STRONG)||starts(r,i,WEAK); if(a&&!(a==='な'&&!end(a))){close({k:a});i+=a.length;continue} }
+        open('','unk'); cur.fresh=false; cur.body='';
+      }
+      if(cur.fresh){ // right after a kanji/katakana/known word
+        const a=starts(r,i,AUX); if(a){close({k:a});i+=a.length;continue}
+        const d=dictAt(r,i,3); if(d){open(d,'dict');i+=d.length;continue}
+        const s=starts(r,i,STRONG), w=starts(r,i,WEAK);
+        const nextOK=k=>end(k)||dictAt(r,i+k.length)||starts(r,i+k.length,AUX)||starts(r,i+k.length,STRONG);
+        if(s&&!/^[った]/.test(r.slice(i+s.length))&&(cur.type!=='dict'||nextOK(s))){close({k:s});i+=s.length;continue}
+        if(w&&w!=='って'&&end(w)){close({k:w});i+=w.length;continue}
+        if(r.startsWith('なの',i)||r.startsWith('なん',i)){close({k:'な'});i++;continue}
+        cur.fresh=false; cur.body=''; cur.segs.push('');
+      }
+      // inside okurigana / an unknown word
+      const body=cur.body;
+      if(body&&/[てで]$/.test(body)){ const t=starts(r,i,TE_AFTER); if(t){close({v:t});i+=t.length;continue} }
+      const a=starts(r,i,AUX); if(a&&body){close({k:a});i+=a.length;continue}
+      if(body){ const p=starts(r,i,['から','けど','ので','かな','よね','に','を','が','は','も','の','へ','で','ね','よ','か','わ','ぞ']);
+        if(p&&end(p)&&!(p==='で'&&/ん$/.test(body))){close({k:p});i+=p.length;continue} }
+      cur.body+=r[i]; cur.segs[cur.segs.length-1]+=r[i]; i++;
+    }
+  }
+  let out='';
+  const PUN={'、':', ','。':'. ','！':'! ','？':'? ','…':'… ','「':' “','」':'” ','『':' “','』':'” ','（':' (','）':') ','～':'~ ','〜':'~ ','・':' ','＋':' + '};
+  for(const w of W){
+    if(w.p!==undefined){ out+=[...w.p].map(c=>PUN[c]??c).join(''); continue }
+    const t=w.t!==undefined?w.t:w.x!==undefined?w.x:w.k?(PRT_R[w.k]||AUX_R[w.k]||segRoma(w.k)):w.v?segRoma(w.v):w.segs.map(s=>s[0]==='-'?'-'+segRoma(s.slice(1)):RDICT[s]??segRoma(s)).join('');
+    out+=(out&&!/[\s(“]$/.test(out)?' ':'')+t;
+  }
+  out=out.replace(/\s+([,.!?…)”~])/g,'$1').replace(/\s{2,}/g,' ').trim();
+  return out.replace(/(^|[.!?] )([a-zāīūēō])/g,(m,a,b)=>a+b.toUpperCase());
 }
 
 /* ---------- sound ---------- */
@@ -1476,15 +1869,27 @@ const Spr={pose:undefined,talk:false,mouth:false,blinking:false,ft:null,
 function preload(){ const seen=new Set(); Object.values(POSES).forEach(P=>[P.o,P.c,...(P.b||[])].forEach(f=>{if(f&&!seen.has(f)){seen.add(f);new Image().src=sprURL(f)}})); }
 
 /* ---------- background ---------- */
-let bgFront='A';
+/* The new image is fully decoded before it fades in over the old one,
+   so a stale picture from two scenes ago can never flash on screen. */
+let bgFront=null,bgTok=0,bgT=null;
 function setBg(k,instant){
   if(G.st&&G.inGame) G.st.bg=k||null;
-  const a=$('#bgA'),b=$('#bgB'),cur=bgFront==='A'?a:b,nxt=bgFront==='A'?b:a;
-  if(!k){cur.classList.remove('on');nxt.classList.remove('on');cur.dataset.k='';nxt.dataset.k='';return}
-  if(cur.dataset.k===k&&cur.classList.contains('on')) return;
-  if(instant){a.style.transition=b.style.transition='none'}
-  nxt.dataset.k=k; nxt.src=bgURL(k); nxt.classList.add('on'); cur.classList.remove('on'); bgFront=bgFront==='A'?'B':'A';
-  if(instant) requestAnimationFrame(()=>requestAnimationFrame(()=>{a.style.transition=b.style.transition=''}));
+  const a=$('#bgA'),b=$('#bgB'),tok=++bgTok;
+  if(!k){clearTimeout(bgT);[a,b].forEach(e=>{e.classList.remove('on');e.dataset.k=''});bgFront=null;return}
+  if(bgFront&&bgFront.dataset.k===k) return;
+  const url=bgURL(k),im=new Image();
+  const show=()=>{
+    if(tok!==bgTok) return;                       // a newer background was requested meanwhile
+    const old=bgFront,nxt=old===a?b:a;
+    nxt.style.transition='none'; nxt.classList.remove('on'); nxt.src=url; nxt.dataset.k=k;
+    nxt.style.zIndex=1; if(old) old.style.zIndex=0;
+    void nxt.offsetWidth;
+    nxt.style.transition=instant?'none':''; nxt.classList.add('on'); bgFront=nxt;
+    clearTimeout(bgT);
+    bgT=setTimeout(()=>{ if(old&&old!==bgFront){old.style.transition='none';old.classList.remove('on')} },instant?0:750);
+  };
+  im.src=url;
+  if(im.decode) im.decode().then(show,show); else if(im.complete) show(); else im.onload=im.onerror=show;
 }
 
 /* ---------- typewriter tokens ---------- */
@@ -1498,19 +1903,19 @@ function tokens(str){ const out=[];let hl=false,i=0;
 }
 
 /* ---------- script runner ---------- */
-function frameCmds(f){let a=SCENES[f.s];for(const k of f.p)a=a[k];return a}
+function frameCmds(f){try{let a=SCENES[f.s];for(const k of f.p)a=a[k];return Array.isArray(a)?a:null}catch(e){return null}}
 function snap(idx){const s=clone(G.stack);s[s.length-1].i=idx;G.snap={stack:s,st:clone(G.st)}}
 function run(){
   G.mode=null;
   while(G.stack.length){
     const f=G.stack[G.stack.length-1],cmds=frameCmds(f);
-    if(f.i>=cmds.length){G.stack.pop();continue}
+    if(!cmds||f.i>=cmds.length){G.stack.pop();continue}
     const idx=f.i,c=cmds[f.i++];
     if(exec(c,f,idx)==='wait') return;
   }
 }
 function exec(c,f,idx){
-  const st=G.st;
+  const st=G.st; updStatus();
   switch(c.t){
     case 'say': snap(idx); if(c.p!==undefined) Spr.set(c.p); showLine(c); G.mode='say'; return 'wait';
     case 'bg': setBg(c.k); return;
@@ -1526,6 +1931,7 @@ function exec(c,f,idx){
     case 'day': snap(idx); st.chapter=c.place; autosave(); hideBox(); showDay(c,()=>run()); G.mode='day'; return 'wait';
     case 'name': snap(idx); stopSkip(); hideBox(); openNameDialog(()=>run()); G.mode='modal'; return 'wait';
     case 'futaba': snap(idx); stopSkip(); hideBox(); Futaba.start('story',pct=>{G.st.futaba=pct;Music.play('home');run()}); G.mode='futaba'; return 'wait';
+    case 'nico': snap(idx); stopSkip(); hideBox(); Nico.start('story',pct=>{G.st.nico=pct;Music.play('home');run()}); G.mode='nico'; return 'wait';
     case 'end': snap(idx); stopSkip(); showEnding(c.id); G.mode='end'; return 'wait';
     case 'ch': {
       snap(idx); stopSkip(); autosave();
@@ -1539,7 +1945,7 @@ function exec(c,f,idx){
       const norm=c.o.map(x=>Array.isArray(x)?{jp:x[0],en:x[1]}:{jp:x,en:''});
       const order=shuffle(norm.map((x,i)=>i));
       showChoices('<span class="qtag">QUIZ</span>'+c.q,c.en,order.map(i=>norm[i]),k=>{
-        const i=order[k],ok=i===c.a; st.qtotal++; if(ok){st.score++;st.aff+=1}
+        const i=order[k],ok=i===c.a; st.qtotal++; if(ok){st.score++;st.aff+=1} updStatus();
         st.lastJ=sub(norm[i].jp); st.lastE=sub(norm[i].en,true);
         stamp(ok,norm[c.a].jp,()=>{const key=ok?'ok':'ng'; if(c[key]) G.stack.push({s:f.s,p:[...f.p,idx,key],i:0}); run();});
       },true);
@@ -1598,7 +2004,8 @@ function showChoices(q,en,opts,cb,isQuiz){
   const box=$('#choices'); box.innerHTML='';
   if(q||en){const d=document.createElement('div');d.className='cq';d.innerHTML=furi(sub(q))+(en?`<small>${esc(en)}</small>`:'');box.appendChild(d)}
   opts.forEach((o,k)=>{const b=document.createElement('button');b.className='choice';
-    b.innerHTML=`<span class="key">${k+1}</span>${furi(sub(o.jp))}${o.en&&!isQuiz&&CFG().tr!=='off'?`<small>${esc(sub(o.en,true))}</small>`:''}`;
+    const rom=CFG().romaji?toRomaji(o.jp):'';
+    b.innerHTML=`<span class="key">${k+1}</span>${furi(sub(o.jp))}${rom?`<span class="rom">${esc(rom)}</span>`:''}${o.en&&!isQuiz&&CFG().tr!=='off'?`<small>${esc(sub(o.en,true))}</small>`:''}`;
     b.onclick=e=>{e.stopPropagation();SFX.click();box.classList.remove('on');box.innerHTML='';cb(k)};
     box.appendChild(b)});
   box.classList.add('on');
@@ -1619,16 +2026,23 @@ function doFx(f){
 function toast(html){const t=document.createElement('div');t.className='tst';t.innerHTML=html;$('#toast').appendChild(t);setTimeout(()=>t.remove(),2600)}
 function showDay(c,cb){
   const d=$('#day'); let done=false;
-  d.innerHTML=`<div class="cal"><div class="top">平成15年</div><div class="big">${esc(c.jp)}</div><div class="place">${furi(c.place)}</div><div class="en">${esc(c.en)}</div></div>`;
+  d.innerHTML=`<div class="cal"><div class="top">平成20年</div><div class="big">${esc(c.jp)}</div><div class="place">${furi(c.place)}</div><div class="en">${esc(c.en)}</div></div>`;
   d.classList.add('on'); G.dayDone=()=>{if(done)return;done=true;d.classList.remove('on');G.dayDone=null;cb()};
   setTimeout(()=>G.dayDone&&G.dayDone(),fast()?500:2800);
+}
+
+/* ---------- status bar ---------- */
+function updStatus(){
+  const p=$('#sbPlace'),q=$('#sbQuiz'); if(!p) return;
+  if(G.inGame&&G.st){ p.textContent=(G.st.chapter||'—').replace(/\{([^|]+)\|[^}]+\}/g,'$1'); q.textContent=`クイズ ${G.st.score} / ${G.st.qtotal}`; }
+  else { p.textContent='タイトル'; q.textContent='クイズ —'; }
 }
 
 /* ---------- unlocks ---------- */
 function unlockLesson(id){ if(!G.st.lessons.includes(id)) G.st.lessons.push(id); if(!SYS.lessons.includes(id)){SYS.lessons.push(id);saveSys()} }
 function addVocab(ws){ let nw=0;
   ws.forEach(w=>{ if(!G.st.vocab.some(v=>v[0]===w[0])) {G.st.vocab.push(w);nw++} if(!SYS.vocab.some(v=>v[0]===w[0])) SYS.vocab.push(w) });
-  saveSys(); if(nw) toast(`📒 <b>単語ノート</b> +${nw} new words`);
+  saveSys(); if(nw) toast(`<b>単語ノート</b>　+${nw} new words`);
 }
 
 /* ---------- saves ---------- */
@@ -1640,7 +2054,7 @@ function startGame(){
   setBg(null); Spr.set(null); hideBox(); run();
 }
 function loadSave(d){
-  if(!d) return; closeAllWins(); $('#title').classList.remove('on'); $('#ending').classList.remove('on'); $('#futaba').classList.remove('on');
+  if(!d) return; closeAllWins(); $('#title').classList.remove('on'); $('#ending').classList.remove('on'); $('#futaba').classList.remove('on'); Nico.hide();
   G.st=Object.assign(newState(),clone(d.st)); G.stack=clone(d.stack); G.log=clone(d.log||[]); G.inGame=true; G.auto=G.skip=false; updateQbar();
   setBg(G.st.bg,true); Spr.pose=undefined; Spr.set(G.st.pose,true); Music.cur=null; Music.play(G.st.bgm); hideBox(); run();
 }
@@ -1648,20 +2062,20 @@ function latestSave(){ return Object.values(SYS.slots).filter(Boolean).sort((a,b
 function toTitle(){
   if(G.inGame&&G.mode!=='end') autosave();
   G.inGame=false; G.mode=null; stopSkip(); closeAllWins(); clearInterval(TB.timer); Spr.stopTalk();
-  $('#futaba').classList.remove('on'); $('#ending').classList.remove('on'); $('#choices').classList.remove('on'); $('#day').classList.remove('on'); hideBox();
-  showTitle();
+  $('#futaba').classList.remove('on'); Nico.hide(); $('#ending').classList.remove('on'); $('#choices').classList.remove('on'); $('#day').classList.remove('on'); hideBox();
+  showTitle(); updStatus();
 }
 
 /* ---------- window manager ---------- */
 const WIN=[]; let SCALE=1;
-function openWin({title,html='',w=520,cls='',icon='📄',onClose}){
+function openWin({title,html='',w=520,cls='',icon,onClose,plain}){
   const m=$('#modal'); m.classList.add('on');
-  const win=document.createElement('div'); win.className='win dlg '+cls; win.style.width=w+'px';
-  win.innerHTML=`<div class="win-title"><span>${icon}</span><span class="wt">${title}</span><div class="tbtns"><button class="tbtn" aria-label="Close">✕</button></div></div><div class="win-body">${html}</div>`;
+  const win=document.createElement('div'); win.className='window dlg '+cls; win.style.width=w+'px';
+  win.innerHTML=`<div class="title-bar"><div class="title-bar-text">${plain?'':`<img class="ti" src="${ICO.app}" alt="">`}${title}</div><div class="title-bar-controls"><button aria-label="Close"></button></div></div><div class="win-body">${html}</div>`;
   m.appendChild(win); const rec={win,onClose}; WIN.push(rec);
-  win.querySelector('.tbtn').onclick=()=>closeWin(rec);
+  win.querySelector('.title-bar-controls button').onclick=()=>closeWin(rec);
   // drag by title bar
-  const bar=win.querySelector('.win-title'); let dx=0,dy=0,sx,sy,drag=false;
+  const bar=win.querySelector('.title-bar'); let dx=0,dy=0,sx,sy,drag=false;
   bar.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;drag=true;sx=e.clientX;sy=e.clientY;bar.setPointerCapture(e.pointerId)});
   bar.addEventListener('pointermove',e=>{if(!drag)return;const nx=dx+(e.clientX-sx)/SCALE,ny=dy+(e.clientY-sy)/SCALE;win.style.transform=`translate(calc(-50% + ${nx}px),calc(-50% + ${ny}px))`;win._nx=nx;win._ny=ny});
   bar.addEventListener('pointerup',()=>{if(!drag)return;drag=false;dx=win._nx||0;dy=win._ny||0});
@@ -1671,12 +2085,12 @@ function closeWin(rec){ rec=rec||WIN[WIN.length-1]; const i=WIN.indexOf(rec); if
   if(!WIN.length) $('#modal').classList.remove('on'); SFX.click(); rec.onClose&&rec.onClose(); }
 function closeAllWins(){ while(WIN.length){const r=WIN.pop();r.win.remove()} $('#modal').classList.remove('on') }
 const modalOpen=()=>WIN.length>0;
-function confirmBox(msg,yes,icon='⚠️'){
-  const w=openWin({title:'確認 - Confirm',icon,w:340,html:`<div class="row" style="align-items:flex-start;gap:12px"><div style="font-size:30px">${icon}</div><div>${msg}</div></div><div class="right"><button class="btn" data-y>はい (Yes)</button><button class="btn" data-n>いいえ (No)</button></div>`});
+function confirmBox(msg,yes,icon='question'){
+  const w=openWin({title:'確認 - Confirm',plain:true,w:340,html:`<div class="row" style="align-items:flex-start;gap:12px">${bigIcon(icon)}<div>${msg}</div></div><div class="right"><button class="btn" data-y>はい (Yes)</button><button class="btn" data-n>いいえ (No)</button></div>`});
   w.body.querySelector('[data-y]').onclick=()=>{w.close();yes()}; w.body.querySelector('[data-n]').onclick=()=>w.close();
   setTimeout(()=>w.body.querySelector('[data-n]').focus(),10);
 }
-function msgBox(title,html,icon='ℹ️',w=380){ const x=openWin({title,icon,w,html:`<div class="row" style="align-items:flex-start;gap:12px"><div style="font-size:30px">${icon}</div><div>${html}</div></div><div class="right"><button class="btn">OK</button></div>`}); x.body.querySelector('.right .btn').onclick=()=>x.close(); return x; }
+function msgBox(title,html,icon='info',w=380){ const x=openWin({title,plain:true,w,html:`<div class="row" style="align-items:flex-start;gap:12px">${bigIcon(icon)}<div>${html}</div></div><div class="right"><button class="btn">OK</button></div>`}); x.body.querySelector('.right .btn').onclick=()=>x.close(); return x; }
 
 /* ---------- lessons ---------- */
 function lessonHTML(id){ const L=LESSONS[id]; const num=LESSON_ORDER.indexOf(id)+1;
@@ -1741,7 +2155,7 @@ function openSaveLoad(mode){
   const w=openWin({title:mode==='save'?'セーブ - Save':'ロード - Load',icon:mode==='save'?'💾':'📂',w:600,
     html:`<div class="slots">${keys.map(k=>slotHTML(k,SYS.slots[k])).join('')}</div>`});
   w.body.querySelectorAll('.slot').forEach(b=>b.onclick=()=>{const k=b.dataset.k,d=SYS.slots[k];
-    if(mode==='save'){ const doSave=()=>{SYS.slots[k]=makeSave();saveSys();w.close();toast('💾 <b>Saved</b> to slot '+k)};
+    if(mode==='save'){ const doSave=()=>{SYS.slots[k]=makeSave();saveSys();w.close();toast('<b>セーブしました</b>　Saved to slot '+k)};
       if(!G.snap) return; d?confirmBox('Overwrite slot '+k+'?',doSave):doSave(); }
     else { if(!d) return; if(G.inGame) confirmBox('Load this save? Unsaved progress will be lost.',()=>loadSave(d)); else loadSave(d); }});
 }
@@ -1759,7 +2173,7 @@ function applyCfg(){ const c=CFG(),tb=$('#textbox');
   tb.style.setProperty('--op',c.op); Music.vol(); }
 function openConfig(){
   const c=CFG();
-  const w=openWin({title:'設定 - Settings',icon:'⚙️',w:470,html:`
+  const w=openWin({title:'設定 - Settings',w:520,html:`
   <fieldset><legend>テキスト (Text)</legend>
     <div class="row"><label>Text speed</label><input type="range" min="0" max="80" step="2" id="cSpd" style="direction:rtl;flex:1"></div>
     <div class="row"><label>Auto mode speed</label><input type="range" min=".5" max="3" step=".25" id="cAuto" style="flex:1"></div>
@@ -1767,23 +2181,24 @@ function openConfig(){
   </fieldset>
   <fieldset><legend>{日本語|にほんご}サポート (Learning aids)</legend>
     <div class="row"><label>English translation</label>
-      <label style="min-width:0"><input type="radio" name="tr" value="always"> Show</label>
-      <label style="min-width:0"><input type="radio" name="tr" value="hover"> Hover/tap to peek</label>
-      <label style="min-width:0"><input type="radio" name="tr" value="off"> Hide</label></div>
-    <div class="row"><label><input type="checkbox" id="cFuri"> Show furigana (reading over kanji)</label></div>
+      <input type="radio" name="tr" value="always" id="trA"><label for="trA" class="nm">Show</label>
+      <input type="radio" name="tr" value="hover" id="trH"><label for="trH" class="nm">Hover/tap to peek</label>
+      <input type="radio" name="tr" value="off" id="trO"><label for="trO" class="nm">Hide</label></div>
+    <div class="row"><input type="checkbox" id="cFuri"><label for="cFuri" class="nm">Show furigana (reading over kanji)</label></div>
+    <div class="row"><input type="checkbox" id="cRom"><label for="cRom" class="nm">Show romaji under choices (great for beginners)</label></div>
   </fieldset>
   <fieldset><legend>サウンド・画面 (Sound & screen)</legend>
-    <div class="row"><label><input type="checkbox" id="cSfx"> Sound effects &amp; text blips</label></div>
+    <div class="row"><input type="checkbox" id="cSfx"><label for="cSfx" class="nm">Sound effects &amp; text blips</label></div>
     <div class="row"><label>SFX volume</label><input type="range" min="0" max="1" step=".05" id="cVol" style="flex:1"></div>
     <div class="row"><label>BGM volume</label><input type="range" min="0" max="1" step=".05" id="cBgm" style="flex:1"></div>
-    <div class="row"><label><input type="checkbox" id="cCrt"> CRT scanlines</label></div>
+    <div class="row"><input type="checkbox" id="cCrt"><label for="cCrt" class="nm">CRT scanlines</label></div>
   </fieldset>
   <div class="right"><button class="btn" id="cOK">OK</button></div>`.replace(/\{([^|]+)\|([^}]+)\}/g,'<ruby>$1<rt>$2</rt></ruby>')});
   const B=w.body,q=x=>B.querySelector(x);
   q('#cSpd').value=c.speed; q('#cAuto').value=c.auto; q('#cOp').value=c.op; q('#cVol').value=c.vol; q('#cBgm').value=c.bgm;
-  q('#cFuri').checked=c.furi; q('#cSfx').checked=c.sfx; q('#cCrt').checked=c.crt; B.querySelector(`[name=tr][value=${c.tr}]`).checked=true;
+  q('#cFuri').checked=c.furi; q('#cRom').checked=c.romaji; q('#cSfx').checked=c.sfx; q('#cCrt').checked=c.crt; B.querySelector(`[name=tr][value=${c.tr}]`).checked=true;
   const upd=()=>{c.speed=+q('#cSpd').value;c.auto=+q('#cAuto').value;c.op=+q('#cOp').value;c.vol=+q('#cVol').value;c.bgm=+q('#cBgm').value;
-    c.furi=q('#cFuri').checked;c.sfx=q('#cSfx').checked;c.crt=q('#cCrt').checked;c.tr=B.querySelector('[name=tr]:checked').value;applyCfg();saveSys()};
+    c.furi=q('#cFuri').checked;c.romaji=q('#cRom').checked;c.sfx=q('#cSfx').checked;c.crt=q('#cCrt').checked;c.tr=B.querySelector('[name=tr]:checked').value;applyCfg();saveSys()};
   B.querySelectorAll('input').forEach(i=>i.oninput=i.onchange=upd); q('#cOK').onclick=()=>w.close();
 }
 
@@ -1804,7 +2219,8 @@ const NB={
     const tb=p.querySelector('tbody'),draw=f=>{tb.innerHTML=V.filter(v=>!f||v.join(' ').toLowerCase().includes(f.toLowerCase())).map(v=>`<tr><td>${esc(v[0])}</td><td>${esc(v[1])}</td><td>${esc(v[2])}</td></tr>`).join('')||'<tr><td colspan="3" style="font-size:13px;font-family:Tahoma">No words yet — they’re collected as you play.</td></tr>'};
     draw(''); p.querySelector('#vs').oninput=e=>draw(e.target.value); p.querySelector('#vt').onclick=openVocabTest; },
   slang(p){ const keys=Object.keys(SLANG);
-    p.innerHTML=`<p style="margin:0 0 6px">${SYS.slang.length} / ${keys.length} decoded on ふたば☆ちゃんねる.</p><table class="vt"><thead><tr><th>Term</th><th>Romaji</th><th>Meaning</th></tr></thead><tbody>${keys.map(k=>{const S=SLANG[k];return SYS.slang.includes(k)?`<tr title="${esc(S.n)}"><td>${esc(S.w)}</td><td>${esc(S.r)}</td><td>${esc(S.m)}<br><small style="color:#777">${esc(S.n)}</small></td></tr>`:`<tr><td style="color:#aaa">？？？</td><td></td><td></td></tr>`}).join('')}</tbody></table>`; },
+    p.innerHTML=`<p style="margin:0 0 6px">${SYS.slang.length} / ${keys.length} decoded on ふたば☆ちゃんねる.</p><table class="vt"><thead><tr><th>Term</th><th>Romaji</th><th>Meaning</th></tr></thead><tbody>${keys.map(k=>{const S=SLANG[k];return SYS.slang.includes(k)?`<tr title="${esc(S.n)}"><td>${esc(S.w)}</td><td>${esc(S.r)}</td><td>${esc(S.m)}<br><small style="color:#777">${esc(S.n)}</small></td></tr>`:`<tr><td style="color:#aaa">？？？</td><td></td><td></td></tr>`}).join('')}</tbody></table>
+    <p style="margin:12px 0 6px">${SYS.nico.length} / ${Object.keys(NICO_TERMS).length} decoded on ニコニコ動画.</p><table class="vt"><thead><tr><th>Term</th><th>Romaji</th><th>Meaning</th></tr></thead><tbody>${Object.keys(NICO_TERMS).map(k=>{const S=NICO_TERMS[k];return SYS.nico.includes(k)?`<tr><td>${esc(S.w)}</td><td>${esc(S.r)}</td><td>${esc(S.m)}<br><small style="color:#777">${esc(S.n)}</small></td></tr>`:`<tr><td style="color:#aaa">？？？</td><td></td><td></td></tr>`}).join('')}</tbody></table>`; },
   kana(p){ let kata=false; const draw=()=>{p.innerHTML=`<div class="row"><button class="btn ${kata?'':'on'}" data-m="0">ひらがな</button><button class="btn ${kata?'on':''}" data-m="1">カタカナ</button><button class="btn" id="kd" style="margin-left:auto">かな道場 (Practice)</button></div><div class="kgrid">${KROWS.map(r=>r.map(i=>i===null?'<div class="e"></div>':`<div>${kata?toKata(KHIRA[i]):KHIRA[i]}<small>${KROMA[i]}</small></div>`).join('')).join('')}</div>`;
       p.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{kata=b.dataset.m==='1';draw()}); p.querySelector('#kd').onclick=openKanaDojo;}; draw(); },
   status(p){ if(!G.st){p.innerHTML='<p>Start a game to see your status.</p>';return} const st=G.st,h=Math.max(0,Math.min(10,Math.round(st.aff/3)));
@@ -1813,7 +2229,7 @@ const NB={
     <b>しおりの呼び方</b>：${esc(st.name+st.honor)}　<b>一人称</b>：${esc(st.pron)}<br>
     <b>ときめき</b>：<span class="hearts">${'♥'.repeat(h)}<span class="off">${'♥'.repeat(10-h)}</span></span><br>
     <b>クイズ</b>：${st.score} / ${st.qtotal} correct<br>
-    <b>ふたば</b>：${st.futaba?st.futaba+'%':'—'}<br>
+    <b>ふたば</b>：${st.futaba?st.futaba+'%':'—'}　<b>ニコニコ</b>：${st.nico?st.nico+'%':'—'}<br>
     <b>単語</b>：${st.vocab.length} words　<b>レッスン</b>：${st.lessons.length} / ${LESSON_ORDER.length}<br>
     <b>現在地</b>：${furi(st.chapter||'—')}</div>`; }
 };
@@ -1821,7 +2237,7 @@ const NB={
 /* ---------- mini games ---------- */
 function openKanaDojo(){
   let mode='h',streak=0,cur=null;
-  const w=openWin({title:'かな道場 - Kana Dojo',icon:'🥋',w:400,html:`<div class="row"><label style="min-width:0"><input type="radio" name="km" value="h" checked> ひらがな</label><label style="min-width:0"><input type="radio" name="km" value="k"> カタカナ</label><label style="min-width:0"><input type="radio" name="km" value="b"> Both</label></div><div class="big-kana" id="kk"></div><div class="opts4" id="ko"></div><div class="fb-msg" id="km"></div><div class="row" style="justify-content:space-between"><span>Streak: <b id="ks">0</b></span><span>Best: <b id="kb">${SYS.best.kana||0}</b></span></div>`});
+  const w=openWin({title:'かな道場 - Kana Dojo',icon:'🥋',w:400,html:`<div class="row"><input type="radio" name="km" value="h" id="kmH" checked><label for="kmH" class="nm">ひらがな</label><input type="radio" name="km" value="k" id="kmK"><label for="kmK" class="nm">カタカナ</label><input type="radio" name="km" value="b" id="kmB"><label for="kmB" class="nm">Both</label></div><div class="big-kana" id="kk"></div><div class="opts4" id="ko"></div><div class="fb-msg" id="km"></div><div class="row" style="justify-content:space-between"><span>Streak: <b id="ks">0</b></span><span>Best: <b id="kb">${SYS.best.kana||0}</b></span></div>`});
   const B=w.body;
   const next=()=>{ const i=Math.random()*KROMA.length|0, kata=mode==='k'||(mode==='b'&&Math.random()<.5); cur={i,ch:kata?toKata(KHIRA[i]):KHIRA[i],r:KROMA[i]};
     const opts=shuffle([cur.r,...shuffle([...new Set(KROMA)].filter(r=>r!==cur.r)).slice(0,3)]);
@@ -1861,17 +2277,17 @@ function openEndings(){
   msgBox('エンディング - Endings',Object.keys(ENDINGS).map(k=>SYS.endings.includes(k)?`<div style="margin:4px 0"><b>${ENDINGS[k].t}</b> ${furi(ENDINGS[k].s)}</div>`:`<div style="margin:4px 0;color:#888">？？？ END</div>`).join('')+`<p style="font-size:11px;color:#555">Hint: how Shiori feels depends on your choices — and on how well you learn.</p>`,'🌸',360);
 }
 function openExtras(){
-  const items=[['futaba','📋','ふたば☆ちゃんねる','Slang-decoding image board'],['kana','🥋','かな道場','Hiragana & katakana drill'],['vocab','📒','単語テスト','Quiz the words you’ve learned'],['note','📝','しおりのノート','Lessons, vocab, slang, kana chart'],['spr','🖼️','スプライト一覧','Sprite viewer'],['end','🌸','エンディング','Endings you’ve seen']];
-  const w=openWin({title:'おまけ - Extras',icon:'🎁',w:420,html:items.map(i=>`<button class="btn" data-x="${i[0]}" style="display:flex;width:100%;margin:4px 0;text-align:left;gap:10px;align-items:center"><span style="font-size:20px">${i[1]}</span><span><b>${i[2]}</b><br><small>${i[3]}</small></span></button>`).join('')});
-  w.body.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>({futaba:()=>{w.close();Futaba.start('free',()=>Music.play('title'))},kana:openKanaDojo,vocab:openVocabTest,note:()=>openNotebook(),spr:openSprites,end:openEndings})[b.dataset.x]());
+  const items=[['futaba','exe','ふたば☆ちゃんねる','Slang-decoding image board'],['nico','exe','ニコニコ動画','Read the comments flying across videos'],['kana','exe','かな道場','Hiragana & katakana drill'],['vocab','exe','単語テスト','Quiz the words you’ve learned'],['note','exe','しおりのノート','Lessons, vocab, slang, kana chart'],['spr','app','スプライト一覧','Sprite viewer'],['end','app','エンディング','Endings you’ve seen']];
+  const w=openWin({title:'おまけ - Extras',w:420,html:items.map(i=>`<button class="btn" data-x="${i[0]}" style="display:flex;width:100%;margin:4px 0;text-align:left;gap:10px;align-items:center;padding:4px 10px"><img src="${ICO[i[1]]}" alt="" style="width:28px;height:28px;object-fit:contain"><span><b>${i[2]}</b><br><small>${i[3]}</small></span></button>`).join('')});
+  w.body.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>({futaba:()=>{w.close();Futaba.start('free',()=>Music.play('title'))},nico:()=>{w.close();Nico.start('free',()=>Music.play('title'))},kana:openKanaDojo,vocab:openVocabTest,note:()=>openNotebook(),spr:openSprites,end:openEndings})[b.dataset.x]());
 }
 
 /* ---------- FUTABA ---------- */
 const Futaba={
   start(mode,cb){ this.mode=mode;this.cb=cb;this.score=0;this.max=0;this.ti=0;this.list=mode==='story'?shuffle(THREADS).slice(0,3):shuffle(THREADS);
     Music.play('futaba'); $('#futaba').classList.add('on'); this.thread(); },
-  stamp(){ const d=new Date(2003,3,1+Math.random()*28|0,Math.random()*24|0,Math.random()*60|0,Math.random()*60|0),w='日月火水木金土'[d.getDay()],p=n=>String(n).padStart(2,'0');
-    return `03/${p(d.getMonth()+1)}/${p(d.getDate())}(${w})${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`; },
+  stamp(){ const d=new Date(2008,3,1+Math.random()*28|0,Math.random()*24|0,Math.random()*60|0,Math.random()*60|0),w='日月火水木金土'[d.getDay()],p=n=>String(n).padStart(2,'0');
+    return `08/${p(d.getMonth()+1)}/${p(d.getDate())}(${w})${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`; },
   no(){return 'No.'+(10000000+Math.random()*8999999|0)},
   txt(s){ return s.split('\n').map(l=>{const q=l.startsWith('>');let h=furi(esc(l)).replace(/\(\(([a-z_]+)(?:\|([^)]+))?\)\)/g,(m,k,d)=>`<a class="term" data-k="${k}">${esc(d||SLANG[k].w)}</a>`);return q?`<span class="fb-q">${h}</span>`:h}).join('<br>'); },
   post(p,mine){ const nm=mine?esc(G.st&&G.inGame?G.st.name:'としあき'):'としあき'; const sod=Math.random()<.35?`<span class="fb-sod">そうだねx${1+Math.random()*9|0}</span>`:'<span class="fb-sod">+</span>';
@@ -1917,7 +2333,7 @@ const Futaba={
     f.innerHTML=`<div class="fb-task">✎ <b>Your turn:</b> ${esc(R.ctx)}</div>
     <table><tr><td class="fb-fh">おなまえ</td><td><input type="text" disabled value="${esc(G.st&&G.inGame?G.st.name:'')}" placeholder="としあき"></td></tr>
     <tr><td class="fb-fh">E-mail</td><td>${R.mail?`<label class="fb-opt"><input type="radio" name="fbm" value="age"> (blank) — bump the thread</label><label class="fb-opt"><input type="radio" name="fbm" value="sage"> sage — don’t bump it</label>`:'<input type="text" disabled>'}</td></tr>
-    <tr><td class="fb-fh">コメント</td><td>${shuffle(R.opts.map((o,i)=>({o,i}))).map(({o,i})=>`<label class="fb-opt"><input type="radio" name="fbc" value="${i}"> <b>${furi(esc(o.j))}</b> <small>(${esc(o.e)})</small></label>`).join('')}</td></tr>
+    <tr><td class="fb-fh">コメント</td><td>${shuffle(R.opts.map((o,i)=>({o,i}))).map(({o,i})=>`<label class="fb-opt"><input type="radio" name="fbc" value="${i}"> <b>${furi(esc(o.j))}</b>${CFG().romaji&&toRomaji(o.j)?`<span class="rom">${esc(toRomaji(o.j))}</span>`:''} <small>(${esc(o.e)})</small></label>`).join('')}</td></tr>
     <tr><td></td><td><button class="btn" id="fbSend" ${locked?'disabled':''}>返信する</button> ${locked?'<span class="fb-lock">Decode every highlighted word first!</span>':''}</td></tr></table>`;
     const send=$('#fbSend'); if(send) send.onclick=()=>this.send();
   },
@@ -1946,6 +2362,138 @@ const Futaba={
   close(){ $('#futaba').classList.remove('on'); this.cb&&this.cb(0); }
 };
 
+/* ---------- NICONICO DOUGA ---------- */
+const Nico={
+  W:400,H:300,anims:[],timers:[],
+  start(mode,cb){ this.mode=mode;this.cb=cb;this.score=0;this.max=0;this.vi=0;
+    this.list=mode==='story'?shuffle(VIDEOS).slice(0,3):shuffle(VIDEOS);
+    Music.play('nico'); $('#nico').classList.add('on'); this.video(); },
+  hide(){ this.stop(); const n=$('#nico'); if(n){n.classList.remove('on');n.innerHTML=''} },
+  stop(){ cancelAnimationFrame(this.raf); this.timers.forEach(clearTimeout); this.timers=[];
+    this.anims.forEach(a=>{try{a.cancel()}catch(e){}}); this.anims=[]; this.playing=false; this.queue=[]; },
+  later(fn,ms){ this.timers.push(setTimeout(fn,ms)) },
+  fmt(t){ t=Math.max(0,Math.floor(t)); return String(t/60|0).padStart(2,'0')+':'+String(t%60).padStart(2,'0') },
+  plain(s){ return String(s).replace(/\{([^|{}]+)\|[^{}]+\}/g,'$1') },
+  video(){
+    this.stop(); const V=this.V=this.list[this.vi], story=this.mode==='story';
+    this.t=0;this.ci=0;this.ei=0;this.busy=false;this.jDone=false;this.lanes=[];
+    const day=5+(this.vi*7)%20, views=(12+Math.random()*480|0)*100+(Math.random()*99|0), cm=(views*.3|0), ml=(views*.04|0);
+    $('#nico').innerHTML=`<div class="nc-top"><span class="nc-logo">ニコニコ動画<small>(SP1)</small></span><span class="nc-nav">トップ ｜ ランキング ｜ マイリスト ｜ 動画を探す</span>
+      <span class="nc-hud">動画 ${this.vi+1} / ${story?this.list.length:'∞'}　正解 <b id="ncS">${this.score}</b></span><button class="btn" id="ncX">${story?'やめる':'とじる'}</button></div>
+    <div class="nc-info"><div class="nc-title">${esc(V.title)}</div>
+      <div class="nc-meta">投稿者：${esc(V.user)}　投稿日：2008年04月${String(day).padStart(2,'0')}日 ${20+this.vi%4}:${String(11+this.vi*13%48).padStart(2,'0')}　再生：${views.toLocaleString()}　コメント：${cm.toLocaleString()}　マイリスト：${ml.toLocaleString()}</div>
+      <div class="nc-tags">タグ：${V.tags.map(t=>`<a>${esc(t)}</a>`).join('')}</div></div>
+    <div class="nc-main"><div class="nc-left">
+      <div class="nc-screen" id="ncScreen"><img class="nc-bg" src="${bgURL(V.bg)}" alt=""><div class="nc-aa ${V.move||''}">${esc(V.aa)}</div>
+        <div class="nc-cmt" id="ncC"></div><div class="nc-jihou" id="ncJ">ニコニコ動画(SP1)が 午後10時くらい をお知らせします</div>${V.live?'<div class="nc-live">生放送</div>':''}</div>
+      <div class="nc-ctrl"><button class="nc-pb" id="ncP" aria-label="Play/Pause">❚❚</button><div class="nc-seek"><i id="ncBar"></i></div><span class="nc-time" id="ncTime">00:00 / ${this.fmt(V.dur)}</span></div>
+      <div class="nc-input"><input class="cmd" type="text" placeholder="コマンド" disabled><input class="txt" type="text" placeholder="コメントを入力" disabled><button disabled>コメントする</button></div>
+    </div><div class="nc-right"><div class="nc-lh"><span>コメント</span><span>再生時間</span></div><div class="nc-list" id="ncL"></div></div></div>
+    <div class="nc-panel" id="ncQ"></div>`;
+    $('#ncX').onclick=()=>{ if(story) confirmBox('Stop watching? Your current score counts.',()=>this.finish()); else this.close(); };
+    $('#ncP').onclick=()=>{ if(this.busy||this.ended) return; this.playing?this.pause():this.play(); };
+    this.ended=false;
+    this.panel(`<div class="nc-res">${furi('コメントが{右|みぎ}から{左|ひだり}へ{流|なが}れていくよ。{気|き}になるコメントが{出|で}たら、しおりが{止|と}めてくれる！')}<br><span style="color:#666">Comments scroll from right to left. When an interesting one appears, Shiori will pause the video for you.</span></div>`);
+    this.play();
+  },
+  play(){
+    if(this.playing) return; this.playing=true;
+    $('#ncScreen').classList.remove('paused'); $('#ncP').textContent='❚❚';
+    this.anims.forEach(a=>{ if(a.playState==='paused') a.play() });
+    const q=this.queue||[]; this.queue=[]; q.forEach(x=>this.spawn(x.text,x.o));
+    this.last=performance.now();
+    const loop=now=>{ if(!this.playing) return; this.t+=Math.min(.1,(now-this.last)/1000); this.last=now; this.tick(); if(this.playing) this.raf=requestAnimationFrame(loop) };
+    this.raf=requestAnimationFrame(loop);
+  },
+  pause(){ this.playing=false; cancelAnimationFrame(this.raf); const s=$('#ncScreen'); if(s) s.classList.add('paused'); const p=$('#ncP'); if(p) p.textContent='▶';
+    this.anims.forEach(a=>{ if(a.playState==='running') a.pause() }); },
+  tick(){
+    const V=this.V;
+    while(this.ci<V.c.length&&V.c[this.ci][0]<=this.t){ const c=V.c[this.ci++]; this.spawn(c[1],c[2]||{}); }
+    if(V.jihou&&!this.jDone&&this.t>=V.jihou){ this.jDone=true; const j=$('#ncJ'); j.classList.add('on'); this.later(()=>j.classList.remove('on'),2600); }
+    const ev=V.ev[this.ei];
+    if(ev&&!this.busy&&ev.t<=this.t){ this.ei++; this.busy=true; this.event(ev); }
+    $('#ncBar').style.width=Math.min(100,this.t/V.dur*100)+'%';
+    $('#ncTime').textContent=this.fmt(Math.min(this.t,V.dur))+' / '+this.fmt(V.dur);
+    if(this.t>=V.dur&&!this.busy&&this.ei>=V.ev.length) this.end();
+  },
+  spawn(text,o={}){
+    const box=$('#ncC'); if(!box) return;
+    const el=document.createElement('div');
+    el.className='nc-c'+(o.mine?' mine':'')+(o.hl?' hl':'')+(o.big?' big':'');
+    el.textContent=text; box.appendChild(el);
+    const lh=o.big?38:24, rows=Math.floor((this.H-8)/lh);
+    let a;
+    if(o.pos==='ue'||o.pos==='shita'){
+      el.classList.add('fixed'); el.style.top=(o.pos==='ue'?4:this.H-lh-4)+'px';
+      a=el.animate([{opacity:1},{opacity:1}],{duration:3200});
+    } else {
+      const w=el.offsetWidth; let lane=-1;
+      for(let i=0;i<rows;i++) if((this.lanes[i]||0)<=this.t){lane=i;break}
+      if(lane<0) lane=Math.random()*rows|0;
+      this.lanes[lane]=this.t+(w+30)/((this.W+w)/4);
+      el.style.top=(4+lane*lh)+'px';
+      a=el.animate([{transform:'translateX(0)'},{transform:`translateX(${-(this.W+w+4)}px)`}],{duration:4000,easing:'linear'});
+    }
+    this.anims.push(a);
+    a.onfinish=()=>{ el.remove(); const i=this.anims.indexOf(a); if(i>=0) this.anims.splice(i,1) };
+    if(!this.playing) a.pause();
+    const L=$('#ncL');
+    if(L){ const r=document.createElement('div'); r.className='nc-row'+(o.mine?' mine':'')+(o.hl?' hl':'');
+      r.innerHTML=`<span>${esc(text)}</span><span>${this.fmt(this.t)}</span>`; L.appendChild(r); L.scrollTop=L.scrollHeight; }
+  },
+  panel(h){ const q=$('#ncQ'); if(q) q.innerHTML=h },
+  event(ev){
+    if(ev.k){ this.spawn(ev.show||NICO_TERMS[ev.k].w,{hl:true}); this.later(()=>{this.pause();this.askDec(ev)},750); }
+    else this.later(()=>{this.pause();this.askPost(ev)},250);
+  },
+  resumeBtn(){ return `<div class="nc-go"><button class="btn" id="ncGo">▶ 再生 (Resume)</button></div>` },
+  bindResume(){ const b=$('#ncGo'); b.focus({preventScroll:true}); b.onclick=()=>{ this.busy=false; this.panel(''); this.play(); } },
+  askDec(ev){
+    const k=ev.k,T=NICO_TERMS[k];
+    const opts=shuffle([T.m,...shuffle(Object.keys(NICO_TERMS).filter(x=>x!==k).map(x=>NICO_TERMS[x].m)).slice(0,3)]);
+    this.panel(`<div class="nc-q">${furi('いまの{黄色|きいろ}いコメント')}「${esc(ev.show||T.w)}」${furi('って、どういう{意味|いみ}？')}<small>What does the yellow comment mean?</small></div>
+      <div class="nc-opts">${opts.map((o,i)=>`<button class="btn" data-i="${i}">${esc(o)}</button>`).join('')}</div>`);
+    $('#ncQ').querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{
+      const ok=opts[b.dataset.i]===T.m; this.max++; if(ok) this.score++; $('#ncS').textContent=this.score;
+      if(!SYS.nico.includes(k)){SYS.nico.push(k);saveSys()}
+      ok?SFX.ok():SFX.ng();
+      this.panel(`<div class="nc-res"><span class="${ok?'ok':'ng'}">${ok?'✔ せいかい！ +1':'✘ ざんねん…'}</span>　<span class="w">${esc(T.w)}</span>（${esc(T.r)}）— <b>${esc(T.m)}</b><br>${esc(T.n)}</div>${this.resumeBtn()}`);
+      this.bindResume();
+    });
+  },
+  askPost(ev){
+    const opts=shuffle(ev.opts.map((o,i)=>({o,i})));
+    this.panel(`<div class="nc-q">${furi('ここでコメントしよう！ {何|なに}て{書|か}く？')}<small>${esc(ev.ctx)}</small></div>
+      <div class="nc-opts">${opts.map(({o},n)=>{const r=CFG().romaji?toRomaji(o.j):'';return `<button class="btn" data-n="${n}">${furi(esc(o.j))}${r?`<span class="rom">${esc(r)}</span>`:''}<small>${esc(o.e)}</small></button>`}).join('')}</div>`);
+    $('#ncQ').querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{
+      const o=opts[b.dataset.n].o, ok=!!o.ok, best=ev.opts.find(x=>x.ok);
+      this.max+=2; if(ok) this.score+=2; $('#ncS').textContent=this.score; ok?SFX.ok():SFX.ng();
+      if(ev.cmd){ this.queue.push({text:ev.cmd,o:{mine:true,pos:['ue','shita'].includes(o.j)?o.j:undefined,big:o.j==='big'}}); }
+      else this.queue.push({text:this.plain(o.j),o:{mine:true}});
+      if(ok&&ev.danmaku) for(let i=0;i<12;i++) this.queue.push({text:ev.danmaku+(i%3?'':'！'),o:{}});
+      this.panel(`<div class="nc-res"><span class="${ok?'ok':'ng'}">${ok?'✔ ナイスコメント！ +2':'✘ うーん…'}</span>　Best: <span class="w">${furi(esc(best.j))}</span> — ${esc(best.e)}<br>${esc(ev.why)}</div>${this.resumeBtn()}`);
+      this.bindResume();
+    });
+  },
+  end(){
+    if(this.ended) return; this.ended=true; this.pause();
+    const last=this.mode==='story'&&this.vi>=this.list.length-1;
+    this.panel(`<div class="nc-res">${furi('{動画|どうが}が{終|お}わりました。')} The video has ended.</div><div class="nc-go"><button class="btn" id="ncNext">${last?'結果を見る (Results)':'次の動画へ (Next video)'}</button></div>`);
+    const b=$('#ncNext'); b.focus({preventScroll:true});
+    b.onclick=()=>{ if(last) this.finish(); else { this.vi=(this.vi+1)%this.list.length; if(this.vi===0) this.list=shuffle(VIDEOS); this.video(); } };
+  },
+  finish(){
+    this.pause();
+    const pct=this.max?Math.round(100*this.score/this.max):0;
+    const rank=pct>=90?['神職人','kami shokunin — a legendary commenter']:pct>=70?['ニコ厨','nikochū — a true Nico addict']:pct>=45?['一般視聴者','a regular viewer']:['初見さん','shoken-san — a first-timer'];
+    const w=openWin({title:'結果 - Results',w:360,html:`<div style="text-align:center;font-family:'M PLUS Rounded 1c',sans-serif"><div style="font-size:14px">ニコニコ{動画|どうが}</div><div style="font-size:44px;font-weight:800;color:#c25000">${this.score} / ${this.max}</div><div style="font-size:13px">${pct}%</div><div style="margin-top:8px;font-size:22px;font-weight:800;color:#333">${rank[0]}</div><div style="font:12px Tahoma">${rank[1]}</div></div><div class="right"><button class="btn">OK</button></div>`.replace('{動画|どうが}','<ruby>動画<rt>どうが</rt></ruby>')});
+    w.body.querySelector('.right .btn').onclick=()=>w.close();
+    WIN[WIN.length-1].onClose=()=>{ this.hide(); this.cb&&this.cb(pct); };
+  },
+  close(){ this.hide(); this.cb&&this.cb(0); }
+};
+
 /* ---------- ending ---------- */
 function showEnding(id){
   const E=ENDINGS[id],st=G.st; if(!SYS.endings.includes(id)){SYS.endings.push(id);saveSys()}
@@ -1956,7 +2504,7 @@ function showEnding(id){
   <div class="e-box"><div class="e-t">${E.t}</div><div class="e-s">${furi(E.s)}</div><div class="e-d">${esc(E.d)}</div>
   <div class="e-stats">ときめき <span class="hearts">${'♥'.repeat(h)}<span class="off" style="color:#666">${'♥'.repeat(10-h)}</span></span><br>
   Quiz answers: <b>${st.score} / ${st.qtotal}</b><br>Words learned: <b>${st.vocab.length}</b>　Lessons: <b>${st.lessons.length} / ${LESSON_ORDER.length}</b><br>
-  Futaba score: <b>${st.futaba}%</b>　Endings found: <b>${SYS.endings.length} / ${Object.keys(ENDINGS).length}</b></div>
+  Futaba: <b>${st.futaba}%</b>　NicoNico: <b>${st.nico||0}%</b>　Endings found: <b>${SYS.endings.length} / ${Object.keys(ENDINGS).length}</b></div>
   <div class="e-credit">あきば☆にほんご ～しおり先生におまかせっ！～<br>Character design &amp; art — Shiori’s creator　/　Scenario &amp; program — Shiori Soft<br>Thank you for playing!</div>
   <div style="margin-top:14px"><button class="btn" id="eT">タイトルへ (Title)</button></div></div>`;
   e.classList.add('on'); $('#eT').onclick=()=>{G.inGame=false;toTitle()};
@@ -1985,7 +2533,7 @@ function qAct(a){ SFX.click(); ({
 function bindInput(){
   const stage=$('#stage');
   stage.addEventListener('click',e=>{
-    if(e.target.closest('button,.win,#choices,#title,#futaba,#ending,input,a,#en')) return;
+    if(e.target.closest('button,.dlg,#choices,#title,#futaba,#nico,#ending,input,a,#en')) return;
     if(G.mode==='day'&&G.dayDone){G.dayDone();return}
     if(G.inGame) advance();
   });
@@ -2000,7 +2548,7 @@ function bindInput(){
     if(e.key==='Control'){G.ctrl=true;if(G.mode==='say'&&!modalOpen())advance()}
     if(e.key==='Escape'){ if(modalOpen()){closeWin();return} if($('#startMenu').classList.contains('on')){$('#startMenu').classList.remove('on')} return; }
     if(modalOpen()) return;
-    if($('#title').classList.contains('on')&&!$('#futaba').classList.contains('on')){ if(e.key==='Enter'||e.key===' '){ const m=$('.t-menu'); if(!m.classList.contains('on')){m.classList.add('on');$('.t-press').style.display='none';e.preventDefault()} } return; }
+    if($('#title').classList.contains('on')&&!$('#futaba').classList.contains('on')&&!$('#nico').classList.contains('on')){ if(e.key==='Enter'||e.key===' '){ const m=$('.t-menu'); if(!m.classList.contains('on')){m.classList.add('on');$('.t-press').style.display='none';e.preventDefault()} } return; }
     if(!G.inGame) return;
     if(G.mode==='choice'&&/^[1-4]$/.test(e.key)){const b=document.querySelectorAll('#choices .choice')[+e.key-1];b&&b.click();return}
     if((e.key==='Enter'||e.key===' ')&&!e.target.closest('button')){e.preventDefault(); if(G.mode==='day'&&G.dayDone)G.dayDone(); else advance()}
@@ -2023,7 +2571,8 @@ function bindDesktop(){
   $('#startBtn').onclick=e=>{e.stopPropagation();sm.classList.toggle('on');$('#startBtn').classList.toggle('on')};
   document.addEventListener('click',e=>{if(!e.target.closest('#startMenu,#startBtn')){sm.classList.remove('on');$('#startBtn').classList.remove('on')}});
   sm.querySelectorAll('[data-s]').forEach(li=>li.onclick=()=>{sm.classList.remove('on');$('#startBtn').classList.remove('on');restore();
-    ({note:()=>openNotebook(),cfg:openConfig,kana:openKanaDojo,futaba:()=>{ if(G.inGame) msgBox('ふたば','Finish or leave the story first — Futaba free play is in おまけ (Extras) on the title screen.','📋'); else Futaba.start('free',()=>Music.play('title')) },
+    ({note:()=>openNotebook(),cfg:openConfig,kana:openKanaDojo,futaba:()=>{ if(G.inGame) msgBox('ふたば','Finish or leave the story first — Futaba free play is in おまけ (Extras) on the title screen.'); else Futaba.start('free',()=>Music.play('title')) },
+      nico:()=>{ if(G.inGame) msgBox('ニコニコ動画','Finish or leave the story first — NicoNico free play is in おまけ (Extras) on the title screen.'); else Nico.start('free',()=>Music.play('title')) },
       about:openAbout,title:()=>{ if(G.inGame) confirmBox('Return to the title screen? (Progress is auto-saved.)',toTitle); else toTitle(); }})[li.dataset.s]()});
   const W=$('#appwin'),task=$('#task');
   const restore=()=>{W.classList.remove('min');task.classList.add('active');fit()};
@@ -2039,7 +2588,7 @@ function bindDesktop(){
   addEventListener('resize',fit);
 }
 function openAbout(){
-  msgBox('バージョン情報 - About',`<b>あきば☆にほんご</b><br>～しおり先生におまかせっ！～<br>Version 1.03 (Heisei 15 edition)<br><br>
+  msgBox('バージョン情報 - About',`<b>あきば☆にほんご</b><br>～しおり先生におまかせっ！～<br>Version 1.04 (Heisei 20 edition)<br><br>
   <small style="font-family:Tahoma;line-height:1.6">Click / Space / Enter: advance · Ctrl: skip while held · A: auto · L or mouse wheel up: backlog · N: notebook · H or right-click: hide textbox · 1–4: pick a choice · Esc: close window<br><br>
   Your progress saves automatically in this browser.</small>`,'✿',400);
 }
