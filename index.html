@@ -95,7 +95,7 @@ button{font-family:inherit}
 .title-bar-controls button{background:silver;border:none;border-radius:0;box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf;box-sizing:border-box;width:16px;height:14px;margin-left:2px;cursor:pointer}
 .title-bar-controls button:active{box-shadow:inset -1px -1px #fff,inset 1px 1px #0a0a0a,inset -2px -2px #dfdfdf,inset 2px 2px grey}
 
-/* ---- 98.css adapted to this game: Japanese pixel font, sizes ---- */
+/* ---- 98.css adapted ---- */
 .window,.btn,#taskbar,#startMenu{font-family:'DotGothic16','MS UI Gothic',sans-serif;font-size:12px;color:#222}
 .title-bar{height:22px;padding:2px 2px 2px 3px;gap:6px}
 .title-bar-text{display:flex;align-items:center;gap:5px;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:12px;font-weight:400;letter-spacing:.02em;margin-right:8px;user-select:none}
@@ -424,7 +424,7 @@ blockquote{margin:6px 0 6px 2.5em;line-height:1.6}
 .dec-ex{background:#fff;border:2px solid;border-color:var(--lo) var(--hi) var(--hi) var(--lo);padding:8px 10px;font-family:Tahoma,sans-serif;font-size:13px;line-height:1.5}
 .dec-ex .w{font-family:'M PLUS Rounded 1c',sans-serif;font-size:22px;font-weight:800;color:#800000}
 
-/* ---------- niconico douga (2008 style) ---------- */
+/* ---------- niconico douga ---------- */
 #nico{position:absolute;inset:0;z-index:13;display:none;flex-direction:column;background:#fff;color:#333;cursor:auto;user-select:text;
   font:12px 'MS PGothic','Hiragino Kaku Gothic Pro','Meiryo',sans-serif}
 #nico.on{display:flex}
@@ -949,7 +949,7 @@ feelings:{t:'{気持|きも}ちを{伝|つた}える', e:'Expressing feelings', 
 <tr><td>{愛|あい}してる</td><td>I love you — VERY heavy. People rarely say it out loud.</td></tr>
 <tr><td>{気|き}になる</td><td>“On my mind” — having a little crush. (Net slang: {気|き}にピ!)</td></tr>
 <tr><td>{付|つ}き{合|あ}ってください</td><td>Please go out with me. Part of a 告白 (kokuhaku) — a confession.</td></tr>
-<tr><td>{月|つき}が{綺麗|きれい}ですね</td><td>“The moon is beautiful, isn’t it?” — legendary indirect “I love you.”</td></tr>
+<tr><td>{月|つき}が{綺麗|きれい}ですね</td><td>“The moon is beautiful, isn’t it?” — indirect “I love you.”</td></tr>
 </table>
 <p class="tip"><b>✿ しおりのワンポイント</b><br><span class="en">Legend says novelist Natsume Sōseki told a student to translate “I love you” as 「月が綺麗ですね」 — because a Japanese person would never say it directly. Nobody can prove the story is true… but everybody loves it.</span></p>`}
 };
@@ -2505,7 +2505,7 @@ function showEnding(id){
   <div class="e-stats">ときめき <span class="hearts">${'♥'.repeat(h)}<span class="off" style="color:#666">${'♥'.repeat(10-h)}</span></span><br>
   Quiz answers: <b>${st.score} / ${st.qtotal}</b><br>Words learned: <b>${st.vocab.length}</b>　Lessons: <b>${st.lessons.length} / ${LESSON_ORDER.length}</b><br>
   Futaba: <b>${st.futaba}%</b>　NicoNico: <b>${st.nico||0}%</b>　Endings found: <b>${SYS.endings.length} / ${Object.keys(ENDINGS).length}</b></div>
-  <div class="e-credit">あきば☆にほんご ～しおり先生におまかせっ！～<br>Character design &amp; art — Shiori’s creator　/　Scenario &amp; program — Shiori Soft<br>Thank you for playing!</div>
+  <div class="e-credit">あきば☆にほんご ～しおり先生におまかせっ！～<br>Character design &amp; art — キャラクターなんとか機　/　Scenario &amp; program — POGO Soft<br>Thank you for playing!</div>
   <div style="margin-top:14px"><button class="btn" id="eT">タイトルへ (Title)</button></div></div>`;
   e.classList.add('on'); $('#eT').onclick=()=>{G.inGame=false;toTitle()};
 }
